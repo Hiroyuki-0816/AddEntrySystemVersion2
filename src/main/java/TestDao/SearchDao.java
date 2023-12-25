@@ -3,6 +3,7 @@ package TestDao;
 import java.sql.*;
 import java.util.ArrayList;
 
+import TestBean.ArgumentBean;
 import TestBean.SearchBean;
 
 public class SearchDao {
@@ -19,7 +20,7 @@ public class SearchDao {
 	
 	
 	/*検索結果を取得するメソッド*/
-	public ArrayList<SearchBean> selectSearch(SearchBean sb){
+	public ArrayList<SearchBean> selectSearch(ArgumentBean ab){
 		
 		/*JDBCドライバの読み込み*/
 		try {
@@ -36,67 +37,86 @@ public class SearchDao {
 			String sql = "select t_address.id,name,age,sex,m_job.job,tell,zip,address,addressdetail from t_address.t_address left join t_address.m_job on t_address.job = m_job.id";
 			
 			//フォームから取得した検索条件*/
-			Integer agefrom = sb.getAge();
-			Integer ageto = sb.getAge();
-			String name = sb.getName();
-			String tell = sb.getTell();
-			String zip = sb.getZip();
-			String address = sb.getAddress();
-			String addressdetail = sb.getAddressDetail();
+//			Integer idfrom = ab.getIdfrom();
+//			Integer idto = ab.getIdto();
+			String name = ab.getName();
+//			Integer agefrom = ab.getAgefrom();
+//			Integer ageto = ab.getAgeto();
+			String tell = ab.getTell();
+			String zip = ab.getZip();
+			String address = ab.getAddress();
+			String addressdetail = ab.getAddressdetail();
 			
 			/*条件を連結するかを判定*/
 			boolean conbine = false;
 			
-			if(agefrom != null && ageto != null) {
-				sql += " WHERE age between ? and ?";
-                conbine = true;
-			}else if((agefrom != null && ageto == null) || (agefrom == null && ageto != null)) {
-				sql += " WHERE age == ?";
-                conbine = true;
-			}
+			
+//			if(idfrom != null && idto != null) {
+//				sql += " WHERE t_address.id between ? and ?";
+//                conbine = true;
+//			}else if((idfrom != null && idto == null) || (idfrom == null && idto != null)) {
+//				sql += " WHERE t_address.id = ?";
+//                conbine = true;
+//			}
 			
 			if(name != "") {
-				if(!conbine) {
-	                sql += " WHERE name LIKE ?";
-	                conbine = true;
+				if(conbine) {
+					sql += " AND name LIKE ?";
 	            }else {
-	            	sql += " AND name LIKE ?";
+	            	sql += " WHERE name LIKE ?";
+	                conbine = true;
 	            }
 			}
 			
+//			if(agefrom != null && ageto != null) {
+//				if(conbine) {
+//					sql += " AND age between ? and ?";
+//				}else {
+//					sql += " WHERE age between ? and ?";
+//					conbine = true;
+//				}
+//			}else if((agefrom != null && ageto == null) || (agefrom == null && ageto != null)) {
+//				if(conbine) {
+//					sql += " AND age = ?";
+//				}else {
+//					sql += " WHERE age = ?";
+//					conbine = true;
+//				}
+//			}
+			
 			if(tell != "") {
-				if(!conbine) {
+				if(conbine) {
+	                sql += " AND tell LIKE ?";
+				}else{
 					sql += " WHERE tell LIKE ?"; 
 					conbine = true;
-				}else{
-	                sql += " AND tell LIKE ?";
 				}
 			}
 			
 			if(zip != "") {
-				if(!conbine) {
+				if(conbine) {
+	                sql += " AND zip LIKE ?";
+				}else{
 					sql += " WHERE zip LIKE ?"; 
 					conbine = true;
-				}else{
-	                sql += " AND zip LIKE ?";
 				}
 			}
 			
 			if(address != "") {
-				if(!conbine) {
+				if(conbine) {
+	                sql += " AND address LIKE ?";
+				}else{
 					sql += " WHERE address LIKE ?"; 
 					conbine = true;
-				}else{
-	                sql += " AND address LIKE ?";
 				}
 			}
 			
 			if(addressdetail != "") {
-				if(!conbine) {
+				if(conbine) {
+	                sql += " AND addressdetail LIKE ?";
+				}else{
 					sql += " WHERE addressdetail LIKE ?"; 
 					conbine = true;
-				}else{
-	                sql += " AND addressdetail LIKE ?";
 				}
 			}
 			
@@ -107,9 +127,32 @@ public class SearchDao {
 			int seq = 0;
 			
 			/*パラメータを追加*/
+//			if(idfrom != null && idto != null) {
+//				ps.setInt(++seq, idfrom);
+//				ps.setInt(++seq, idto);
+//			}
+//			if(idfrom != null && idto == null) {
+//				ps.setInt(++seq, idfrom);
+//			}
+//			if(idfrom == null && idto != null) {
+//				ps.setInt(++seq, idto);
+//			}
+			
 			if(name != "") {
 				ps.setString(++seq, "%" + name + "%");
 			}
+			
+//			if(agefrom != null && ageto != null) {
+//				ps.setInt(++seq, agefrom);
+//				ps.setInt(++seq, ageto);
+//			}
+//			if(agefrom != null && ageto == null) {
+//				ps.setInt(++seq, agefrom);
+//			}
+//			if(agefrom == null && ageto != null) {
+//				ps.setInt(++seq, ageto);
+//			}
+			
 			if(tell != "") {
 				ps.setString(++seq, tell + "%");
 			}
@@ -128,17 +171,17 @@ public class SearchDao {
 			
 			/*検索結果をリストに格納*/
 			while(rs.next()) {
-				SearchBean sl = new SearchBean();
-				sl.setId(rs.getInt("id"));
-				sl.setName(rs.getString("name"));
-				sl.setAge(rs.getInt("age"));
-				sl.setSex(rs.getString("sex"));
-				sl.setJob(rs.getString("job"));
-				sl.setTell(rs.getString("tell"));
-				sl.setZip(rs.getString("zip"));
-				sl.setAddress(rs.getString("address"));
-				sl.setAddressDetail(rs.getString("addressdetail"));
-				searchlist.add(sl); 		
+				SearchBean sb = new SearchBean();
+				sb.setId(rs.getInt("id"));
+				sb.setName(rs.getString("name"));
+				sb.setAge(rs.getInt("age"));
+				sb.setSex(rs.getString("sex"));
+				sb.setJob(rs.getString("job"));
+				sb.setTell(rs.getString("tell"));
+				sb.setZip(rs.getString("zip"));
+				sb.setAddress(rs.getString("address"));
+				sb.setAddressDetail(rs.getString("addressdetail"));
+				searchlist.add(sb); 		
 				}
 			
 		} catch (SQLException e) {

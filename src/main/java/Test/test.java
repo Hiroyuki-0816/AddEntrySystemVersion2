@@ -15,7 +15,7 @@ import TestDao.JobDao;
 /**
  * Servlet implementation class test
  */
-@WebServlet("/Test/Test")
+@WebServlet("/AddEntrySystemVersion2/Test")
 public class test extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

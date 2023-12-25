@@ -19,23 +19,23 @@ ArrayList<JobBean> joblist = (ArrayList<JobBean>)request.getAttribute("joblist")
 
 <div style="display:inline-flex">
 <input type="submit" value="クリア" onclick ="clearButtonClickS()" class="button">
-<form method="post" action="/Test/Test01">
+<form method="post" action="/AddEntrySystemVersion2/Test01">
 <input type="submit" value="新規">
 </form>
-<form method="get" action="/Test/Test01">
+<form method="get" action="/AddEntrySystemVersion2/Test01">
 <input type="submit" value="変更">
 </form>
 <form>
 <input type="submit" value="削除" class="button">
 </form>
-<form method="post" action="/Test/Test02">
+<form method="post" action="/AddEntrySystemVersion2/Test02">
 <input type="button" value="終了">
 </form>
 </div>
 
 <p id="errormsg" style="color: red;"></p>
 
-<form method="get" action="/Test/Test03">
+<form method="get" action="/AddEntrySystemVersion2/Test03">
 
 <table  border="1">
 <tr>
@@ -54,15 +54,15 @@ ArrayList<JobBean> joblist = (ArrayList<JobBean>)request.getAttribute("joblist")
 <th><label for="age">年齢</label></th>
 <td><input id = "agefrom" type="text" name="agefrom" size=3>~<input id = "ageto" type="text" name="ageto" size=3></td>
 <th><label for ="zip">郵便番号</label></th>
-<td><input id = "zip" type="text" name="post" size="8"></td>
+<td><input id = "zip" type="text" name="zip" size="8"></td>
 </tr>
 
 <tr>
 <th><label for="sex">性別</label></th>
 <td>
-<input type="radio" name="gender" value="male">男性
-<input type="radio" name="gender" value="female">女性
-<input id="sex" type="radio" name="gender" value="both" checked>両方
+<input type="radio" name="sex" value="male">男性
+<input type="radio" name="sex" value="female">女性
+<input id="sex" type="radio" name="sex" value="both" checked>両方
 </td>
 <th><label for ="address">市町村</label></th>
 <td><input id = "address" type="text" name="address" size="20"></td>
