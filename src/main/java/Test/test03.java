@@ -36,11 +36,11 @@ public class test03 extends HttpServlet {
 		request.setAttribute("joblist",joblist);
 		
 		request.setCharacterEncoding("UTF-8");
-		//int idfrom = Integer.parseInt(request.getParameter("idfrom"));
-		//int idto = Integer.parseInt(request.getParameter("idto"));
+		int idfrom = Integer.parseInt(request.getParameter("idfrom"));
+		int idto = Integer.parseInt(request.getParameter("idto"));
 		String name = request.getParameter("name");
-		//int agefrom = Integer.parseInt(request.getParameter("agefrom"));
-		//int ageto = Integer.parseInt(request.getParameter("ageto"));
+		int agefrom = Integer.parseInt(request.getParameter("agefrom"));
+		int ageto = Integer.parseInt(request.getParameter("ageto"));
 		String tell = request.getParameter("tell");
 		String zip = request.getParameter("zip");
 		String address = request.getParameter("address");
@@ -50,11 +50,11 @@ public class test03 extends HttpServlet {
 		ArgumentBean ab = new ArgumentBean();
 					
 		// フォーム内で入力された値を検索値としてセットする
-		//ab.setIdfrom(idfrom);
-		//ab.setIdto(idto);
+		ab.setIdfrom(idfrom);
+		ab.setIdto(idto);
 		ab.setName(name);
-		//ab.setAgefrom(agefrom);
-		//ab.setAgeto(ageto);
+		ab.setAgefrom(agefrom);
+		ab.setAgeto(ageto);
 		ab.setTell(tell);
 		ab.setZip(zip);
 		ab.setAddress(address);

@@ -37,11 +37,11 @@ public class SearchDao {
 			String sql = "select t_address.id,name,age,sex,m_job.job,tell,zip,address,addressdetail from t_address.t_address left join t_address.m_job on t_address.job = m_job.id";
 			
 			//フォームから取得した検索条件*/
-//			Integer idfrom = ab.getIdfrom();
-//			Integer idto = ab.getIdto();
+			Integer idfrom = ab.getIdfrom();
+			Integer idto = ab.getIdto();
 			String name = ab.getName();
-//			Integer agefrom = ab.getAgefrom();
-//			Integer ageto = ab.getAgeto();
+			Integer agefrom = ab.getAgefrom();
+			Integer ageto = ab.getAgeto();
 			String tell = ab.getTell();
 			String zip = ab.getZip();
 			String address = ab.getAddress();
@@ -51,13 +51,13 @@ public class SearchDao {
 			boolean conbine = false;
 			
 			
-//			if(idfrom != null && idto != null) {
-//				sql += " WHERE t_address.id between ? and ?";
-//                conbine = true;
-//			}else if((idfrom != null && idto == null) || (idfrom == null && idto != null)) {
-//				sql += " WHERE t_address.id = ?";
-//                conbine = true;
-//			}
+			if(idfrom != null && idto != null) {
+				sql += " WHERE t_address.id between ? and ?";
+                conbine = true;
+			}else if((idfrom != null && idto == null) || (idfrom == null && idto != null)) {
+				sql += " WHERE t_address.id = ?";
+                conbine = true;
+			}
 			
 			if(name != "") {
 				if(conbine) {
@@ -68,21 +68,21 @@ public class SearchDao {
 	            }
 			}
 			
-//			if(agefrom != null && ageto != null) {
-//				if(conbine) {
-//					sql += " AND age between ? and ?";
-//				}else {
-//					sql += " WHERE age between ? and ?";
-//					conbine = true;
-//				}
-//			}else if((agefrom != null && ageto == null) || (agefrom == null && ageto != null)) {
-//				if(conbine) {
-//					sql += " AND age = ?";
-//				}else {
-//					sql += " WHERE age = ?";
-//					conbine = true;
-//				}
-//			}
+			if(agefrom != null && ageto != null) {
+				if(conbine) {
+					sql += " AND age between ? and ?";
+				}else {
+					sql += " WHERE age between ? and ?";
+					conbine = true;
+				}
+			}else if((agefrom != null && ageto == null) || (agefrom == null && ageto != null)) {
+				if(conbine) {
+					sql += " AND age = ?";
+				}else {
+					sql += " WHERE age = ?";
+					conbine = true;
+				}
+			}
 			
 			if(tell != "") {
 				if(conbine) {
@@ -127,31 +127,31 @@ public class SearchDao {
 			int seq = 0;
 			
 			/*パラメータを追加*/
-//			if(idfrom != null && idto != null) {
-//				ps.setInt(++seq, idfrom);
-//				ps.setInt(++seq, idto);
-//			}
-//			if(idfrom != null && idto == null) {
-//				ps.setInt(++seq, idfrom);
-//			}
-//			if(idfrom == null && idto != null) {
-//				ps.setInt(++seq, idto);
-//			}
+			if(idfrom != null && idto != null) {
+				ps.setInt(++seq, idfrom);
+				ps.setInt(++seq, idto);
+			}
+			if(idfrom != null && idto == null) {
+				ps.setInt(++seq, idfrom);
+			}
+			if(idfrom == null && idto != null) {
+				ps.setInt(++seq, idto);
+			}
 			
 			if(name != "") {
 				ps.setString(++seq, "%" + name + "%");
 			}
 			
-//			if(agefrom != null && ageto != null) {
-//				ps.setInt(++seq, agefrom);
-//				ps.setInt(++seq, ageto);
-//			}
-//			if(agefrom != null && ageto == null) {
-//				ps.setInt(++seq, agefrom);
-//			}
-//			if(agefrom == null && ageto != null) {
-//				ps.setInt(++seq, ageto);
-//			}
+			if(agefrom != null && ageto != null) {
+				ps.setInt(++seq, agefrom);
+				ps.setInt(++seq, ageto);
+			}
+			if(agefrom != null && ageto == null) {
+				ps.setInt(++seq, agefrom);
+			}
+			if(agefrom == null && ageto != null) {
+				ps.setInt(++seq, ageto);
+			}
 			
 			if(tell != "") {
 				ps.setString(++seq, tell + "%");
