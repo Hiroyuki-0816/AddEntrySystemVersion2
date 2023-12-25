@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
-  <display-name>Test</display-name>
+  <display-name>AddEntrySystemVersion2</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.jsp</welcome-file>
@@ -9,45 +9,36 @@
     <welcome-file>default.jsp</welcome-file>
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
-  
   <servlet>
     <servlet-name>test</servlet-name>
     <servlet-class>Test.test</servlet-class>
   </servlet>
-  
   <servlet-mapping>
     <servlet-name>test</servlet-name>
     <url-pattern>/Test</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>test01</servlet-name>
     <servlet-class>Test.test01</servlet-class>
   </servlet>
-  
   <servlet-mapping>
     <servlet-name>test01</servlet-name>
     <url-pattern>/Test01</url-pattern>
   </servlet-mapping>
-  
-    <servlet>
+  <servlet>
     <servlet-name>test02</servlet-name>
     <servlet-class>Test.test02</servlet-class>
   </servlet>
-  
   <servlet-mapping>
     <servlet-name>test02</servlet-name>
     <url-pattern>/Test02</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>test03</servlet-name>
     <servlet-class>Test.test03</servlet-class>
   </servlet>
-  
   <servlet-mapping>
     <servlet-name>test03</servlet-name>
     <url-pattern>/Test03</url-pattern>
   </servlet-mapping>
-  
 </web-app>
