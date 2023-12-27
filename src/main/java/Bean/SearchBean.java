@@ -1,4 +1,4 @@
-package TestBean;
+package Bean;
 
 public class SearchBean {
 	//“o˜^ID

@@ -10,35 +10,35 @@
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
   <servlet>
-    <servlet-name>test</servlet-name>
-    <servlet-class>Test.test</servlet-class>
+    <servlet-name>search</servlet-name>
+    <servlet-class>Servlet.SearchServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>test</servlet-name>
-    <url-pattern>/Test</url-pattern>
+    <servlet-name>search</servlet-name>
+    <url-pattern>/Search</url-pattern>
   </servlet-mapping>
   <servlet>
-    <servlet-name>test01</servlet-name>
-    <servlet-class>Test.test01</servlet-class>
+    <servlet-name>entry</servlet-name>
+    <servlet-class>Servlet.EntryServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>test01</servlet-name>
-    <url-pattern>/Test01</url-pattern>
+    <servlet-name>entry</servlet-name>
+    <url-pattern>/Entry</url-pattern>
   </servlet-mapping>
   <servlet>
-    <servlet-name>test02</servlet-name>
-    <servlet-class>Test.test02</servlet-class>
+    <servlet-name>end</servlet-name>
+    <servlet-class>Servlet.EndServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>test02</servlet-name>
-    <url-pattern>/Test02</url-pattern>
+    <servlet-name>end</servlet-name>
+    <url-pattern>/End</url-pattern>
   </servlet-mapping>
   <servlet>
-    <servlet-name>test03</servlet-name>
-    <servlet-class>Test.test03</servlet-class>
+    <servlet-name>search01</servlet-name>
+    <servlet-class>Servlet.SearchServlet01</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>test03</servlet-name>
-    <url-pattern>/Test03</url-pattern>
+    <servlet-name>search01</servlet-name>
+    <url-pattern>/Search01</url-pattern>
   </servlet-mapping>
 </web-app>

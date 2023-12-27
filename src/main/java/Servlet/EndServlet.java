@@ -1,4 +1,4 @@
-package Test;
+package Servlet;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class Test02
  */
-@WebServlet("/AddEntrySystemVersion2/Test02")
-public class test02 extends HttpServlet {
+@WebServlet("/AddEntrySystemVersion2/End")
+public class EndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

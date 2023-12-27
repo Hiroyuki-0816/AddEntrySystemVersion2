@@ -1,10 +1,10 @@
-package TestDao;
+package Dao;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-import TestBean.ArgumentBean;
-import TestBean.SearchBean;
+import Bean.ArgumentBean;
+import Bean.SearchBean;
 
 public class SearchDao {
 	/*データベースのURL*/

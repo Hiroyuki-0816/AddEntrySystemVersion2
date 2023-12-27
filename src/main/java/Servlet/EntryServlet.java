@@ -1,4 +1,4 @@
-package Test;
+package Servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,14 +9,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import TestBean.JobBean;
-import TestDao.JobDao;
+import Bean.JobBean;
+import Dao.JobDao;
 
 /**
  * Servlet implementation class test01
  */
-@WebServlet("/AddEntrySystemVersion2/Test01")
-public class test01 extends HttpServlet {
+@WebServlet("/AddEntrySystemVersion2/Search")
+public class EntryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	/**

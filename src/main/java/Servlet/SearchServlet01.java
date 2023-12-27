@@ -1,4 +1,4 @@
-package Test;
+package Servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,23 +9,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import TestBean.ArgumentBean;
-import TestBean.JobBean;
-import TestBean.SearchBean;
-import TestDao.JobDao;
-import TestDao.SearchDao;
+import Bean.ArgumentBean;
+import Bean.JobBean;
+import Bean.SearchBean;
+import Dao.JobDao;
+import Dao.SearchDao;
 
 /**
  * Servlet implementation class test03
  */
-@WebServlet("/AddEntrySystemVersion2/Test03")
-public class test03 extends HttpServlet {
+@WebServlet("/AddEntrySystemVersion2/Search01")
+public class SearchServlet01 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		/*データベースに対して検索処理を実施*/
 		JobDao jdao = new JobDao();
 		
@@ -76,9 +76,9 @@ public class test03 extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		doPost(request, response);
 	}
 
 }

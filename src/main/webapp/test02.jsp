@@ -11,7 +11,7 @@
 
 <p>お疲れさまでした。</p>
 
-<form method="post" action="/Test/Test">
+<form method="post" action="/AddEntrySystemVersion2/Search">
 <input type="submit" value="最初から" class="button">
 </form>
 

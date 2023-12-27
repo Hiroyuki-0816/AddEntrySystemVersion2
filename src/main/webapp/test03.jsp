@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="TestDao.*" %>
-<%@ page import="TestBean.*" %>
+<%@ page import="Dao.*" %>
+<%@ page import="Bean.*" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %> 
 <%
@@ -19,23 +19,23 @@ ArrayList<JobBean> joblist = (ArrayList<JobBean>)request.getAttribute("joblist")
 
 <div style="display:inline-flex">
 <input type="submit" value="クリア" onclick ="clearButtonClickS()" class="button">
-<form method="post" action="/AddEntrySystemVersion2/Test01">
+<form method="post" action="/AddEntrySystemVersion2/Entry">
 <input type="submit" value="新規">
 </form>
-<form method="get" action="/AddEntrySystemVersion2/Test01">
+<form method="get" action="/AddEntrySystemVersion2/Entry">
 <input type="submit" value="変更">
 </form>
 <form>
 <input type="submit" value="削除" class="button">
 </form>
-<!-- <form method="post" action="/Test/Test02"> -->
+<form method="post" action="/AddEntrySystemVersion2/End">
 <input type="button" value="終了" onclick = "window.close()">
-<!-- </form> -->
+</form>
 </div>
 
 <p id="errormsg" style="color: red;"></p>
 
-<form method="get" action="/AddEntrySystemVersion2/Test03">
+<form method="get" action="/AddEntrySystemVersion2/Search01">
 
 <table  border="1">
 <tr>
