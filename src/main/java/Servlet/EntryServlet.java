@@ -15,7 +15,7 @@ import Dao.JobDao;
 /**
  * Servlet implementation class test01
  */
-@WebServlet("/AddEntrySystemVersion2/Search")
+@WebServlet("/AddEntrySystemVersion2/Entry")
 public class EntryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	

@@ -62,9 +62,11 @@ ArrayList<JobBean> joblist = (ArrayList<JobBean>) request.getAttribute("joblist"
 
 			<tr>
 				<th><label for="sex">性別</label></th>
-				<td><input type="radio" name="sex" value="male">男性 <input
-					type="radio" name="sex" value="female">女性 <input id="sex"
-					type="radio" name="sex" value="both" checked>両方</td>
+				<td>
+				<input type="radio" name="sex" value="male">男性
+				<input type="radio" name="sex" value="female">女性
+				<input id="sex" type="radio" name="sex" value="both" checked>両方
+				</td>
 				<th><label for="address">市町村</label></th>
 				<td><input id="address" type="text" name="address" size="20"></td>
 			</tr>

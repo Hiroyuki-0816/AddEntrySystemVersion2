@@ -36,11 +36,13 @@ public class SearchServlet01 extends HttpServlet {
 		request.setAttribute("joblist",joblist);
 		
 		request.setCharacterEncoding("UTF-8");
-		int idfrom = Integer.parseInt(request.getParameter("idfrom"));
-		int idto = Integer.parseInt(request.getParameter("idto"));
+		String idfrom = String.valueOf(request.getParameter("idfrom"));
+		String idto = String.valueOf(request.getParameter("idto"));
 		String name = request.getParameter("name");
-		int agefrom = Integer.parseInt(request.getParameter("agefrom"));
-		int ageto = Integer.parseInt(request.getParameter("ageto"));
+		String agefrom = String.valueOf(request.getParameter("agefrom"));
+		String ageto = String.valueOf(request.getParameter("ageto"));
+		String sex = request.getParameter("sex");
+		String job = request.getParameter("job");
 		String tell = request.getParameter("tell");
 		String zip = request.getParameter("zip");
 		String address = request.getParameter("address");
@@ -55,6 +57,8 @@ public class SearchServlet01 extends HttpServlet {
 		ab.setName(name);
 		ab.setAgefrom(agefrom);
 		ab.setAgeto(ageto);
+		ab.setSex(sex);
+		ab.setJob(job);
 		ab.setTell(tell);
 		ab.setZip(zip);
 		ab.setAddress(address);

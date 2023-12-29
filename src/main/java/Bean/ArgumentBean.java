@@ -3,25 +3,25 @@ package Bean;
 public class ArgumentBean {
 
 	/*ìoò^IDFROM*/
-	private int idfrom;
+	private String idfrom;
 	
 	/*ìoò^IDTO*/
-	private int idto;
+	private String idto;
 	
 	/*éÅñº*/
 	private String name;
 	
 	/*îNóÓFROM*/
-	private int agefrom;
+	private String agefrom;
 	
 	/*îNóÓTO*/
-	private int ageto;
+	private String ageto;
 	
 	/*ê´ï */
 	private String sex;
 	
 	/*êEã∆*/
-	private int job;
+	private String job;
 	
 	/*ìdòbî‘çÜ*/
 	private String tell;
@@ -35,19 +35,19 @@ public class ArgumentBean {
 	/*î‘ín*/
 	private String addressdetail;
 
-	public int getIdfrom() {
+	public String getIdfrom() {
 		return idfrom;
 	}
 
-	public void setIdfrom(int idfrom) {
+	public void setIdfrom(String idfrom) {
 		this.idfrom = idfrom;
 	}
 
-	public int getIdto() {
+	public String getIdto() {
 		return idto;
 	}
 
-	public void setIdto(int idto) {
+	public void setIdto(String idto) {
 		this.idto = idto;
 	}
 
@@ -59,19 +59,19 @@ public class ArgumentBean {
 		this.name = name;
 	}
 
-	public int getAgefrom() {
+	public String getAgefrom() {
 		return agefrom;
 	}
 
-	public void setAgefrom(int agefrom) {
+	public void setAgefrom(String agefrom) {
 		this.agefrom = agefrom;
 	}
 
-	public int getAgeto() {
+	public String getAgeto() {
 		return ageto;
 	}
 
-	public void setAgeto(int ageto) {
+	public void setAgeto(String ageto) {
 		this.ageto = ageto;
 	}
 
@@ -83,11 +83,11 @@ public class ArgumentBean {
 		this.sex = sex;
 	}
 
-	public int getJob() {
+	public String getJob() {
 		return job;
 	}
 
-	public void setJob(int job) {
+	public void setJob(String job) {
 		this.job = job;
 	}
 
