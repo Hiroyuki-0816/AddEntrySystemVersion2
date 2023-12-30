@@ -36,7 +36,7 @@ ArrayList<JobBean> joblist = (ArrayList<JobBean>) request.getAttribute("joblist"
 
 	<p id="errormsg" style="color: red;"></p>
 
-	<form method="get" action="/AddEntrySystemVersion2/Search01">
+	<form method="post" action="/AddEntrySystemVersion2/Search01">
 
 		<table border="1">
 			<tr>
@@ -74,7 +74,7 @@ ArrayList<JobBean> joblist = (ArrayList<JobBean>) request.getAttribute("joblist"
 			<tr>
 				<th><label for="job">職業</label></th>
 				<td><select name="job" class="form-controll">
-						<option value="00" selected></option>
+						<option value="0" selected></option>
 						<%
 						for (int i = 0; i < joblist.size(); ++i) {
 						%>

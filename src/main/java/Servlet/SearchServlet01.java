@@ -26,14 +26,6 @@ public class SearchServlet01 extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/*データベースに対して検索処理を実施*/
-		JobDao jdao = new JobDao();
-		
-		/*検索結果を取得*/
-		ArrayList<JobBean> joblist = jdao.selectJob();
-		
-		/*検索結果をリクエストスコープに格納*/
-		request.setAttribute("joblist",joblist);
 		
 		request.setCharacterEncoding("UTF-8");
 		String idfrom = String.valueOf(request.getParameter("idfrom"));
@@ -48,7 +40,7 @@ public class SearchServlet01 extends HttpServlet {
 		String address = request.getParameter("address");
 		String addressdetail = request.getParameter("addressdetail");
 		
-		// Beanクラスのインスタンス
+		// 検索値を格納するインスタンス
 		ArgumentBean ab = new ArgumentBean();
 					
 		// フォーム内で入力された値を検索値としてセットする
@@ -72,6 +64,21 @@ public class SearchServlet01 extends HttpServlet {
 		
 		/*検索結果をリクエストスコープに格納*/
 		request.setAttribute("searchlist",searchlist);
+		/*検索条件を保持*/
+		request.setAttribute("idfrom",idfrom);
+		request.setAttribute("idto",idto);
+		request.setAttribute("name", name);
+		request.setAttribute("agefrom",agefrom);
+		request.setAttribute("ageto",ageto);
+		request.setAttribute("tell",tell);
+		request.setAttribute("zip",zip);
+		request.setAttribute("address",address);
+		request.setAttribute("addressdetail",addressdetail);
+		
+		/*職業リストを再表示*/
+		JobDao jdao = new JobDao();
+		ArrayList<JobBean> joblist = jdao.selectJob();
+		request.setAttribute("joblist",joblist);
 		
 		//フォワードの実行
 		request.getRequestDispatcher("./test03.jsp").forward(request, response);
