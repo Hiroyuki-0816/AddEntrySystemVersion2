@@ -11,6 +11,8 @@ String idto = (String) request.getAttribute("idto");
 String name = (String) request.getAttribute("name");
 String agefrom = (String) request.getAttribute("agefrom");
 String ageto = (String) request.getAttribute("ageto");
+String sex = (String) request.getAttribute("sex");
+String job = (String) request.getAttribute("job");
 String tell = (String) request.getAttribute("tell");
 String zip = (String) request.getAttribute("zip");
 String address = (String) request.getAttribute("address");
@@ -27,8 +29,9 @@ String addressdetail = (String) request.getAttribute("addressdetail");
 	<h1>住所登録システム</h1>
 
 	<div style="display: inline-flex">
-		<input type="submit" value="クリア" onclick="clearButtonClickS()"
-			class="button">
+		<form method="post" action="/AddEntrySystemVersion2/Search">
+			<input type="submit" value="クリア">
+		</form>
 		<form method="post" action="/AddEntrySystemVersion2/Entry">
 			<input type="submit" value="新規">
 		</form>
@@ -39,7 +42,7 @@ String addressdetail = (String) request.getAttribute("addressdetail");
 			<input type="submit" value="削除" class="button">
 		</form>
 		<form method="post" action="/AddEntrySystemVersion2/End">
-			<input type="button" value="終了">
+			<input type="submit" value="終了">
 		</form>
 	</div>
 
@@ -76,9 +79,18 @@ String addressdetail = (String) request.getAttribute("addressdetail");
 
 			<tr>
 				<th><label for="sex">性別</label></th>
-				<td><input type="radio" name="sex" value="male">男性 <input
-					type="radio" name="sex" value="female">女性 <input id="sex"
-					type="radio" name="sex" value="both" checked>両方</td>
+				<td><input type="radio" name="sex" value="male"
+					<%if (sex.equals("male")) {
+	out.print("checked");
+}%>>男性
+					<input type="radio" name="sex" value="female"
+					<%if (sex.equals("female")) {
+	out.print("checked");
+}%>>女性
+					<input id="sex" type="radio" name="sex" value="both"
+					<%if (sex.equals("both")) {
+	out.print("checked");
+}%>>両方</td>
 				<th><label for="address">市町村</label></th>
 				<td><input id="address" type="text" name="address" size="20"
 					value="<%=address%>"></td>
@@ -87,11 +99,17 @@ String addressdetail = (String) request.getAttribute("addressdetail");
 			<tr>
 				<th><label for="job">職業</label></th>
 				<td><select name="job" class="form-controll">
-						<option value="0" selected></option>
+						<option value="0"
+							<%if (job.equals("0")) {
+	out.print("selected");
+}%>></option>
 						<%
 						for (int i = 0; i < joblist.size(); ++i) {
 						%>
-						<option value=<%=joblist.get(i).getId()%>><%=joblist.get(i).getJob()%></option>
+						<option value=<%=joblist.get(i).getId()%>
+							<%if (joblist.get(i).getId() == Integer.parseInt(job)) {
+	out.print("selected");
+}%>><%=joblist.get(i).getJob()%></option>
 						<%
 						}
 						%>
@@ -105,9 +123,13 @@ String addressdetail = (String) request.getAttribute("addressdetail");
 		<input type="submit" value="検索">
 	</form>
 
-
 	<p>&nbsp;</p>
 
+	<%
+	ArrayList<SearchBean> searchlist = (ArrayList<SearchBean>) request.getAttribute("searchlist");
+
+	if (searchlist == null || searchlist.size() == 0) {
+	%>
 	<table border="1">
 		<tr>
 			<th rowspan="2"><label for="checked">選択</label></th>
@@ -124,20 +146,26 @@ String addressdetail = (String) request.getAttribute("addressdetail");
 			<th><label for="addressdetail">番地</label></th>
 		</tr>
 	</table>
-
-	<%
-	ArrayList<SearchBean> searchlist = (ArrayList<SearchBean>) request.getAttribute("searchlist");
-
-	if (searchlist == null || searchlist.size() == 0) {
-	%>
-
 	<p>該当するデータが存在しません。</p>
 
 	<%
 	} else {
 	%>
 	<table border="1">
-
+		<tr>
+			<th rowspan="2"><label for="checked">選択</label></th>
+			<th rowspan="2"><label for="id">登録ID</label></th>
+			<th><label for="name">氏名</label></th>
+			<th><label for="age">年齢</label></th>
+			<th><label for="sex">性別</label></th>
+			<th><label for="job">職業</label></th>
+			<th><label for="tell">電話番号</label></th>
+		</tr>
+		<tr>
+			<th><label for="post">郵便番号</label></th>
+			<th colspan="3" align="left"><label for="address">市町村</label></th>
+			<th><label for="addressdetail">番地</label></th>
+		</tr>
 		<%
 		for (int i = 0; i < searchlist.size(); ++i) {
 		%>
@@ -151,11 +179,13 @@ String addressdetail = (String) request.getAttribute("addressdetail");
 			<th><%=searchlist.get(i).getTell()%></th>
 		</tr>
 		<tr>
-			<th><%= searchlist.get(i).getZip() %></th>
-			<th colspan="3" align="left"><%= searchlist.get(i).getAddress() %></th>
-			<th><%= searchlist.get(i).getAddressDetail() %></th>
+			<th><%=searchlist.get(i).getZip()%></th>
+			<th colspan="3" align="left"><%=searchlist.get(i).getAddress()%></th>
+			<th><%=searchlist.get(i).getAddressDetail()%></th>
 		</tr>
-		<% } %>
+		<%
+		}
+		%>
 
 	</table>
 	<% } %>

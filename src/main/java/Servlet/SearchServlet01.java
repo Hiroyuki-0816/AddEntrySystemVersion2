@@ -70,6 +70,8 @@ public class SearchServlet01 extends HttpServlet {
 		request.setAttribute("name", name);
 		request.setAttribute("agefrom",agefrom);
 		request.setAttribute("ageto",ageto);
+		request.setAttribute("sex",sex);
+		request.setAttribute("job",job);
 		request.setAttribute("tell",tell);
 		request.setAttribute("zip",zip);
 		request.setAttribute("address",address);
