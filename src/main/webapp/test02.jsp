@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>住所登録システム</title>
 </head>
 <body>
 <h1>終了画面</h1>

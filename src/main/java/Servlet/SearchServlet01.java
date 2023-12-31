@@ -28,11 +28,11 @@ public class SearchServlet01 extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
-		String idfrom = String.valueOf(request.getParameter("idfrom"));
-		String idto = String.valueOf(request.getParameter("idto"));
+		String idfrom = request.getParameter("idfrom");
+		String idto = request.getParameter("idto");
 		String name = request.getParameter("name");
-		String agefrom = String.valueOf(request.getParameter("agefrom"));
-		String ageto = String.valueOf(request.getParameter("ageto"));
+		String agefrom = request.getParameter("agefrom");
+		String ageto = request.getParameter("ageto");
 		String sex = request.getParameter("sex");
 		String job = request.getParameter("job");
 		String tell = request.getParameter("tell");

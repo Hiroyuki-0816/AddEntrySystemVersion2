@@ -111,20 +111,38 @@ public class SearchDao {
 			}
 
 			if (tell != "") {
-				if (conbine) {
-					sql += " AND tell LIKE ?";
+				if (!tell.contains("-")) {
+					if (conbine) {
+						sql += " AND replace (tell,'-','') LIKE ?";
+					} else {
+						sql += " WHERE replace (tell,'-','') LIKE ?";
+						conbine = true;
+					}
 				} else {
-					sql += " WHERE tell LIKE ?";
-					conbine = true;
+					if (conbine) {
+						sql += " AND tell LIKE ?";
+					} else {
+						sql += " WHERE tell LIKE ?";
+						conbine = true;
+					}
 				}
 			}
 
 			if (zip != "") {
-				if (conbine) {
-					sql += " AND zip LIKE ?";
+				if (!zip.contains("-")) {
+					if (conbine) {
+						sql += " AND replace (zip,'-','') LIKE ?";
+					} else {
+						sql += " WHERE replace (zip,'-','') LIKE ?";
+						conbine = true;
+					}
 				} else {
-					sql += " WHERE zip LIKE ?";
-					conbine = true;
+					if (conbine) {
+						sql += " AND zip LIKE ?";
+					} else {
+						sql += " WHERE zip LIKE ?";
+						conbine = true;
+					}
 				}
 			}
 

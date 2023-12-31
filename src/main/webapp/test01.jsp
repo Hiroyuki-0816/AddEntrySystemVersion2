@@ -13,7 +13,7 @@ ArrayList<JobBean> joblist = (ArrayList<JobBean>)request.getAttribute("joblist")
 <head>
 <meta charset="UTF-8">
 <script src='AddEntry_JS.js'></script>
-<title>住所登録システム_登録画面</title>
+<title>住所登録システム</title>
 </head>
 <body>
 <h1>登録画面</h1>

@@ -23,7 +23,7 @@ String addressdetail = (String) request.getAttribute("addressdetail");
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>住所登録システム</title>
 </head>
 <body>
 	<h1>住所登録システム</h1>
@@ -188,7 +188,9 @@ String addressdetail = (String) request.getAttribute("addressdetail");
 		%>
 
 	</table>
-	<% } %>
+	<%
+	}
+	%>
 
 
 </body>

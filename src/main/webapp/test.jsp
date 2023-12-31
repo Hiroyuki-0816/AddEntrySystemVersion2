@@ -12,14 +12,16 @@ ArrayList<JobBean> joblist = (ArrayList<JobBean>) request.getAttribute("joblist"
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>住所登録システム</title>
 </head>
 <body>
 	<h1>住所登録システム</h1>
 
 	<div style="display: inline-flex">
-		<input type="submit" value="クリア" onclick="clearButtonClickS()"
-			class="button">
+		<form>
+			<input type="submit" value="クリア" onclick="clearButtonClickS()"
+				class="button">
+		</form>
 		<form method="post" action="/AddEntrySystemVersion2/Entry">
 			<input type="submit" value="新規">
 		</form>
@@ -62,11 +64,9 @@ ArrayList<JobBean> joblist = (ArrayList<JobBean>) request.getAttribute("joblist"
 
 			<tr>
 				<th><label for="sex">性別</label></th>
-				<td>
-				<input type="radio" name="sex" value="male">男性
-				<input type="radio" name="sex" value="female">女性
-				<input id="sex" type="radio" name="sex" value="both" checked>両方
-				</td>
+				<td><input type="radio" name="sex" value="male">男性 <input
+					type="radio" name="sex" value="female">女性 <input id="sex"
+					type="radio" name="sex" value="both" checked>両方</td>
 				<th><label for="address">市町村</label></th>
 				<td><input id="address" type="text" name="address" size="20"></td>
 			</tr>

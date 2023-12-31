@@ -24,6 +24,9 @@ function clearButtonClickS(){
         document.getElementById("address-detail").value = "";
 }
 
-function windowClose(){
-	window.open('about:_blank','_self').close();
+function closeWindow() {
+  let result = confirm('終了しますか？');
+    if (result) {
+        window.close();
+    }
 }
