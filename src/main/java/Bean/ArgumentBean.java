@@ -2,37 +2,37 @@ package Bean;
 
 public class ArgumentBean {
 
-	/*“o˜^IDFROM*/
+	/* “o˜^IDFROM */
 	private String idfrom;
-	
-	/*“o˜^IDTO*/
+
+	/* “o˜^IDTO */
 	private String idto;
-	
-	/*–¼*/
+
+	/* –¼ */
 	private String name;
-	
-	/*”N—îFROM*/
+
+	/* ”N—îFROM */
 	private String agefrom;
-	
-	/*”N—îTO*/
+
+	/* ”N—îTO */
 	private String ageto;
-	
-	/*«•Ê*/
+
+	/* «•Ê */
 	private String sex;
-	
-	/*E‹Æ*/
+
+	/* E‹Æ */
 	private String job;
-	
-	/*“d˜b”Ô†*/
+
+	/* “d˜b”Ô† */
 	private String tell;
-	
-	/*—X•Ö”Ô†*/
+
+	/* —X•Ö”Ô† */
 	private String zip;
-	
-	/*s’¬‘º*/
+
+	/* s’¬‘º */
 	private String address;
-	
-	/*”Ô’n*/
+
+	/* ”Ô’n */
 	private String addressdetail;
 
 	public String getIdfrom() {

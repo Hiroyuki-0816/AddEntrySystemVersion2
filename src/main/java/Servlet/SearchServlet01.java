@@ -23,10 +23,12 @@ public class SearchServlet01 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		request.setCharacterEncoding("UTF-8");
 		String idfrom = request.getParameter("idfrom");
 		String idto = request.getParameter("idto");
@@ -39,10 +41,10 @@ public class SearchServlet01 extends HttpServlet {
 		String zip = request.getParameter("zip");
 		String address = request.getParameter("address");
 		String addressdetail = request.getParameter("addressdetail");
-		
+
 		// 検索値を格納するインスタンス
 		ArgumentBean ab = new ArgumentBean();
-					
+
 		// フォーム内で入力された値を検索値としてセットする
 		ab.setIdfrom(idfrom);
 		ab.setIdto(idto);
@@ -55,41 +57,43 @@ public class SearchServlet01 extends HttpServlet {
 		ab.setZip(zip);
 		ab.setAddress(address);
 		ab.setAddressdetail(addressdetail);
-		
-		/*データベースに対して検索処理を実施*/
+
+		/* データベースに対して検索処理を実施 */
 		SearchDao sdao = new SearchDao();
-		
-		/*検索結果を取得*/
+
+		/* 検索結果を取得 */
 		ArrayList<SearchBean> searchlist = sdao.selectSearch(ab);
-		
-		/*検索結果をリクエストスコープに格納*/
-		request.setAttribute("searchlist",searchlist);
-		/*検索条件を保持*/
-		request.setAttribute("idfrom",idfrom);
-		request.setAttribute("idto",idto);
+
+		/* 検索結果をリクエストスコープに格納 */
+		request.setAttribute("searchlist", searchlist);
+		/* 検索条件を保持 */
+		request.setAttribute("idfrom", idfrom);
+		request.setAttribute("idto", idto);
 		request.setAttribute("name", name);
-		request.setAttribute("agefrom",agefrom);
-		request.setAttribute("ageto",ageto);
-		request.setAttribute("sex",sex);
-		request.setAttribute("job",job);
-		request.setAttribute("tell",tell);
-		request.setAttribute("zip",zip);
-		request.setAttribute("address",address);
-		request.setAttribute("addressdetail",addressdetail);
-		
-		/*職業リストを再表示*/
+		request.setAttribute("agefrom", agefrom);
+		request.setAttribute("ageto", ageto);
+		request.setAttribute("sex", sex);
+		request.setAttribute("job", job);
+		request.setAttribute("tell", tell);
+		request.setAttribute("zip", zip);
+		request.setAttribute("address", address);
+		request.setAttribute("addressdetail", addressdetail);
+
+		/* 職業リストを再表示 */
 		JobDao jdao = new JobDao();
 		ArrayList<JobBean> joblist = jdao.selectJob();
-		request.setAttribute("joblist",joblist);
-		
-		//フォワードの実行
+		request.setAttribute("joblist", joblist);
+
+		// フォワードの実行
 		request.getRequestDispatcher("./test03.jsp").forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doPost(request, response);
 	}

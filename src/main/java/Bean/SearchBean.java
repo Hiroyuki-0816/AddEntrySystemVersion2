@@ -1,33 +1,33 @@
 package Bean;
 
 public class SearchBean {
-	//“o˜^ID
+	// “o˜^ID
 	private int id;
-	
-	//–¼
+
+	// –¼
 	private String name;
-	
-	//”N—î
+
+	// ”N—î
 	private int age;
-	
-	//«•Ê
+
+	// «•Ê
 	private String sex;
-	
-	//E‹Æ
+
+	// E‹Æ
 	private String job;
-	
-	//“d˜b”Ô†
+
+	// “d˜b”Ô†
 	private String tell;
-	
-	//—X•Ö”Ô†
+
+	// —X•Ö”Ô†
 	private String zip;
-	
-	//s’¬‘º
+
+	// s’¬‘º
 	private String address;
-	
-	//”Ô’n
+
+	// ”Ô’n
 	private String addressDetail;
-	
+
 	public int getId() {
 		return id;
 	}
@@ -99,7 +99,5 @@ public class SearchBean {
 	public void setAddressDetail(String addressDetail) {
 		this.addressDetail = addressDetail;
 	}
-
-
 
 }

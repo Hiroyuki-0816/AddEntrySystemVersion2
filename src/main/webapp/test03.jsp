@@ -171,7 +171,7 @@ String addressdetail = (String) request.getAttribute("addressdetail");
 		%>
 		<tr>
 			<th rowspan="2"><input type="checkbox" name="check" value="true" /></th>
-			<th rowspan="2"><a href="./test01.jsp"><%=searchlist.get(i).getId()%></a></th>
+			<th rowspan="2"><a href="./test01.jsp"><%=String.format("%08d", searchlist.get(i).getId())%></a></th>
 			<th><%=searchlist.get(i).getName()%></th>
 			<th><%=searchlist.get(i).getAge()%></th>
 			<th><%=searchlist.get(i).getSex()%></th>

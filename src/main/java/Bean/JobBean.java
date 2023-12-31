@@ -1,10 +1,10 @@
 package Bean;
 
 public class JobBean {
-	//E‹Æid
+	// E‹Æid
 	private int id;
-	
-	//E‹Æ–¼
+
+	// E‹Æ–¼
 	private String job;
 
 	public int getId() {
@@ -22,6 +22,5 @@ public class JobBean {
 	public void setJob(String job) {
 		this.job = job;
 	}
-	
-	
+
 }
