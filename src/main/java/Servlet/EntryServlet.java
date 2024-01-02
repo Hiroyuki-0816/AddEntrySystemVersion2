@@ -37,7 +37,7 @@ public class EntryServlet extends HttpServlet {
 		request.setAttribute("joblist", joblist);
 
 		// フォワードの実行
-		request.getRequestDispatcher("./test01.jsp").forward(request, response);
+		request.getRequestDispatcher("./Entry.jsp").forward(request, response);
 
 	}
 

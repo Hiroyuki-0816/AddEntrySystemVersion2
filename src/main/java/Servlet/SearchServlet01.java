@@ -85,7 +85,7 @@ public class SearchServlet01 extends HttpServlet {
 		request.setAttribute("joblist", joblist);
 
 		// フォワードの実行
-		request.getRequestDispatcher("./test03.jsp").forward(request, response);
+		request.getRequestDispatcher("./Search01.jsp").forward(request, response);
 	}
 
 	/**
