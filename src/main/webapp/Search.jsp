@@ -34,7 +34,7 @@ ArrayList<JobBean> joblist = (ArrayList<JobBean>) request.getAttribute("joblist"
 			<input type="submit" value="終了">
 		</form>
 <!-- <form>
-<input type="button" value="終了" onclick="window.close();">
+<input type="button" value="終了" onclick="closeWindow()">
 </form> -->
 	</div>
 

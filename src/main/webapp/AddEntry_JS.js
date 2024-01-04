@@ -25,8 +25,5 @@ function clearButtonClickS(){
 }
 
 function closeWindow() {
-  let result = confirm('終了しますか？');
-    if (result) {
         window.close();
-    }
 }
