@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Bean.JobBean;
+import Dao.JobDao;
+
 /**
  * Servlet implementation class InsertServlet
  */
@@ -42,8 +45,6 @@ public class InsertServlet extends HttpServlet {
 			errorMessages.add("氏名" + msg);
 		}else if(age == "") {
 			errorMessages.add("年齢" + msg);
-		}else if(!sex.equals("male") && !sex.equals("female")) {
-			errorMessages.add("性別" + msg);
 		}else if(tell == "") {
 			errorMessages.add("電話番号" + msg);
 		}else if(zip == "") {
@@ -57,13 +58,20 @@ public class InsertServlet extends HttpServlet {
 		if(errorMessages != null || errorMessages.size() != 0) {
 			/* エラーメッセージをリクエストスコープに格納 */
 			request.setAttribute("errorMessages", errorMessages);
-			response.getWriter().append("./EntryError.jsp").append(request.getContextPath());
+			
+			/* 職業リストを再表示 */
+			JobDao jdao = new JobDao();
+			ArrayList<JobBean> joblist = jdao.selectJob();
+			request.setAttribute("joblist", joblist);
+			
+			// フォワードの実行
+			request.getRequestDispatcher("./EntryError.jsp").forward(request, response);
 		}
 		
 		
 		
 		
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
