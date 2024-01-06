@@ -7,7 +7,7 @@ function clearButtonClickE(){
         document.getElementById("tell").value = "";
         document.getElementById("zip").value = "";
         document.getElementById("address").value = "";
-        document.getElementById("address-detail").value = "";
+        document.getElementById("addressdetail").value = "";
 }
 
 function clearButtonClickS(){
@@ -21,7 +21,7 @@ function clearButtonClickS(){
         document.getElementById("tell").value = "";
         document.getElementById("zip").value = "";
         document.getElementById("address").value = "";
-        document.getElementById("address-detail").value = "";
+        document.getElementById("addressdetail").value = "";
 }
 
 function closeWindow() {

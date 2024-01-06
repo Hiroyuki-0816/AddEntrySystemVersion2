@@ -58,6 +58,16 @@ public class InsertServlet extends HttpServlet {
 		if(errorMessages != null || errorMessages.size() != 0) {
 			/* エラーメッセージをリクエストスコープに格納 */
 			request.setAttribute("errorMessages", errorMessages);
+			/* 入力項目を保持 */
+			request.setAttribute("id", id);
+			request.setAttribute("name", name);
+			request.setAttribute("age", age);
+			request.setAttribute("sex", sex);
+			request.setAttribute("job", job);
+			request.setAttribute("tell", tell);
+			request.setAttribute("zip", zip);
+			request.setAttribute("address", address);
+			request.setAttribute("addressdetail", addressdetail);
 			
 			/* 職業リストを再表示 */
 			JobDao jdao = new JobDao();
