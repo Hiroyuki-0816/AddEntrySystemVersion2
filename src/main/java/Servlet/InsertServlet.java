@@ -9,8 +9,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Bean.ArgumentBean;
+import Bean.InsertBean;
 import Bean.JobBean;
+import Bean.SearchBean;
 import Dao.JobDao;
+import Dao.SearchDao;
+import Dao.SearchDao01;
 
 /**
  * Servlet implementation class InsertServlet
@@ -78,7 +83,32 @@ public class InsertServlet extends HttpServlet {
 			request.getRequestDispatcher("./EntryError.jsp").forward(request, response);
 		}
 		
+		        // 入力値を格納するインスタンス
+				InsertBean ib = new InsertBean();
+
+				// フォーム内で入力された値を検索値としてセットする
+			    ib.setId(Integer.parseInt(id));
+				ib.setName(name);
+				ib.setAge(Integer.parseInt(age));
+				ib.setSex(sex);
+				ib.setJob(job);
+				ib.setTell(tell);
+				ib.setZip(zip);
+				ib.setAddress(address);
+				ib.setAddressDetail(addressdetail);
+				
+		/* 登録IDが重複しているデータがないか検索 */
+		SearchDao01 sdao01 = new SearchDao01();
+
+		/* 検索結果を取得 */
+		ArrayList<SearchBean> searchlist = sdao01.insertSearch(ib);
 		
+		/*登録処理を実施するか更新処理を実施するか判断する*/
+		if(searchlist.size() == 0) {
+			System.out.println("true");
+		}else {
+			System.out.println("false");
+		}
 		
 		
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
