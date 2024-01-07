@@ -1,102 +1,102 @@
 package Bean;
 
 public class InsertBean {
-	    // “o˜^ID
-		private int id;
+	// “o˜^ID
+	private int id;
 
-		// –¼
-		private String name;
+	// –¼
+	private String name;
 
-		// ”N—î
-		private int age;
+	// ”N—î
+	private int age;
 
-		// «•Ê
-		private String sex;
+	// «•Ê
+	private String sex;
 
-		// E‹Æ
-		private String job;
+	// E‹Æ
+	private String job;
 
-		// “d˜b”Ô†
-		private String tell;
+	// “d˜b”Ô†
+	private String tell;
 
-		// —X•Ö”Ô†
-		private String zip;
+	// —X•Ö”Ô†
+	private String zip;
 
-		// s’¬‘º
-		private String address;
+	// s’¬‘º
+	private String address;
 
-		// ”Ô’n
-		private String addressDetail;
+	// ”Ô’n
+	private String addressDetail;
 
-		public int getId() {
-			return id;
-		}
+	public int getId() {
+		return id;
+	}
 
-		public void setId(int id) {
-			this.id = id;
-		}
+	public void setId(int id) {
+		this.id = id;
+	}
 
-		public String getName() {
-			return name;
-		}
+	public String getName() {
+		return name;
+	}
 
-		public void setName(String name) {
-			this.name = name;
-		}
+	public void setName(String name) {
+		this.name = name;
+	}
 
-		public int getAge() {
-			return age;
-		}
+	public int getAge() {
+		return age;
+	}
 
-		public void setAge(int age) {
-			this.age = age;
-		}
+	public void setAge(int age) {
+		this.age = age;
+	}
 
-		public String getSex() {
-			return sex;
-		}
+	public String getSex() {
+		return sex;
+	}
 
-		public void setSex(String sex) {
-			this.sex = sex;
-		}
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
 
-		public String getJob() {
-			return job;
-		}
+	public String getJob() {
+		return job;
+	}
 
-		public void setJob(String job) {
-			this.job = job;
-		}
+	public void setJob(String job) {
+		this.job = job;
+	}
 
-		public String getTell() {
-			return tell;
-		}
+	public String getTell() {
+		return tell;
+	}
 
-		public void setTell(String tell) {
-			this.tell = tell;
-		}
+	public void setTell(String tell) {
+		this.tell = tell;
+	}
 
-		public String getZip() {
-			return zip;
-		}
+	public String getZip() {
+		return zip;
+	}
 
-		public void setZip(String zip) {
-			this.zip = zip;
-		}
+	public void setZip(String zip) {
+		this.zip = zip;
+	}
 
-		public String getAddress() {
-			return address;
-		}
+	public String getAddress() {
+		return address;
+	}
 
-		public void setAddress(String address) {
-			this.address = address;
-		}
+	public void setAddress(String address) {
+		this.address = address;
+	}
 
-		public String getAddressDetail() {
-			return addressDetail;
-		}
+	public String getAddressDetail() {
+		return addressDetail;
+	}
 
-		public void setAddressDetail(String addressDetail) {
-			this.addressDetail = addressDetail;
-		}
+	public void setAddressDetail(String addressDetail) {
+		this.addressDetail = addressDetail;
+	}
 }

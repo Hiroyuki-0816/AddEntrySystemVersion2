@@ -3,7 +3,7 @@ package Dao;
 import java.sql.*;
 import java.util.ArrayList;
 
-import Bean.InsertBean;
+import Bean.InsertSearchBean;
 import Bean.SearchBean;
 
 public class SearchDao01 {
@@ -15,32 +15,32 @@ public class SearchDao01 {
 	private final String pass = "password";
 	/* 初期のDB接続状態 */
 	Connection con = null;
-	
-	public ArrayList<SearchBean> insertSearch(InsertBean ib) {
-		
+
+	public ArrayList<SearchBean> insertSearch(InsertSearchBean isb) {
+
 		/* 検索結果を格納するリスト */
 		ArrayList<SearchBean> searchlist = new ArrayList<SearchBean>();
-		
+
 		/* JDBCドライバの読み込み */
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		
+
 		try {
 			/* DB接続 */
 			con = DriverManager.getConnection(url, user, pass);
 
-			/*SQL文*/
+			/* SQL文 */
 			String sql = "select t_address.id,name,age,sex,m_job.job,tell,zip,address,addressdetail from t_address.t_address left join t_address.m_job on t_address.job = m_job.id WHERE t_address.id = ?";
 
 			// フォームから取得した検索条件*/
-			int id = ib.getId();
+			String id = isb.getId();
 
 			/* SQL文をDBへ送信 */
 			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setInt(1, id);
+			ps.setString(1, id);
 
 			/* 検索結果を取得 */
 			ResultSet rs = ps.executeQuery();
@@ -49,14 +49,6 @@ public class SearchDao01 {
 			while (rs.next()) {
 				SearchBean sb = new SearchBean();
 				sb.setId(rs.getInt("id"));
-				sb.setName(rs.getString("name"));
-				sb.setAge(rs.getInt("age"));
-				sb.setSex(rs.getString("sex"));
-				sb.setJob(rs.getString("job"));
-				sb.setTell(rs.getString("tell"));
-				sb.setZip(rs.getString("zip"));
-				sb.setAddress(rs.getString("address"));
-				sb.setAddressDetail(rs.getString("addressdetail"));
 				searchlist.add(sb);
 			}
 
