@@ -8,6 +8,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import Bean.InsertSearchBean;
 import Bean.JobBean;
@@ -112,6 +114,7 @@ public class InsertServlet extends HttpServlet {
 		}
 
 		if (errorMessages.size() == 0) {
+
 			// 登録IDを格納するインスタンス
 			InsertSearchBean isb = new InsertSearchBean();
 
@@ -124,11 +127,24 @@ public class InsertServlet extends HttpServlet {
 			/* 検索結果を取得 */
 			ArrayList<SearchBean> searchlist = sdao01.insertSearch(isb);
 
+			/* 確認用ポップアップを表示させるためのインスタンス */
+			JFrame frame = new JFrame();
+			/* 確認用メッセージ */
+			String confirmI = "登録しますか？";
+			String confirmU = "入力された登録IDは既に登録されているものです。\n現在の入力内容で上書きしますか？";
 			/* 登録処理を実施するか更新処理を実施するか判断する */
 			if (searchlist.size() == 0) {
-				System.out.println("true");
+				int optionI = JOptionPane.showConfirmDialog(frame, confirmI, "登録確認", JOptionPane.OK_CANCEL_OPTION,
+						JOptionPane.QUESTION_MESSAGE);
+				if (optionI == JOptionPane.OK_OPTION) {
+					System.out.println("登録しました。");
+				}
 			} else {
-				System.out.println("false");
+				int optionU = JOptionPane.showConfirmDialog(frame, confirmU, "登録確認", JOptionPane.OK_CANCEL_OPTION,
+						JOptionPane.QUESTION_MESSAGE);
+				if (optionU == JOptionPane.OK_OPTION) {
+					System.out.println("上書きしました。");
+				}
 			}
 		}
 	}
