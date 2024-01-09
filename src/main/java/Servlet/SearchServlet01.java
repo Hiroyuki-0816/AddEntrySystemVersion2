@@ -42,30 +42,103 @@ public class SearchServlet01 extends HttpServlet {
 		String address = request.getParameter("address");
 		String addressdetail = request.getParameter("addressdetail");
 
-		// 検索値を格納するインスタンス
-		ArgumentBean ab = new ArgumentBean();
+		// エラーチェック
+		ArrayList<String> errorMessages = new ArrayList<String>();
+		String msg = "に誤りがあります。入力した文字数が多すぎます。";
+		String msg2 = "に誤りがあります。入力した文字の型が違います。";
+		String msg3 = "の範囲指定に誤りがあります";
 
-		// フォーム内で入力された値を検索値としてセットする
-		ab.setIdfrom(idfrom);
-		ab.setIdto(idto);
-		ab.setName(name);
-		ab.setAgefrom(agefrom);
-		ab.setAgeto(ageto);
-		ab.setSex(sex);
-		ab.setJob(job);
-		ab.setTell(tell);
-		ab.setZip(zip);
-		ab.setAddress(address);
-		ab.setAddressdetail(addressdetail);
+		if (idfrom.length() > 8) {
+			errorMessages.add("登録IDFROM" + msg);
+		} else if (idfrom != "" && !idfrom.matches("^[0-9]+$")) {
+			errorMessages.add("登録IDFROM" + msg2);
+		}
 
-		/* データベースに対して検索処理を実施 */
-		SearchDao sdao = new SearchDao();
+		if (idto.length() > 8) {
+			errorMessages.add("登録IDTO" + msg);
+		} else if (idto != "" && !idto.matches("^[0-9]+$")) {
+			errorMessages.add("登録IDTO" + msg2);
+		}
 
-		/* 検索結果を取得 */
-		ArrayList<SearchBean> searchlist = sdao.selectSearch(ab);
+		if ((idfrom != "" && idto != "") && (idfrom.matches("^[0-9]+$") && idto.matches("^[0-9]+$"))
+				&& Integer.parseInt(idfrom) > Integer.parseInt(idto)) {
+			errorMessages.add("登録ID" + msg3);
+		}
 
-		/* 検索結果をリクエストスコープに格納 */
-		request.setAttribute("searchlist", searchlist);
+		if (name.length() > 20) {
+			errorMessages.add("氏名" + msg);
+		}
+
+		if (agefrom.length() > 3) {
+			errorMessages.add("年齢FROM" + msg);
+		} else if (agefrom != "" && !agefrom.matches("^[0-9]+$")) {
+			errorMessages.add("年齢FROM" + msg2);
+		}
+
+		if (ageto.length() > 3) {
+			errorMessages.add("年齢TO" + msg);
+		} else if (ageto != "" && !ageto.matches("^[0-9]+$")) {
+			errorMessages.add("年齢TO" + msg2);
+		}
+
+		if ((agefrom != "" && ageto != "") && (agefrom.matches("^[0-9]+$") && ageto.matches("^[0-9]+$"))
+				&& Integer.parseInt(agefrom) > Integer.parseInt(ageto)) {
+			errorMessages.add("年齢" + msg3);
+		}
+
+		if (tell.length() > 13) {
+			errorMessages.add("電話番号" + msg);
+		} else if (tell != "" && !tell.matches("^[-0-9]+$")) {
+			errorMessages.add("電話番号" + msg2);
+		}
+
+		if (zip.length() > 8) {
+			errorMessages.add("郵便番号" + msg);
+		} else if (zip != "" && !zip.matches("^[-0-9]+$")) {
+			errorMessages.add("郵便番号" + msg2);
+		}
+
+		if (address.length() > 20) {
+			errorMessages.add("住所" + msg);
+		}
+
+		if (addressdetail.length() > 20) {
+			errorMessages.add("番地" + msg);
+		}
+
+			// 検索値を格納するインスタンス
+			ArgumentBean ab = new ArgumentBean();
+
+			// フォーム内で入力された値を検索値としてセットする
+			ab.setIdfrom(idfrom);
+			ab.setIdto(idto);
+			ab.setName(name);
+			ab.setAgefrom(agefrom);
+			ab.setAgeto(ageto);
+			ab.setSex(sex);
+			ab.setJob(job);
+			ab.setTell(tell);
+			ab.setZip(zip);
+			ab.setAddress(address);
+			ab.setAddressdetail(addressdetail);
+
+			/* データベースに対して検索処理を実施 */
+			SearchDao sdao = new SearchDao();
+
+			/* 検索結果を取得 */
+			ArrayList<SearchBean> searchlist = sdao.selectSearch(ab);
+
+			/*検索結果が0件の場合に表示*/
+			if (errorMessages.size() == 0 && searchlist.size() == 0) {
+				errorMessages.add("該当するデータが存在しません。");
+			}
+
+			/* 検索結果をリクエストスコープに格納 */
+			request.setAttribute("searchlist", searchlist);
+
+		/* エラーメッセージをリクエストスコープに格納 */
+		request.setAttribute("errorMessages", errorMessages);
+
 		/* 検索条件を保持 */
 		request.setAttribute("idfrom", idfrom);
 		request.setAttribute("idto", idto);

@@ -6,6 +6,7 @@
 <%@ page import="java.util.ArrayList"%>
 <%
 ArrayList<JobBean> joblist = (ArrayList<JobBean>) request.getAttribute("joblist");
+ArrayList<String> errorMessages = (ArrayList<String>) request.getAttribute("errorMessages");
 String idfrom = (String) request.getAttribute("idfrom");
 String idto = (String) request.getAttribute("idto");
 String name = (String) request.getAttribute("name");
@@ -44,12 +45,18 @@ String addressdetail = (String) request.getAttribute("addressdetail");
 		<form method="post" action="/AddEntrySystemVersion2/End">
 			<input type="submit" value="終了">
 		</form>
-<!-- <form> -->
-<!-- <input type="button" value="終了" onclick="closeWindow()"> -->
-<!-- </form> -->
+		<!-- <form> -->
+		<!-- <input type="button" value="終了" onclick="closeWindow()"> -->
+		<!-- </form> -->
 	</div>
 
-	<p id="errormsg" style="color: red;"></p>
+	<%
+	for (int i = 0; i < errorMessages.size(); ++i) {
+	%>
+	<p id="errormsg" style="color: red;"><%=errorMessages.get(i)%></p>
+	<%
+	}
+	%>
 
 	<form method="post" action="/AddEntrySystemVersion2/Search01">
 
@@ -131,7 +138,7 @@ String addressdetail = (String) request.getAttribute("addressdetail");
 	<%
 	ArrayList<SearchBean> searchlist = (ArrayList<SearchBean>) request.getAttribute("searchlist");
 
-	if (searchlist == null || searchlist.size() == 0) {
+	if (searchlist.size() == 0) {
 	%>
 	<table border="1">
 		<tr>
@@ -149,7 +156,6 @@ String addressdetail = (String) request.getAttribute("addressdetail");
 			<th><label for="addressdetail">番地</label></th>
 		</tr>
 	</table>
-	<p>該当するデータが存在しません。</p>
 
 	<%
 	} else {
