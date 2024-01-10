@@ -2,13 +2,13 @@ package Bean;
 
 public class InsertBean {
 	// “o˜^ID
-	private int id;
+	private String id;
 
 	// –¼
 	private String name;
 
 	// ”N—î
-	private int age;
+	private String age;
 
 	// «•Ê
 	private String sex;
@@ -28,11 +28,11 @@ public class InsertBean {
 	// ”Ô’n
 	private String addressDetail;
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -44,11 +44,11 @@ public class InsertBean {
 		this.name = name;
 	}
 
-	public int getAge() {
+	public String getAge() {
 		return age;
 	}
 
-	public void setAge(int age) {
+	public void setAge(String age) {
 		this.age = age;
 	}
 

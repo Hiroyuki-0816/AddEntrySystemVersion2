@@ -136,8 +136,9 @@ public class InsertServlet extends HttpServlet {
 			/* 検索結果を取得 */
 			ArrayList<SearchBean> searchlist = sdao01.insertSearch(isb);
 
-			/* 確認用ポップアップを表示させるためのインスタンス */
+			/*確認用ポップアップ*/
 			JFrame frame = new JFrame();
+			
 			/* 確認用メッセージ */
 			String confirmI = "登録しますか？";
 			String confirmU = "入力された登録IDは既に登録されているものです。\n現在の入力内容で上書きしますか？";
