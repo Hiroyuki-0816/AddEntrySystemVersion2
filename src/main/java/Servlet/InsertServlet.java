@@ -3,6 +3,7 @@ package Servlet;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,10 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import Bean.ArgumentBean;
+import Bean.InsertBean;
 import Bean.InsertSearchBean;
 import Bean.JobBean;
 import Bean.SearchBean;
+import Dao.InsertDao;
 import Dao.JobDao;
+import Dao.SearchDao;
 import Dao.SearchDao01;
 
 /**
@@ -144,17 +149,37 @@ public class InsertServlet extends HttpServlet {
 			String confirmU = "入力された登録IDは既に登録されているものです。\n現在の入力内容で上書きしますか？";
 			/* 登録処理を実施するか更新処理を実施するか判断する */
 			if (searchlist.size() == 0) {
-				int optionI = JOptionPane.showConfirmDialog(frame, confirmI, "登録確認", JOptionPane.OK_CANCEL_OPTION,
-						JOptionPane.QUESTION_MESSAGE);
-				if (optionI == JOptionPane.OK_OPTION) {
-					System.out.println("登録しました。");
-				}
+//				int optionI = JOptionPane.showConfirmDialog(frame, confirmI, "登録確認", JOptionPane.OK_CANCEL_OPTION,
+//						JOptionPane.QUESTION_MESSAGE);
+//				if (optionI == JOptionPane.OK_OPTION) {
+//					System.out.println("登録しました。");
+//				}
+				// 入力値を格納するインスタンス
+				InsertBean ib = new InsertBean();
+
+				// フォーム内で入力された値を登録値としてセットする
+				ib.setId(id);
+				ib.setName(name);
+				ib.setAge(age);
+				ib.setSex(sex);
+				ib.setJob(job);
+				ib.setTell(tell);
+				ib.setZip(zip);
+				ib.setAddress(address);
+				ib.setAddressDetail(addressdetail);
+
+				/* データベースに対して検索処理を実施 */
+				InsertDao idao = new InsertDao();
+				
+				 // fowardメソッドを使ってSearchServletに処理をうつす
+		        RequestDispatcher rd = request.getRequestDispatcher("/AddEntrySystemVersion2/Search");
+		        rd.forward(request, response);
 			} else {
-				int optionU = JOptionPane.showConfirmDialog(frame, confirmU, "登録確認", JOptionPane.OK_CANCEL_OPTION,
-						JOptionPane.QUESTION_MESSAGE);
-				if (optionU == JOptionPane.OK_OPTION) {
-					System.out.println("上書きしました。");
-				}
+//				int optionU = JOptionPane.showConfirmDialog(frame, confirmU, "登録確認", JOptionPane.OK_CANCEL_OPTION,
+//						JOptionPane.QUESTION_MESSAGE);
+//				if (optionU == JOptionPane.OK_OPTION) {
+//					System.out.println("上書きしました。");
+//				}
 			}
 		}
 	}
