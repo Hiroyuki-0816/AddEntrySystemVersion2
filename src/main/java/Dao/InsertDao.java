@@ -55,7 +55,7 @@ public class InsertDao {
 			}
 
 			if (job.equals("0")) {
-				ps.setString(5, "00");
+				ps.setString(5, "");
 			}
 			if (job.equals("1")) {
 				ps.setString(5, "01");

@@ -255,7 +255,11 @@ public class SearchDao {
 				sb.setName(rs.getString("name"));
 				sb.setAge(rs.getInt("age"));
 				sb.setSex(rs.getString("sex"));
-				sb.setJob(rs.getString("job"));
+				if(rs.getString("job") == null) {
+					sb.setJob("");
+				}else {
+					sb.setJob(rs.getString("job"));
+				}
 				sb.setTell(rs.getString("tell"));
 				sb.setZip(rs.getString("zip"));
 				sb.setAddress(rs.getString("address"));

@@ -33,7 +33,7 @@ public class SearchDao01 {
 			con = DriverManager.getConnection(url, user, pass);
 
 			/* SQL•¶ */
-			String sql = "select t_address.id,name,age,sex,m_job.job,tell,zip,address,addressdetail from t_address.t_address left join t_address.m_job on t_address.job = m_job.id WHERE t_address.id = ?";
+			String sql = "select * from t_address.t_address WHERE id = ?";
 
 			// ƒtƒH[ƒ€‚©‚çæ“¾‚µ‚½ŒŸõğŒ*/
 			String id = isb.getId();
