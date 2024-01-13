@@ -4,7 +4,7 @@ import java.sql.*;
 
 import Bean.InsertBean;
 
-public class InsertDao {
+public class UpdateDao {
 	/* データベースのURL */
 	private final String url = "jdbc:mysql://localhost:3306/t_address";
 	/* DBにアクセスするユーザ */
@@ -14,7 +14,7 @@ public class InsertDao {
 	/* 初期のDB接続状態 */
 	Connection con = null;
 
-	public void insert(InsertBean ib) {
+	public void update(InsertBean ib) {
 		/* JDBCドライバの読み込み */
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -27,7 +27,7 @@ public class InsertDao {
 			con = DriverManager.getConnection(url, user, pass);
 
 			/* SQL文 */
-			String sql = "INSERT INTO t_address.t_address(id,name,age,sex,job,tell,zip,address,addressdetail) VALUES(?,?,?,?,?,?,?,?,?)";
+			String sql = "UPDATE t_address.t_address SET name = ?, age = ?, sex = ?, job = ?, tell = ?, zip = ?, address = ?, addressdetail = ? WHERE id = ?";
 
 			// フォームから取得した登録情報*/
 			String id = ib.getId();
@@ -43,59 +43,60 @@ public class InsertDao {
 			/* SQL文をDBへ送信 */
 			PreparedStatement ps = con.prepareStatement(sql);
 
-			ps.setString(1, id);
-			ps.setString(2, name);
-			ps.setString(3, age);
+			ps.setString(1, name);
+			ps.setString(2, age);
 
 			if (sex.equals("male")) {
-				ps.setString(4, "男");
+				ps.setString(3, "男");
 			}
 			if (sex.equals("female")) {
-				ps.setString(4, "女");
+				ps.setString(3, "女");
 			}
 
 			if (job.equals("0")) {
-				ps.setString(5, "00");
+				ps.setString(4, "00");
 			}
 			if (job.equals("1")) {
-				ps.setString(5, "01");
+				ps.setString(4, "01");
 			}
 			if (job.equals("2")) {
-				ps.setString(5, "02");
+				ps.setString(4, "02");
 			}
 			if (job.equals("3")) {
-				ps.setString(5, "03");
+				ps.setString(4, "03");
 			}
 			if (job.equals("4")) {
-				ps.setString(5, "04");
+				ps.setString(4, "04");
 			}
 			if (job.equals("5")) {
-				ps.setString(5, "05");
+				ps.setString(4, "05");
 			}
 			if (job.equals("6")) {
-				ps.setString(5, "06");
+				ps.setString(4, "06");
 			}
 			if (job.equals("7")) {
-				ps.setString(5, "07");
+				ps.setString(4, "07");
 			}
 			if (job.equals("8")) {
-				ps.setString(5, "08");
+				ps.setString(4, "08");
 			}
 			if (job.equals("9")) {
-				ps.setString(5, "09");
+				ps.setString(4, "09");
 			}
 
-			ps.setString(6, tell);
-			ps.setString(7, zip);
-			ps.setString(8, address);
+			ps.setString(5, tell);
+			ps.setString(6, zip);
+			ps.setString(7, address);
 
 			if (addressdetail != "") {
-				ps.setString(9, addressdetail);
+				ps.setString(8, addressdetail);
 			} else {
-				ps.setString(9, "");
+				ps.setString(8, "");
 			}
 
-			// 登録処理実行
+			ps.setString(9, id);
+
+			// 更新処理実行
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -108,7 +109,6 @@ public class InsertDao {
 					e.printStackTrace();
 				}
 			}
-
 		}
 	}
 }
