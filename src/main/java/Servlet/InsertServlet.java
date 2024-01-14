@@ -8,6 +8,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import Bean.InsertBean;
 import Bean.InsertSearchBean;
@@ -150,17 +152,35 @@ public class InsertServlet extends HttpServlet {
 
 			/* 検索結果を取得 */
 			ArrayList<SearchBean> searchlist = sdao01.insertSearch(isb);
+			
+			/*確認用ポップアップ*/
+			JFrame frame = new JFrame();
+			frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			frame.setSize(40, 30);
+			frame.setVisible(true);
 
 			/* 登録処理を実施するか更新処理を実施するか判断する */
 			if (searchlist.size() == 0) {
-				/* データベースに対して登録処理を実施 */
-				InsertDao idao = new InsertDao();
-				idao.insert(ib);
+				
+				int checkI = JOptionPane.showConfirmDialog(frame, "登録しますか？", "住所登録システム", JOptionPane.OK_CANCEL_OPTION);
+				
+				if(checkI == JOptionPane.OK_OPTION) {
+					/* データベースに対して登録処理を実施 */
+					InsertDao idao = new InsertDao();
+					idao.insert(ib);
+				}
+				
 			} else {
+				
+				int checkU = JOptionPane.showConfirmDialog(frame, "入力された登録IDは既に登録されているものです。\n現在の入力内容で上書きしますか？", "住所登録システム", JOptionPane.OK_CANCEL_OPTION);
+				
+				if(checkU == JOptionPane.OK_OPTION) {
 				/* データベースに対して更新処理を実施 */
 				UpdateDao udao = new UpdateDao();
 				udao.update(ib);
+				}
 			}
+			
 			/* 職業リストを再表示 */
 			JobDao jdao = new JobDao();
 			ArrayList<JobBean> joblist = jdao.selectJob();
