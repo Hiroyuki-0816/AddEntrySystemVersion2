@@ -255,15 +255,19 @@ public class SearchDao {
 				sb.setName(rs.getString("name"));
 				sb.setAge(rs.getInt("age"));
 				sb.setSex(rs.getString("sex"));
-				if(rs.getString("job") == null) {
+				if (rs.getString("job") == null) {
 					sb.setJob("");
-				}else {
+				} else {
 					sb.setJob(rs.getString("job"));
 				}
 				sb.setTell(rs.getString("tell"));
 				sb.setZip(rs.getString("zip"));
 				sb.setAddress(rs.getString("address"));
-				sb.setAddressDetail(rs.getString("addressdetail"));
+				if (rs.getString("addressdetail") == null) {
+					sb.setAddressDetail("");
+				} else {
+					sb.setAddressDetail(rs.getString("addressdetail"));
+				}
 				searchlist.add(sb);
 			}
 

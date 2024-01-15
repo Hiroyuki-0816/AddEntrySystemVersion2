@@ -49,17 +49,20 @@ String addressdetail = (String) request.getAttribute("addressdetail");
 		<table border="1">
 			<tr>
 				<th><label for="id">登録ID</label></th>
-				<td><input id="id" type="text" name="id" size="8" value="<%=id%>"></td>
+				<td><input id="id" type="text" name="id" size="8"
+					value="<%=id%>"></td>
 			</tr>
 
 			<tr>
 				<th><label for="name">氏名</label></th>
-				<td><input id="name" type="text" name="name" size="20" value="<%=name%>"></td>
+				<td><input id="name" type="text" name="name" size="20"
+					value="<%=name%>"></td>
 			</tr>
 
 			<tr>
 				<th><label for="age">年齢</label></th>
-				<td><input id="age" type="text" name="age" size="3" value="<%=age%>">歳</td>
+				<td><input id="age" type="text" name="age" size="3"
+					value="<%=age%>">歳</td>
 			</tr>
 
 			<tr>
@@ -67,7 +70,9 @@ String addressdetail = (String) request.getAttribute("addressdetail");
 				<td><input id="sex" type="radio" name="sex" value="male"
 					<%if (sex.equals("male")) {
 	out.print("checked");
-}%>>男性 <input type="radio" name="sex" value="female" <%if (sex.equals("female")) {
+}%>>男性
+					<input type="radio" name="sex" value="female"
+					<%if (sex.equals("female")) {
 	out.print("checked");
 }%>>女性
 				</td>
@@ -76,13 +81,15 @@ String addressdetail = (String) request.getAttribute("addressdetail");
 			<tr>
 				<th><label for="job">職業</label></th>
 				<td><select id="job" name="job" class="form-controll">
-						<option value="0" <%if (job.equals("0")) {
+						<option value="0"
+							<%if (job.equals("0")) {
 	out.print("selected");
 }%>></option>
 						<%
 						for (int i = 0; i < joblist.size(); ++i) {
 						%>
-						<option value=<%=joblist.get(i).getId()%> <%if (joblist.get(i).getId() == Integer.parseInt(job)) {
+						<option value=<%=joblist.get(i).getId()%>
+							<%if (joblist.get(i).getId() == Integer.parseInt(job)) {
 	out.print("selected");
 }%>><%=joblist.get(i).getJob()%></option>
 						<%
@@ -93,17 +100,20 @@ String addressdetail = (String) request.getAttribute("addressdetail");
 
 			<tr>
 				<th><label for="tell">電話番号</label></th>
-				<td><input id="tell" type="text" name="tell" size="13" value="<%=tell%>"></td>
+				<td><input id="tell" type="text" name="tell" size="13"
+					value="<%=tell%>"></td>
 			</tr>
 
 			<tr>
 				<th><label for="zip">郵便番号</label></th>
-				<td><input id="zip" type="text" name="zip" size="8" value="<%=zip%>"></td>
+				<td><input id="zip" type="text" name="zip" size="8"
+					value="<%=zip%>"></td>
 			</tr>
 
 			<tr>
 				<th><label for="address">市町村</label></th>
-				<td><input id="address" type="text" name="address" size="20" value="<%=address%>"></td>
+				<td><input id="address" type="text" name="address" size="20"
+					value="<%=address%>"></td>
 			</tr>
 
 			<tr>

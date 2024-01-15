@@ -54,7 +54,7 @@ public class UpdateDao {
 			}
 
 			if (job.equals("0")) {
-				ps.setString(4, "00");
+				ps.setString(4, null);
 			}
 			if (job.equals("1")) {
 				ps.setString(4, "01");
@@ -91,7 +91,7 @@ public class UpdateDao {
 			if (addressdetail != "") {
 				ps.setString(8, addressdetail);
 			} else {
-				ps.setString(8, "");
+				ps.setString(8, null);
 			}
 
 			ps.setString(9, id);

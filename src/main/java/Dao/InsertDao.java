@@ -55,7 +55,7 @@ public class InsertDao {
 			}
 
 			if (job.equals("0")) {
-				ps.setString(5, "");
+				ps.setString(5, null);
 			}
 			if (job.equals("1")) {
 				ps.setString(5, "01");
@@ -92,7 +92,7 @@ public class InsertDao {
 			if (addressdetail != "") {
 				ps.setString(9, addressdetail);
 			} else {
-				ps.setString(9, "");
+				ps.setString(9, null);
 			}
 
 			// “o˜^ˆ—Às

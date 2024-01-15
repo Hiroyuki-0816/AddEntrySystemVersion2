@@ -16,7 +16,8 @@ public class EndServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getRequestDispatcher("./End.jsp").forward(request, response);
+//		request.getRequestDispatcher("./End.jsp").forward(request, response);
+		System.exit(0);
 	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

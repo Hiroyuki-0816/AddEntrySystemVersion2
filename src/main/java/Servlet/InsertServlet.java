@@ -126,7 +126,7 @@ public class InsertServlet extends HttpServlet {
 		}
 
 		if (errorMessages.size() == 0) {
-			
+
 			// 入力値を格納するインスタンス
 			InsertBean ib = new InsertBean();
 
@@ -152,8 +152,8 @@ public class InsertServlet extends HttpServlet {
 
 			/* 検索結果を取得 */
 			ArrayList<SearchBean> searchlist = sdao01.insertSearch(isb);
-			
-			/*確認用ポップアップ*/
+
+			/* 確認用ポップアップ */
 			JFrame frame = new JFrame();
 			frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			frame.setSize(40, 30);
@@ -162,10 +162,10 @@ public class InsertServlet extends HttpServlet {
 
 			/* 登録処理を実施するか更新処理を実施するか判断する */
 			if (searchlist.size() == 0) {
-				
+
 				int checkI = JOptionPane.showConfirmDialog(frame, "登録しますか？", "住所登録システム", JOptionPane.OK_CANCEL_OPTION);
-				
-				if(checkI == JOptionPane.OK_OPTION) {
+
+				if (checkI == JOptionPane.OK_OPTION) {
 					frame.setVisible(false);
 					/* データベースに対して登録処理を実施 */
 					InsertDao idao = new InsertDao();
@@ -177,8 +177,8 @@ public class InsertServlet extends HttpServlet {
 
 					// フォワードの実行
 					request.getRequestDispatcher("./Search.jsp").forward(request, response);
-					
-				}else {
+
+				} else {
 					frame.setVisible(false);
 					/* エラーメッセージをリクエストスコープに格納 */
 					request.setAttribute("errorMessages", errorMessages);
@@ -201,24 +201,25 @@ public class InsertServlet extends HttpServlet {
 					// フォワードの実行
 					request.getRequestDispatcher("./EntryError.jsp").forward(request, response);
 				}
-				
-			} else {
-				
-				int checkU = JOptionPane.showConfirmDialog(frame, "入力された登録IDは既に登録されているものです。\n現在の入力内容で上書きしますか？", "住所登録システム", JOptionPane.OK_CANCEL_OPTION);
-				
-				if(checkU == JOptionPane.OK_OPTION) {
-				frame.setVisible(false);
-				/* データベースに対して更新処理を実施 */
-				UpdateDao udao = new UpdateDao();
-				udao.update(ib);
-				/* 職業リストを再表示 */
-				JobDao jdao = new JobDao();
-				ArrayList<JobBean> joblist = jdao.selectJob();
-				request.setAttribute("joblist", joblist);
 
-				// フォワードの実行
-				request.getRequestDispatcher("./Search.jsp").forward(request, response);
-				}else {
+			} else {
+
+				int checkU = JOptionPane.showConfirmDialog(frame, "入力された登録IDは既に登録されているものです。\n現在の入力内容で上書きしますか？",
+						"住所登録システム", JOptionPane.OK_CANCEL_OPTION);
+
+				if (checkU == JOptionPane.OK_OPTION) {
+					frame.setVisible(false);
+					/* データベースに対して更新処理を実施 */
+					UpdateDao udao = new UpdateDao();
+					udao.update(ib);
+					/* 職業リストを再表示 */
+					JobDao jdao = new JobDao();
+					ArrayList<JobBean> joblist = jdao.selectJob();
+					request.setAttribute("joblist", joblist);
+
+					// フォワードの実行
+					request.getRequestDispatcher("./Search.jsp").forward(request, response);
+				} else {
 					frame.setVisible(false);
 					/* エラーメッセージをリクエストスコープに格納 */
 					request.setAttribute("errorMessages", errorMessages);
