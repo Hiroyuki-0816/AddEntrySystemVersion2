@@ -26,7 +26,7 @@ ArrayList<JobBean> joblist = (ArrayList<JobBean>) request.getAttribute("joblist"
 			<input type="button" value="中止" onclick="history.back()">
 		</form>
 	</div>
-
+	
 	<p id="errormsg" style="color: red;"></p>
 
 	<form method="post" action="/AddEntrySystemVersion2/Insert">

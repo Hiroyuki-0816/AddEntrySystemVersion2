@@ -3,7 +3,7 @@ package Dao;
 import java.sql.*;
 import java.util.ArrayList;
 
-import Bean.InsertSearchBean;
+import Bean.InsertBean;
 import Bean.SearchBean;
 
 public class SearchDao01 {
@@ -16,7 +16,7 @@ public class SearchDao01 {
 	/* 初期のDB接続状態 */
 	Connection con = null;
 
-	public ArrayList<SearchBean> insertSearch(InsertSearchBean isb) {
+	public ArrayList<SearchBean> insertSearch(InsertBean ib) {
 
 		/* 検索結果を格納するリスト */
 		ArrayList<SearchBean> searchlist = new ArrayList<SearchBean>();
@@ -36,7 +36,7 @@ public class SearchDao01 {
 			String sql = "select * from t_address.t_address WHERE id = ?";
 
 			// フォームから取得した検索条件*/
-			String id = isb.getId();
+			String id = ib.getId();
 
 			/* SQL文をDBへ送信 */
 			PreparedStatement ps = con.prepareStatement(sql);

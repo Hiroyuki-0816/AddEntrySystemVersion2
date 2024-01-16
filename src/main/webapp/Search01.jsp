@@ -45,9 +45,6 @@ String addressdetail = (String) request.getAttribute("addressdetail");
 		<form method="post" action="/AddEntrySystemVersion2/End">
 			<input type="submit" value="終了">
 		</form>
-		<!-- <form> -->
-		<!-- <input type="button" value="終了" onclick="closeWindow()"> -->
-		<!-- </form> -->
 	</div>
 
 	<%

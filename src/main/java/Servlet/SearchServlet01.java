@@ -106,35 +106,35 @@ public class SearchServlet01 extends HttpServlet {
 			errorMessages.add("番地" + msg);
 		}
 
-			// 検索値を格納するインスタンス
-			ArgumentBean ab = new ArgumentBean();
+		// 検索値を格納するインスタンス
+		ArgumentBean ab = new ArgumentBean();
 
-			// フォーム内で入力された値を検索値としてセットする
-			ab.setIdfrom(idfrom);
-			ab.setIdto(idto);
-			ab.setName(name);
-			ab.setAgefrom(agefrom);
-			ab.setAgeto(ageto);
-			ab.setSex(sex);
-			ab.setJob(job);
-			ab.setTell(tell);
-			ab.setZip(zip);
-			ab.setAddress(address);
-			ab.setAddressdetail(addressdetail);
+		// フォーム内で入力された値を検索値としてセットする
+		ab.setIdfrom(idfrom);
+		ab.setIdto(idto);
+		ab.setName(name);
+		ab.setAgefrom(agefrom);
+		ab.setAgeto(ageto);
+		ab.setSex(sex);
+		ab.setJob(job);
+		ab.setTell(tell);
+		ab.setZip(zip);
+		ab.setAddress(address);
+		ab.setAddressdetail(addressdetail);
 
-			/* データベースに対して検索処理を実施 */
-			SearchDao sdao = new SearchDao();
+		/* データベースに対して検索処理を実施 */
+		SearchDao sdao = new SearchDao();
 
-			/* 検索結果を取得 */
-			ArrayList<SearchBean> searchlist = sdao.selectSearch(ab);
+		/* 検索結果を取得 */
+		ArrayList<SearchBean> searchlist = sdao.selectSearch(ab);
 
-			/*検索結果が0件の場合に表示*/
-			if (errorMessages.size() == 0 && searchlist.size() == 0) {
-				errorMessages.add("該当するデータが存在しません。");
-			}
+		/* 検索結果が0件の場合に表示 */
+		if (errorMessages.size() == 0 && searchlist.size() == 0) {
+			errorMessages.add("該当するデータが存在しません。");
+		}
 
-			/* 検索結果をリクエストスコープに格納 */
-			request.setAttribute("searchlist", searchlist);
+		/* 検索結果をリクエストスコープに格納 */
+		request.setAttribute("searchlist", searchlist);
 
 		/* エラーメッセージをリクエストスコープに格納 */
 		request.setAttribute("errorMessages", errorMessages);

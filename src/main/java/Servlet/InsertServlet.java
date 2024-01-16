@@ -12,7 +12,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import Bean.InsertBean;
-import Bean.InsertSearchBean;
 import Bean.JobBean;
 import Bean.SearchBean;
 import Dao.InsertDao;
@@ -141,17 +140,11 @@ public class InsertServlet extends HttpServlet {
 			ib.setAddress(address);
 			ib.setAddressDetail(addressdetail);
 
-			// 登録IDを格納するインスタンス
-			InsertSearchBean isb = new InsertSearchBean();
-
-			// フォーム内で入力された登録IDを検索値としてセットする
-			isb.setId(id);
-
 			/* 登録IDが重複しているデータがないか検索 */
 			SearchDao01 sdao01 = new SearchDao01();
 
 			/* 検索結果を取得 */
-			ArrayList<SearchBean> searchlist = sdao01.insertSearch(isb);
+			ArrayList<SearchBean> searchlist = sdao01.insertSearch(ib);
 
 			/* 確認用ポップアップ */
 			JFrame frame = new JFrame();

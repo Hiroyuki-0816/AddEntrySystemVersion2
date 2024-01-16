@@ -33,11 +33,8 @@ ArrayList<JobBean> joblist = (ArrayList<JobBean>) request.getAttribute("joblist"
 		<form method="post" action="/AddEntrySystemVersion2/End">
 			<input type="submit" value="終了">
 		</form>
-<!-- <form>
-<input type="button" value="終了" onclick="closeWindow()">
-</form> -->
 	</div>
-
+	
 	<p id="errormsg" style="color: red;"></p>
 
 	<form method="post" action="/AddEntrySystemVersion2/Search01">

@@ -23,7 +23,3 @@ function clearButtonClickS(){
         document.getElementById("address").value = "";
         document.getElementById("addressdetail").value = "";
 }
-
-function closeWindow() {
-        window.close();
-}
