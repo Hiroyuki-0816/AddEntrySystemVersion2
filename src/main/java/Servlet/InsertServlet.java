@@ -8,8 +8,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 import Bean.InsertBean;
 import Bean.JobBean;
@@ -146,96 +144,27 @@ public class InsertServlet extends HttpServlet {
 			/* 検索結果を取得 */
 			ArrayList<SearchBean> searchlist = sdao01.insertSearch(ib);
 
-			/* 確認用ポップアップ */
-			JFrame frame = new JFrame();
-			frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			frame.setSize(40, 30);
-			frame.setLocationRelativeTo(null);
-			frame.setVisible(true);
-
 			/* 登録処理を実施するか更新処理を実施するか判断する */
 			if (searchlist.size() == 0) {
 
-				int checkI = JOptionPane.showConfirmDialog(frame, "登録しますか？", "住所登録システム", JOptionPane.OK_CANCEL_OPTION);
-
-				if (checkI == JOptionPane.OK_OPTION) {
-					frame.setVisible(false);
 					/* データベースに対して登録処理を実施 */
 					InsertDao idao = new InsertDao();
 					idao.insert(ib);
-					/* 職業リストを再表示 */
-					JobDao jdao = new JobDao();
-					ArrayList<JobBean> joblist = jdao.selectJob();
-					request.setAttribute("joblist", joblist);
-
-					// フォワードの実行
-					request.getRequestDispatcher("./Search.jsp").forward(request, response);
-
-				} else {
-					frame.setVisible(false);
-					/* エラーメッセージをリクエストスコープに格納 */
-					request.setAttribute("errorMessages", errorMessages);
-					/* 入力項目を保持 */
-					request.setAttribute("id", id);
-					request.setAttribute("name", name);
-					request.setAttribute("age", age);
-					request.setAttribute("sex", sex);
-					request.setAttribute("job", job);
-					request.setAttribute("tell", tell);
-					request.setAttribute("zip", zip);
-					request.setAttribute("address", address);
-					request.setAttribute("addressdetail", addressdetail);
-
-					/* 職業リストを再表示 */
-					JobDao jdao = new JobDao();
-					ArrayList<JobBean> joblist = jdao.selectJob();
-					request.setAttribute("joblist", joblist);
-
-					// フォワードの実行
-					request.getRequestDispatcher("./EntryError.jsp").forward(request, response);
-				}
-
+					
 			} else {
 
-				int checkU = JOptionPane.showConfirmDialog(frame, "入力された登録IDは既に登録されているものです。\n現在の入力内容で上書きしますか？",
-						"住所登録システム", JOptionPane.OK_CANCEL_OPTION);
-
-				if (checkU == JOptionPane.OK_OPTION) {
-					frame.setVisible(false);
 					/* データベースに対して更新処理を実施 */
 					UpdateDao udao = new UpdateDao();
 					udao.update(ib);
-					/* 職業リストを再表示 */
-					JobDao jdao = new JobDao();
-					ArrayList<JobBean> joblist = jdao.selectJob();
-					request.setAttribute("joblist", joblist);
-
-					// フォワードの実行
-					request.getRequestDispatcher("./Search.jsp").forward(request, response);
-				} else {
-					frame.setVisible(false);
-					/* エラーメッセージをリクエストスコープに格納 */
-					request.setAttribute("errorMessages", errorMessages);
-					/* 入力項目を保持 */
-					request.setAttribute("id", id);
-					request.setAttribute("name", name);
-					request.setAttribute("age", age);
-					request.setAttribute("sex", sex);
-					request.setAttribute("job", job);
-					request.setAttribute("tell", tell);
-					request.setAttribute("zip", zip);
-					request.setAttribute("address", address);
-					request.setAttribute("addressdetail", addressdetail);
-
-					/* 職業リストを再表示 */
-					JobDao jdao = new JobDao();
-					ArrayList<JobBean> joblist = jdao.selectJob();
-					request.setAttribute("joblist", joblist);
-
-					// フォワードの実行
-					request.getRequestDispatcher("./EntryError.jsp").forward(request, response);
-				}
 			}
+			
+			/* 職業リストを再表示 */
+			JobDao jdao = new JobDao();
+			ArrayList<JobBean> joblist = jdao.selectJob();
+			request.setAttribute("joblist", joblist);
+
+			// フォワードの実行
+			request.getRequestDispatcher("./Search.jsp").forward(request, response);
 		}
 	}
 

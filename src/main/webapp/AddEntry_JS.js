@@ -23,3 +23,13 @@ function clearButtonClickS(){
         document.getElementById("address").value = "";
         document.getElementById("addressdetail").value = "";
 }
+
+function confirm(){
+    var result = window.confirm('登録しますか？');
+    
+    if( result ) {
+
+		//OK押下時に登録処理を実行
+		location.href = "/AddEntrySystemVersion2/Insert"
+    }
+}
