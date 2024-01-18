@@ -24,12 +24,15 @@ function clearButtonClickS(){
         document.getElementById("addressdetail").value = "";
 }
 
+let button = document.getElementById("confirm");
+button.addEventListener('click', confirm);
+
 function confirm(){
-    var result = window.confirm('登録しますか？');
-    
-    if( result ) {
+    let result = window.confirm('登録しますか？');
+    if(result) {
 
 		//OK押下時に登録処理を実行
-		location.href = "/AddEntrySystemVersion2/Insert"
+		location.href = "/AddEntrySystemVersion2/Insert";
     }
 }
+

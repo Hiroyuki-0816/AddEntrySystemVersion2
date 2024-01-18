@@ -88,7 +88,7 @@ ArrayList<JobBean> joblist = (ArrayList<JobBean>) request.getAttribute("joblist"
 					size="20"></td>
 			</tr>
 		</table>
-		<input type="submit" value="登録" onclick="confirm()">
+		<input type="submit" value="登録" id="confirm">
 	</form>
 
 
