@@ -12,7 +12,6 @@ ArrayList<JobBean> joblist = (ArrayList<JobBean>) request.getAttribute("joblist"
 <html>
 <head>
 <meta charset="UTF-8">
-<script src='AddEntry_JS.js'></script>
 <title>住所登録システム</title>
 </head>
 <body>
@@ -56,7 +55,7 @@ ArrayList<JobBean> joblist = (ArrayList<JobBean>) request.getAttribute("joblist"
 			<tr>
 				<th><label for="job">職業</label></th>
 				<td><select name="job" class="form-controll">
-						<option value="0"></option>
+						<option id="job" value="0" selected></option>
 						<%
 						for (int i = 0; i < joblist.size(); ++i) {
 						%>
@@ -88,10 +87,9 @@ ArrayList<JobBean> joblist = (ArrayList<JobBean>) request.getAttribute("joblist"
 					size="20"></td>
 			</tr>
 		</table>
-		<input type="submit" value="登録" id="confirm">
+		<button id="confirm">登録</button>
 	</form>
 
-
-
 </body>
+<script src='AddEntry_JS.js'></script>
 </html>

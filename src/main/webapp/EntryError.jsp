@@ -80,7 +80,7 @@ String addressdetail = (String) request.getAttribute("addressdetail");
 
 			<tr>
 				<th><label for="job">職業</label></th>
-				<td><select id="job" name="job" class="form-controll">
+				<td><select name="job" class="form-controll">
 						<option value="0"
 							<%if (job.equals("0")) {
 	out.print("selected");

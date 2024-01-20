@@ -24,7 +24,7 @@ function clearButtonClickS(){
         document.getElementById("addressdetail").value = "";
 }
 
-let button = document.getElementById("confirm");
+const button = document.getElementById("confirm");
 button.addEventListener('click', confirm);
 
 function confirm(){
