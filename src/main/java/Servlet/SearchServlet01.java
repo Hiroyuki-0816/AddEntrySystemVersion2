@@ -14,6 +14,7 @@ import Bean.JobBean;
 import Bean.SearchBean;
 import Dao.JobDao;
 import Dao.SearchDao;
+import Validation.SearchValidation;
 
 /**
  * Servlet implementation class test03
@@ -29,6 +30,7 @@ public class SearchServlet01 extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		/* フォームから検索条件を取得 */
 		request.setCharacterEncoding("UTF-8");
 		String idfrom = request.getParameter("idfrom");
 		String idto = request.getParameter("idto");
@@ -42,74 +44,10 @@ public class SearchServlet01 extends HttpServlet {
 		String address = request.getParameter("address");
 		String addressdetail = request.getParameter("addressdetail");
 
-		// エラーチェック
-		ArrayList<String> errorMessages = new ArrayList<String>();
-		String msg = "に誤りがあります。入力した文字数が多すぎます。";
-		String msg2 = "に誤りがあります。入力した文字の型が違います。";
-		String msg3 = "の範囲指定に誤りがあります";
-
-		if (idfrom.length() > 8) {
-			errorMessages.add("登録IDFROM" + msg);
-		} else if (idfrom != "" && !idfrom.matches("^[0-9]+$")) {
-			errorMessages.add("登録IDFROM" + msg2);
-		}
-
-		if (idto.length() > 8) {
-			errorMessages.add("登録IDTO" + msg);
-		} else if (idto != "" && !idto.matches("^[0-9]+$")) {
-			errorMessages.add("登録IDTO" + msg2);
-		}
-
-		if ((idfrom != "" && idto != "") && (idfrom.matches("^[0-9]+$") && idto.matches("^[0-9]+$"))
-				&& Integer.parseInt(idfrom) > Integer.parseInt(idto)) {
-			errorMessages.add("登録ID" + msg3);
-		}
-
-		if (name.length() > 20) {
-			errorMessages.add("氏名" + msg);
-		}
-
-		if (agefrom.length() > 3) {
-			errorMessages.add("年齢FROM" + msg);
-		} else if (agefrom != "" && !agefrom.matches("^[0-9]+$")) {
-			errorMessages.add("年齢FROM" + msg2);
-		}
-
-		if (ageto.length() > 3) {
-			errorMessages.add("年齢TO" + msg);
-		} else if (ageto != "" && !ageto.matches("^[0-9]+$")) {
-			errorMessages.add("年齢TO" + msg2);
-		}
-
-		if ((agefrom != "" && ageto != "") && (agefrom.matches("^[0-9]+$") && ageto.matches("^[0-9]+$"))
-				&& Integer.parseInt(agefrom) > Integer.parseInt(ageto)) {
-			errorMessages.add("年齢" + msg3);
-		}
-
-		if (tell.length() > 13) {
-			errorMessages.add("電話番号" + msg);
-		} else if (tell != "" && !tell.matches("^[-0-9]+$")) {
-			errorMessages.add("電話番号" + msg2);
-		}
-
-		if (zip.length() > 8) {
-			errorMessages.add("郵便番号" + msg);
-		} else if (zip != "" && !zip.matches("^[-0-9]+$")) {
-			errorMessages.add("郵便番号" + msg2);
-		}
-
-		if (address.length() > 20) {
-			errorMessages.add("住所" + msg);
-		}
-
-		if (addressdetail.length() > 20) {
-			errorMessages.add("番地" + msg);
-		}
-
-		// 検索値を格納するインスタンス
+		/* 検索値を格納するインスタンス */
 		ArgumentBean ab = new ArgumentBean();
 
-		// フォーム内で入力された値を検索値としてセットする
+		/* フォーム内で入力された値を検索値としてセットする */
 		ab.setIdfrom(idfrom);
 		ab.setIdto(idto);
 		ab.setName(name);
@@ -121,6 +59,12 @@ public class SearchServlet01 extends HttpServlet {
 		ab.setZip(zip);
 		ab.setAddress(address);
 		ab.setAddressdetail(addressdetail);
+
+		/* エラーチェックを実施 */
+		SearchValidation svalidate = new SearchValidation();
+
+		/* エラーチェックの結果を取得 */
+		ArrayList<String> errorMessages = svalidate.errorCheckS(ab);
 
 		/* データベースに対して検索処理を実施 */
 		SearchDao sdao = new SearchDao();
@@ -157,7 +101,7 @@ public class SearchServlet01 extends HttpServlet {
 		ArrayList<JobBean> joblist = jdao.selectJob();
 		request.setAttribute("joblist", joblist);
 
-		// フォワードの実行
+		/* フォワードの実行 */
 		request.getRequestDispatcher("./Search01.jsp").forward(request, response);
 	}
 

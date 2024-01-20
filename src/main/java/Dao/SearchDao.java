@@ -36,7 +36,7 @@ public class SearchDao {
 			/* デフォルトのSQL文(全件検索も同様) */
 			String sql = "select t_address.id,name,age,sex,m_job.job,tell,zip,address,addressdetail from t_address.t_address left join t_address.m_job on t_address.job = m_job.id";
 
-			// フォームから取得した検索条件*/
+			/* フォームから取得した検索条件*/
 			String idfrom = ab.getIdfrom();
 			String idto = ab.getIdto();
 			String name = ab.getName();

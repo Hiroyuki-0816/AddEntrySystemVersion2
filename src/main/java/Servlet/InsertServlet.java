@@ -16,6 +16,7 @@ import Dao.InsertDao;
 import Dao.JobDao;
 import Dao.SearchDao01;
 import Dao.UpdateDao;
+import Validation.InsertValidation;
 
 /**
  * Servlet implementation class InsertServlet
@@ -31,6 +32,7 @@ public class InsertServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 
+		/* フォームから入力値を取得 */
 		String id = request.getParameter("id");
 		String name = request.getParameter("name");
 		String age = request.getParameter("age");
@@ -41,63 +43,25 @@ public class InsertServlet extends HttpServlet {
 		String address = request.getParameter("address");
 		String addressdetail = request.getParameter("addressdetail");
 
-		// エラーチェック
-		ArrayList<String> errorMessages = new ArrayList<String>();
-		String msg = "は必ず入力してください。";
-		String msg2 = "に誤りがあります。入力した文字数が多すぎます。";
-		String msg3 = "に誤りがあります。入力した文字の型が違います。";
+		/* 入力値を格納するインスタンス */
+		InsertBean ib = new InsertBean();
 
-		if (id == "") {
-			errorMessages.add("登録ID" + msg);
-		} else if (id.length() > 8) {
-			errorMessages.add("登録ID" + msg2);
-		} else if (!id.matches("^[0-9]+$")) {
-			errorMessages.add("登録ID" + msg3);
-		}
+		/* フォーム内で入力された値を登録値としてセットする */
+		ib.setId(id);
+		ib.setName(name);
+		ib.setAge(age);
+		ib.setSex(sex);
+		ib.setJob(job);
+		ib.setTell(tell);
+		ib.setZip(zip);
+		ib.setAddress(address);
+		ib.setAddressDetail(addressdetail);
 
-		if (name == "") {
-			errorMessages.add("氏名" + msg);
-		} else if (name.length() > 20) {
-			errorMessages.add("氏名" + msg2);
-		}
+		/* エラーチェックを実施 */
+		InsertValidation ivalidate = new InsertValidation();
 
-		if (age == "") {
-			errorMessages.add("年齢" + msg);
-		} else if (age.length() > 3) {
-			errorMessages.add("年齢" + msg2);
-		} else if (!age.matches("^[0-9]+$")) {
-			errorMessages.add("年齢" + msg3);
-		}
-
-		if (tell == "") {
-			errorMessages.add("電話番号" + msg);
-		} else if (tell.length() > 13) {
-			errorMessages.add("電話番号" + msg2);
-		} else if (!tell.matches("^[-0-9]+$")) {
-			errorMessages.add("電話番号" + msg3);
-		} else if (tell.startsWith("-") || tell.endsWith("-")) {
-			errorMessages.add("ハイフン'-'で開始、または終了する文字列の登録はできません。");
-		}
-
-		if (zip == "") {
-			errorMessages.add("郵便番号" + msg);
-		} else if (zip.length() > 8) {
-			errorMessages.add("郵便番号" + msg2);
-		} else if (!zip.matches("^[-0-9]+$")) {
-			errorMessages.add("郵便番号" + msg3);
-		} else if (!zip.matches("[0-9]{3}-[0-9]{4}")) {
-			errorMessages.add("郵便番号は書式：「999-9999」でなければ登録できません。");
-		}
-
-		if (address == "") {
-			errorMessages.add("住所" + msg);
-		} else if (address.length() > 20) {
-			errorMessages.add("住所" + msg2);
-		}
-
-		if (addressdetail.length() > 20) {
-			errorMessages.add("番地" + msg2);
-		}
+		/* エラーチェックの結果を取得 */
+		ArrayList<String> errorMessages = ivalidate.errorCheckI(ib);
 
 		if (errorMessages.size() != 0) {
 			/* エラーメッセージをリクエストスコープに格納 */
@@ -118,25 +82,11 @@ public class InsertServlet extends HttpServlet {
 			ArrayList<JobBean> joblist = jdao.selectJob();
 			request.setAttribute("joblist", joblist);
 
-			// フォワードの実行
+			/* フォワードの実行 */
 			request.getRequestDispatcher("./EntryError.jsp").forward(request, response);
 		}
 
 		if (errorMessages.size() == 0) {
-
-			// 入力値を格納するインスタンス
-			InsertBean ib = new InsertBean();
-
-			// フォーム内で入力された値を登録値としてセットする
-			ib.setId(id);
-			ib.setName(name);
-			ib.setAge(age);
-			ib.setSex(sex);
-			ib.setJob(job);
-			ib.setTell(tell);
-			ib.setZip(zip);
-			ib.setAddress(address);
-			ib.setAddressDetail(addressdetail);
 
 			/* 登録IDが重複しているデータがないか検索 */
 			SearchDao01 sdao01 = new SearchDao01();
@@ -147,23 +97,23 @@ public class InsertServlet extends HttpServlet {
 			/* 登録処理を実施するか更新処理を実施するか判断する */
 			if (searchlist.size() == 0) {
 
-					/* データベースに対して登録処理を実施 */
-					InsertDao idao = new InsertDao();
-					idao.insert(ib);
-					
+				/* データベースに対して登録処理を実施 */
+				InsertDao idao = new InsertDao();
+				idao.insert(ib);
+
 			} else {
 
-					/* データベースに対して更新処理を実施 */
-					UpdateDao udao = new UpdateDao();
-					udao.update(ib);
+				/* データベースに対して更新処理を実施 */
+				UpdateDao udao = new UpdateDao();
+				udao.update(ib);
 			}
-			
+
 			/* 職業リストを再表示 */
 			JobDao jdao = new JobDao();
 			ArrayList<JobBean> joblist = jdao.selectJob();
 			request.setAttribute("joblist", joblist);
 
-			// フォワードの実行
+			/* フォワードの実行 */
 			request.getRequestDispatcher("./Search.jsp").forward(request, response);
 		}
 	}
