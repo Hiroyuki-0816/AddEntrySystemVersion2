@@ -122,7 +122,7 @@ String addressdetail = (String) request.getAttribute("addressdetail");
 					size="20" value="<%=addressdetail%>"></td>
 			</tr>
 		</table>
-		<input type="submit" value="登録">
+		<input id="confirm" type="submit" onclick="return Confirm()" value="登録">
 	</form>
 
 

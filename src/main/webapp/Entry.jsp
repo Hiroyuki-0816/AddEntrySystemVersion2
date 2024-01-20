@@ -9,11 +9,12 @@ ArrayList<JobBean> joblist = (ArrayList<JobBean>) request.getAttribute("joblist"
 %>
 
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
 <meta charset="UTF-8">
 <title>住所登録システム</title>
 </head>
+<script src='AddEntry_JS.js'></script>
 <body>
 	<h1>登録画面</h1>
 
@@ -25,7 +26,7 @@ ArrayList<JobBean> joblist = (ArrayList<JobBean>) request.getAttribute("joblist"
 			<input type="button" value="中止" onclick="history.back()">
 		</form>
 	</div>
-	
+
 	<p id="errormsg" style="color: red;"></p>
 
 	<form method="post" action="/AddEntrySystemVersion2/Insert">
@@ -87,9 +88,7 @@ ArrayList<JobBean> joblist = (ArrayList<JobBean>) request.getAttribute("joblist"
 					size="20"></td>
 			</tr>
 		</table>
-		<button id="confirm">登録</button>
+		<input id="confirm" type="submit" onclick="return Confirm()" value="登録">
 	</form>
-
 </body>
-<script src='AddEntry_JS.js'></script>
 </html>
