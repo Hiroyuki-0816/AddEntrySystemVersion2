@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Bean.InsertBean;
 import Bean.JobBean;
@@ -92,10 +93,10 @@ public class InsertServlet extends HttpServlet {
 			SearchDao01 sdao01 = new SearchDao01();
 
 			/* ŒŸõŒ‹‰Ê‚ğæ“¾ */
-			ArrayList<SearchBean> searchlist = sdao01.insertSearch(ib);
+			ArrayList<SearchBean> searchlist01 = sdao01.insertSearch(ib);
 
 			/* “o˜^ˆ—‚ğÀ{‚·‚é‚©XVˆ—‚ğÀ{‚·‚é‚©”»’f‚·‚é */
-			if (searchlist.size() == 0) {
+			if (searchlist01.size() == 0) {
 
 				/* ƒf[ƒ^ƒx[ƒX‚É‘Î‚µ‚Ä“o˜^ˆ—‚ğÀ{ */
 				InsertDao idao = new InsertDao();
@@ -112,9 +113,10 @@ public class InsertServlet extends HttpServlet {
 			JobDao jdao = new JobDao();
 			ArrayList<JobBean> joblist = jdao.selectJob();
 			request.setAttribute("joblist", joblist);
-
-			/* ƒtƒHƒ[ƒh‚ÌÀs */
+			
+			/* ŒŸõ‰æ–Ê‚Ö‘JˆÚ*/
 			request.getRequestDispatcher("./Search.jsp").forward(request, response);
+
 		}
 	}
 

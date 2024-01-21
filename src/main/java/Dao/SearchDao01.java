@@ -19,7 +19,7 @@ public class SearchDao01 {
 	public ArrayList<SearchBean> insertSearch(InsertBean ib) {
 
 		/* 検索結果を格納するリスト */
-		ArrayList<SearchBean> searchlist = new ArrayList<SearchBean>();
+		ArrayList<SearchBean> searchlist01 = new ArrayList<SearchBean>();
 
 		/* JDBCドライバの読み込み */
 		try {
@@ -49,7 +49,7 @@ public class SearchDao01 {
 			while (rs.next()) {
 				SearchBean sb = new SearchBean();
 				sb.setId(rs.getInt("id"));
-				searchlist.add(sb);
+				searchlist01.add(sb);
 			}
 
 		} catch (SQLException e) {
@@ -65,6 +65,6 @@ public class SearchDao01 {
 			}
 
 		}
-		return searchlist;
+		return searchlist01;
 	}
 }

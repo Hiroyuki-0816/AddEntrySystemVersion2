@@ -29,11 +29,11 @@ String addressdetail = (String) request.getAttribute("addressdetail");
 	<h1>登録画面</h1>
 
 	<div style="display: inline-flex">
-		<form method="post" action="/AddEntrySystemVersion2/Entry">
-			<input type="submit" value="クリア">
+		<form>
+			<input type="button" value="クリア" onclick="clearButtonClickE()">
 		</form>
-		<form method="post" action="/AddEntrySystemVersion2/Search">
-			<input type="submit" value="中止">
+		<form>
+			<input type="button" value="中止" onclick="history.go(-2)">
 		</form>
 	</div>
 
@@ -81,7 +81,7 @@ String addressdetail = (String) request.getAttribute("addressdetail");
 			<tr>
 				<th><label for="job">職業</label></th>
 				<td><select name="job" class="form-controll">
-						<option value="0"
+						<option id="job" value="0"
 							<%if (job.equals("0")) {
 	out.print("selected");
 }%>></option>
@@ -122,7 +122,8 @@ String addressdetail = (String) request.getAttribute("addressdetail");
 					size="20" value="<%=addressdetail%>"></td>
 			</tr>
 		</table>
-		<input id="confirm" type="submit" onclick="return Confirm()" value="登録">
+		<input id="confirm" type="submit" onclick="return Confirm()"
+			value="登録">
 	</form>
 
 
