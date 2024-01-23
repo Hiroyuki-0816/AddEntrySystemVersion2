@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Bean.JobBean;
+import Bean.SearchBean;
 import Dao.JobDao;
 
 /**
@@ -25,16 +26,32 @@ public class SearchServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
-		/* 職業マスタから職業名を取得する */
-		/* データベースに対して検索処理を実施 */
+		
+		/* 検索結果を格納するリスト */
+		ArrayList<SearchBean> searchlist = new ArrayList<SearchBean>();
+		request.setAttribute("searchlist", searchlist);
+		
+		/* エラーメッセージを格納するリスト */
+		ArrayList<String> errorMessages = new ArrayList<String>();
+		request.setAttribute("errorMessages", errorMessages);
+		
+		/* 職業リストを職業マスタから生成 */
 		JobDao jdao = new JobDao();
-
-		/* 検索結果を取得 */
 		ArrayList<JobBean> joblist = jdao.selectJob();
-
-		/* 検索結果をリクエストスコープに格納 */
 		request.setAttribute("joblist", joblist);
+		
+		/* 検索条件の初期状態を設定 */
+		request.setAttribute("idfrom", "");
+		request.setAttribute("idto", "");
+		request.setAttribute("name", "");
+		request.setAttribute("agefrom", "");
+		request.setAttribute("ageto", "");
+		request.setAttribute("sex", "both");
+		request.setAttribute("job", "0");
+		request.setAttribute("tell", "");
+		request.setAttribute("zip", "");
+		request.setAttribute("address", "");
+		request.setAttribute("addressdetail", "");
 
 		// フォワードの実行
 		request.getRequestDispatcher("./Search.jsp").forward(request, response);

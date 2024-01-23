@@ -8,7 +8,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import Bean.InsertBean;
 import Bean.JobBean;
@@ -84,7 +83,7 @@ public class InsertServlet extends HttpServlet {
 			request.setAttribute("joblist", joblist);
 
 			/* フォワードの実行 */
-			request.getRequestDispatcher("./EntryError.jsp").forward(request, response);
+			request.getRequestDispatcher("./Entry.jsp").forward(request, response);
 		}
 
 		if (errorMessages.size() == 0) {

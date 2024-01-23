@@ -8,9 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import Bean.ArgumentBean;
 import Bean.JobBean;
 import Dao.JobDao;
 
@@ -27,16 +25,25 @@ public class EntryServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		/* エラーメッセージを格納するリスト */
+		ArrayList<String> errorMessages = new ArrayList<String>();
+		request.setAttribute("errorMessages", errorMessages);
 
-		/* 職業マスタから職業名を取得する */
-		/* データベースに対して検索処理を実施 */
+		/* 職業リストを職業マスタから生成 */
 		JobDao jdao = new JobDao();
-
-		/* 検索結果を取得 */
 		ArrayList<JobBean> joblist = jdao.selectJob();
-
-		/* 検索結果をリクエストスコープに格納 */
 		request.setAttribute("joblist", joblist);
+		
+		/* 入力フォームの初期状態を設定 */
+		request.setAttribute("id", "");
+		request.setAttribute("name", "");
+		request.setAttribute("age", "");
+		request.setAttribute("sex", "male");
+		request.setAttribute("job", "0");
+		request.setAttribute("tell", "");
+		request.setAttribute("zip", "");
+		request.setAttribute("address", "");
+		request.setAttribute("addressdetail", "");
 
 		// フォワードの実行
 		request.getRequestDispatcher("./Entry.jsp").forward(request, response);
