@@ -30,12 +30,6 @@ String addressdetail = (String) request.getAttribute("addressdetail");
 	<h1>住所登録システム</h1>
 
 	<div style="display: inline-flex">
-		<form method="post" action="/AddEntrySystemVersion2/Search">
-			<input type="submit" value="クリア">
-		</form>
-		<form method="post" action="/AddEntrySystemVersion2/Entry">
-			<input type="submit" value="新規">
-		</form>
 		<form method="get" action="/AddEntrySystemVersion2/Entry">
 			<input type="submit" value="変更">
 		</form>
@@ -127,7 +121,9 @@ String addressdetail = (String) request.getAttribute("addressdetail");
 			</tr>
 		</table>
 
-		<input type="submit" value="検索">
+		<input type="submit" name="button1" value="Search">
+		<input type="submit" name="button2" value="Clear">
+		<input type="submit" name="button3" value="Entry">
 	</form>
 
 	<p>&nbsp;</p>

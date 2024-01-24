@@ -16,6 +16,20 @@ String tell = (String) request.getAttribute("tell");
 String zip = (String) request.getAttribute("zip");
 String address = (String) request.getAttribute("address");
 String addressdetail = (String) request.getAttribute("addressdetail");
+
+ArrayList<JobBean> joblistS = (ArrayList<JobBean>) session.getAttribute("joblistS");
+ArrayList<String> errorMessagesS = (ArrayList<String>) session.getAttribute("errorMessagesS");
+String idfromS = (String) session.getAttribute("idfromS");
+String idtoS = (String) session.getAttribute("idtoS");
+String nameS = (String) session.getAttribute("nameS");
+String agefromS = (String) session.getAttribute("agefromS");
+String agetoS = (String) session.getAttribute("agetoS");
+String sexS = (String) session.getAttribute("sexS");
+String jobS = (String) session.getAttribute("jobS");
+String tellS = (String) session.getAttribute("tellS");
+String zipS = (String) session.getAttribute("zipS");
+String addressS = (String) session.getAttribute("addressS");
+String addressdetailS = (String) session.getAttribute("addressdetailS");
 %>
 
 <!DOCTYPE html>
@@ -33,7 +47,7 @@ String addressdetail = (String) request.getAttribute("addressdetail");
 			<input type="button" value="クリア" onclick="clearButtonClickE()">
 		</form>
 		<form>
-			<input type="button" value="中止" onclick="history.go(-2)">
+			<input type="button" value="中止" onclick="history.back()">
 		</form>
 	</div>
 
@@ -46,6 +60,17 @@ String addressdetail = (String) request.getAttribute("addressdetail");
 	%>
 
 	<form method="post" action="/AddEntrySystemVersion2/Insert">
+	<input type="hidden" name="idfromS" value="<%=idfromS%>">
+	<input type="hidden" name="idtoS" value="<%=idtoS%>">
+	<input type="hidden" name="nameS" value="<%=nameS%>">
+	<input type="hidden" name="agefromS" value="<%=agefromS%>">
+	<input type="hidden" name="agetoS" value="<%=agetoS%>">
+	<input type="hidden" name="sexS" value="<%=sexS%>">
+	<input type="hidden" name="jobS" value="<%=jobS%>">
+	<input type="hidden" name="tellS" value="<%=tellS%>">
+	<input type="hidden" name="zipS" value="<%=zipS%>">
+	<input type="hidden" name="addressS" value="<%=addressS%>">
+	<input type="hidden" name="addressdetailS" value="<%=addressdetailS%>">
 		<table border="1">
 			<tr>
 				<th><label for="id">登録ID</label></th>

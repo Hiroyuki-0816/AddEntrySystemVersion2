@@ -55,6 +55,7 @@ public class SearchServlet extends HttpServlet {
 
 		// フォワードの実行
 		request.getRequestDispatcher("./Search.jsp").forward(request, response);
+		
 	}
 
 	/**
