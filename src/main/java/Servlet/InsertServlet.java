@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Bean.InsertBean;
 import Bean.JobBean;
@@ -30,9 +31,14 @@ public class InsertServlet extends HttpServlet {
 	 *      response)
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-
-		/* フォームから入力値を取得 */
+		
+		/*ボタンの値で処理を分岐*/
+		String submitType1 = request.getParameter("button1");
+		String submitType2 = request.getParameter("button2");
+		String submitType3 = request.getParameter("button3");
+		
+		if(submitType1 != null) {
+			/* フォームから入力値を取得 */
 		String id = request.getParameter("id");
 		String name = request.getParameter("name");
 		String age = request.getParameter("age");
@@ -113,10 +119,128 @@ public class InsertServlet extends HttpServlet {
 			ArrayList<JobBean> joblist = jdao.selectJob();
 			request.setAttribute("joblist", joblist);
 			
+			/*セッション情報を取得*/
+			HttpSession session = request.getSession();
+			ArrayList<SearchBean> searchlistS = (ArrayList<SearchBean>) session.getAttribute("searchlistS");
+			ArrayList<String> errorMessagesS = (ArrayList<String>) session.getAttribute("errorMessagesS");
+			String idfromS = (String) session.getAttribute("idfromS");
+			String idtoS = (String) session.getAttribute("idtoS");
+			String nameS = (String) session.getAttribute("nameS");
+			String agefromS = (String) session.getAttribute("agefromS");
+			String agetoS = (String) session.getAttribute("agetoS");
+			String sexS = (String) session.getAttribute("sexS");
+			String jobS = (String) session.getAttribute("jobS");
+			String tellS = (String) session.getAttribute("tellS");
+			String zipS = (String) session.getAttribute("zipS");
+			String addressS = (String) session.getAttribute("addressS");
+			String addressdetailS = (String) session.getAttribute("addressdetailS");
+			
+			/* 検索画面を復元 */
+			request.setAttribute("idfrom", idfromS);
+			request.setAttribute("idto", idtoS);
+			request.setAttribute("name", nameS);
+			request.setAttribute("agefrom", agefromS);
+			request.setAttribute("ageto", agetoS);
+			request.setAttribute("sex", sexS);
+			request.setAttribute("job", jobS);
+			request.setAttribute("tell", tellS);
+			request.setAttribute("zip", zipS);
+			request.setAttribute("address", addressS);
+			request.setAttribute("addressdetail", addressdetailS);
+			if(searchlistS == null) {
+				ArrayList<SearchBean> searchlist = new ArrayList<SearchBean>();
+				request.setAttribute("searchlist", searchlist);
+			}else {
+				request.setAttribute("searchlist", searchlistS);
+			}
+			if(errorMessagesS == null) {
+				ArrayList<String> errorMessagesSS = new ArrayList<String>();
+				request.setAttribute("errorMessages", errorMessagesSS);
+			}else {
+				request.setAttribute("errorMessages", errorMessagesS);
+			}
+			
+			
 			/* 検索画面へ遷移*/
 			request.getRequestDispatcher("./Search.jsp").forward(request, response);
 
 		}
+		}else if(submitType2 != null) {
+			/* エラーメッセージを初期化 */
+			ArrayList<String> errorMessages = new ArrayList<String>();
+			request.setAttribute("errorMessages", errorMessages);
+
+			/* 職業リストを初期化 */
+			JobDao jdao = new JobDao();
+			ArrayList<JobBean> joblist = jdao.selectJob();
+			request.setAttribute("joblist", joblist);
+			
+			/* 入力フォームを初期化 */
+			request.setAttribute("id", "");
+			request.setAttribute("name", "");
+			request.setAttribute("age", "");
+			request.setAttribute("sex", "male");
+			request.setAttribute("job", "0");
+			request.setAttribute("tell", "");
+			request.setAttribute("zip", "");
+			request.setAttribute("address", "");
+			request.setAttribute("addressdetail", "");
+
+			// フォワードの実行
+			request.getRequestDispatcher("./Entry.jsp").forward(request, response);
+		}else if(submitType3 != null) {
+			/* 職業リストを再表示 */
+			JobDao jdao = new JobDao();
+			ArrayList<JobBean> joblist = jdao.selectJob();
+			request.setAttribute("joblist", joblist);
+			
+			/*セッション情報を取得*/
+			HttpSession session = request.getSession();
+			ArrayList<SearchBean> searchlistS = (ArrayList<SearchBean>) session.getAttribute("searchlistS");
+			ArrayList<String> errorMessagesS = (ArrayList<String>) session.getAttribute("errorMessagesS");
+			String idfromS = request.getParameter("idfromS");
+			String idtoS = request.getParameter("idtoS");
+			String nameS = request.getParameter("nameS");
+			String agefromS = request.getParameter("agefromS");
+			String agetoS = request.getParameter("agetoS");
+			String sexS = request.getParameter("sexS");
+			String jobS = request.getParameter("jobS");
+			String tellS = request.getParameter("tellS");
+			String zipS = request.getParameter("zipS");
+			String addressS = request.getParameter("addressS");
+			String addressdetailS = request.getParameter("addressdetailS");
+			
+			/* 検索画面を復元 */
+			request.setAttribute("idfrom", idfromS);
+			request.setAttribute("idto", idtoS);
+			request.setAttribute("name", nameS);
+			request.setAttribute("agefrom", agefromS);
+			request.setAttribute("ageto", agetoS);
+			request.setAttribute("sex", sexS);
+			request.setAttribute("job", jobS);
+			request.setAttribute("tell", tellS);
+			request.setAttribute("zip", zipS);
+			request.setAttribute("address", addressS);
+			request.setAttribute("addressdetail", addressdetailS);
+			if(searchlistS == null) {
+				ArrayList<SearchBean> searchlist = new ArrayList<SearchBean>();
+				request.setAttribute("searchlist", searchlist);
+			}else {
+				request.setAttribute("searchlist", searchlistS);
+			}
+			if(errorMessagesS == null) {
+				ArrayList<String> errorMessagesSS = new ArrayList<String>();
+				request.setAttribute("errorMessages", errorMessagesSS);
+			}else {
+				request.setAttribute("errorMessages", errorMessagesS);
+			}
+			
+			
+			/* 検索画面へ遷移*/
+			request.getRequestDispatcher("./Search.jsp").forward(request, response);
+		}
+
+		
 	}
 
 	/**

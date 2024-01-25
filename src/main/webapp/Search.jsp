@@ -121,9 +121,9 @@ String addressdetail = (String) request.getAttribute("addressdetail");
 			</tr>
 		</table>
 
-		<input type="submit" name="button1" value="Search">
-		<input type="submit" name="button2" value="Clear">
-		<input type="submit" name="button3" value="Entry">
+		<input type="submit" name="button1" value="検索">
+		<input type="submit" name="button2" value="クリア">
+		<input type="submit" name="button3" value="新規">
 	</form>
 
 	<p>&nbsp;</p>

@@ -38,7 +38,6 @@ public class SearchServlet01 extends HttpServlet {
 		if(submitType1 != null) {
 			
 			/* フォームから検索条件を取得 */
-			request.setCharacterEncoding("UTF-8");
 			String idfrom = request.getParameter("idfrom");
 			String idto = request.getParameter("idto");
 			String name = request.getParameter("name");
@@ -143,7 +142,7 @@ public class SearchServlet01 extends HttpServlet {
 		} else if(submitType3 != null) {
 			
 			/*検索画面で入力されていた値を取得*/
-			request.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html; charset=UTF-8");
 			String idfromS = request.getParameter("idfrom");
 			String idtoS = request.getParameter("idto");
 			String nameS = request.getParameter("name");

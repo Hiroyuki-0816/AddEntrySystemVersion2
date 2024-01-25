@@ -17,7 +17,7 @@ String zip = (String) request.getAttribute("zip");
 String address = (String) request.getAttribute("address");
 String addressdetail = (String) request.getAttribute("addressdetail");
 
-ArrayList<JobBean> joblistS = (ArrayList<JobBean>) session.getAttribute("joblistS");
+ArrayList<SearchBean> searchlistS = (ArrayList<SearchBean>) request.getAttribute("searchlistS");
 ArrayList<String> errorMessagesS = (ArrayList<String>) session.getAttribute("errorMessagesS");
 String idfromS = (String) session.getAttribute("idfromS");
 String idtoS = (String) session.getAttribute("idtoS");
@@ -41,15 +41,6 @@ String addressdetailS = (String) session.getAttribute("addressdetailS");
 </head>
 <body>
 	<h1>登録画面</h1>
-
-	<div style="display: inline-flex">
-		<form>
-			<input type="button" value="クリア" onclick="clearButtonClickE()">
-		</form>
-		<form>
-			<input type="button" value="中止" onclick="history.back()">
-		</form>
-	</div>
 
 	<%
 	for (int i = 0; i < errorMessages.size(); ++i) {
@@ -147,8 +138,9 @@ String addressdetailS = (String) session.getAttribute("addressdetailS");
 					size="20" value="<%=addressdetail%>"></td>
 			</tr>
 		</table>
-		<input id="confirm" type="submit" onclick="return Confirm()"
-			value="登録">
+		<input type="submit" name="button1" value="登録" onclick="return Confirm()" >
+		<input type="submit" name="button2" value="クリア">
+		<input type="submit" name="button3" value="中止">
 	</form>
 
 
