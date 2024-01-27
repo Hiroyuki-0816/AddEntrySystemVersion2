@@ -17,8 +17,6 @@ String zip = (String) request.getAttribute("zip");
 String address = (String) request.getAttribute("address");
 String addressdetail = (String) request.getAttribute("addressdetail");
 
-ArrayList<SearchBean> searchlistS = (ArrayList<SearchBean>) request.getAttribute("searchlistS");
-ArrayList<String> errorMessagesS = (ArrayList<String>) session.getAttribute("errorMessagesS");
 String idfromS = (String) session.getAttribute("idfromS");
 String idtoS = (String) session.getAttribute("idtoS");
 String nameS = (String) session.getAttribute("nameS");
@@ -30,6 +28,8 @@ String tellS = (String) session.getAttribute("tellS");
 String zipS = (String) session.getAttribute("zipS");
 String addressS = (String) session.getAttribute("addressS");
 String addressdetailS = (String) session.getAttribute("addressdetailS");
+String errorCountS = (String) session.getAttribute("errorCount");
+String searchCountS = (String) session.getAttribute("searchCount");
 %>
 
 <!DOCTYPE html>
@@ -51,17 +51,19 @@ String addressdetailS = (String) session.getAttribute("addressdetailS");
 	%>
 
 	<form method="post" action="/AddEntrySystemVersion2/Insert">
-	<input type="hidden" name="idfromS" value="<%=idfromS%>">
-	<input type="hidden" name="idtoS" value="<%=idtoS%>">
-	<input type="hidden" name="nameS" value="<%=nameS%>">
-	<input type="hidden" name="agefromS" value="<%=agefromS%>">
-	<input type="hidden" name="agetoS" value="<%=agetoS%>">
-	<input type="hidden" name="sexS" value="<%=sexS%>">
-	<input type="hidden" name="jobS" value="<%=jobS%>">
-	<input type="hidden" name="tellS" value="<%=tellS%>">
-	<input type="hidden" name="zipS" value="<%=zipS%>">
-	<input type="hidden" name="addressS" value="<%=addressS%>">
-	<input type="hidden" name="addressdetailS" value="<%=addressdetailS%>">
+		<input type="hidden" name="idfromS" value="<%=idfromS%>"> <input
+			type="hidden" name="idtoS" value="<%=idtoS%>"> <input
+			type="hidden" name="nameS" value="<%=nameS%>"> <input
+			type="hidden" name="agefromS" value="<%=agefromS%>"> <input
+			type="hidden" name="agetoS" value="<%=agetoS%>"> <input
+			type="hidden" name="sexS" value="<%=sexS%>"> <input
+			type="hidden" name="jobS" value="<%=jobS%>"> <input
+			type="hidden" name="tellS" value="<%=tellS%>"> <input
+			type="hidden" name="zipS" value="<%=zipS%>"> <input
+			type="hidden" name="addressS" value="<%=addressS%>"> <input
+			type="hidden" name="addressdetailS" value="<%=addressdetailS%>">
+		<input type="hidden" name="errorCount" value="<%=errorCountS%>">
+		<input type="hidden" name="searchCount" value="<%=searchCountS%>">
 		<table border="1">
 			<tr>
 				<th><label for="id">登録ID</label></th>
@@ -138,9 +140,10 @@ String addressdetailS = (String) session.getAttribute("addressdetailS");
 					size="20" value="<%=addressdetail%>"></td>
 			</tr>
 		</table>
-		<input type="submit" name="button1" value="登録" onclick="return Confirm()" >
-		<input type="submit" name="button2" value="クリア">
-		<input type="submit" name="button3" value="中止">
+		<input type="submit" name="button" value="登録"
+			onclick="return Confirm()"> <input type="submit"
+			name="button" value="クリア"> <input type="submit" name="button"
+			value="中止">
 	</form>
 
 

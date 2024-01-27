@@ -26,20 +26,24 @@ public class SearchServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+
 		/* 検索結果を格納するリスト */
 		ArrayList<SearchBean> searchlist = new ArrayList<SearchBean>();
 		request.setAttribute("searchlist", searchlist);
-		
+		int searchCount = 0;
+		request.setAttribute("searchCount", searchCount);
+
 		/* エラーメッセージを格納するリスト */
 		ArrayList<String> errorMessages = new ArrayList<String>();
 		request.setAttribute("errorMessages", errorMessages);
-		
+		int errorCount = 0;
+		request.setAttribute("errorCount", errorCount);
+
 		/* 職業リストを職業マスタから生成 */
 		JobDao jdao = new JobDao();
 		ArrayList<JobBean> joblist = jdao.selectJob();
 		request.setAttribute("joblist", joblist);
-		
+
 		/* 検索条件の初期状態を設定 */
 		request.setAttribute("idfrom", "");
 		request.setAttribute("idto", "");
@@ -55,7 +59,7 @@ public class SearchServlet extends HttpServlet {
 
 		// フォワードの実行
 		request.getRequestDispatcher("./Search.jsp").forward(request, response);
-		
+
 	}
 
 	/**

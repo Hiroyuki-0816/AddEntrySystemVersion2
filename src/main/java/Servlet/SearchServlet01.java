@@ -30,13 +30,11 @@ public class SearchServlet01 extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		/*ボタンの値で処理を分岐*/
-		String submitType1 = request.getParameter("button1");
-		String submitType2 = request.getParameter("button2");
-		String submitType3 = request.getParameter("button3");
-		
-		if(submitType1 != null) {
-			
+		/* ボタンの値で処理を分岐 */
+		String submitType = request.getParameter("button");
+
+		if (submitType.equals("検索")) {
+
 			/* フォームから検索条件を取得 */
 			String idfrom = request.getParameter("idfrom");
 			String idto = request.getParameter("idto");
@@ -49,76 +47,88 @@ public class SearchServlet01 extends HttpServlet {
 			String zip = request.getParameter("zip");
 			String address = request.getParameter("address");
 			String addressdetail = request.getParameter("addressdetail");
-			
+
 			/* 検索値を格納するインスタンス */
-		ArgumentBean ab = new ArgumentBean();
+			ArgumentBean ab = new ArgumentBean();
 
-		/* フォーム内で入力された値を検索値としてセットする */
-		ab.setIdfrom(idfrom);
-		ab.setIdto(idto);
-		ab.setName(name);
-		ab.setAgefrom(agefrom);
-		ab.setAgeto(ageto);
-		ab.setSex(sex);
-		ab.setJob(job);
-		ab.setTell(tell);
-		ab.setZip(zip);
-		ab.setAddress(address);
-		ab.setAddressdetail(addressdetail);
+			/* フォーム内で入力された値を検索値としてセットする */
+			ab.setIdfrom(idfrom);
+			ab.setIdto(idto);
+			ab.setName(name);
+			ab.setAgefrom(agefrom);
+			ab.setAgeto(ageto);
+			ab.setSex(sex);
+			ab.setJob(job);
+			ab.setTell(tell);
+			ab.setZip(zip);
+			ab.setAddress(address);
+			ab.setAddressdetail(addressdetail);
 
-		/* エラーチェックを実施 */
-		SearchValidation svalidate = new SearchValidation();
+			/* エラーチェックを実施 */
+			SearchValidation svalidate = new SearchValidation();
 
-		/* エラーチェックの結果を取得 */
-		ArrayList<String> errorMessages = svalidate.errorCheckS(ab);
+			/* エラーチェックの結果を取得 */
+			ArrayList<String> errorMessages = svalidate.errorCheckS(ab);
 
-		/* データベースに対して検索処理を実施 */
-		SearchDao sdao = new SearchDao();
+			/* エラーメッセージの数を取得 */
+			int errorCount = errorMessages.size();
 
-		/* 検索結果を取得 */
-		ArrayList<SearchBean> searchlist = sdao.selectSearch(ab);
+			/* データベースに対して検索処理を実施 */
+			SearchDao sdao = new SearchDao();
 
-		/* 検索結果が0件の場合に表示 */
-		if (errorMessages.size() == 0 && searchlist.size() == 0) {
-			errorMessages.add("該当するデータが存在しません。");
-		}
-		
-		/* エラーメッセージをリクエストスコープに格納 */
-		request.setAttribute("errorMessages", errorMessages);
+			/* 検索結果を取得 */
+			ArrayList<SearchBean> searchlist = sdao.selectSearch(ab);
 
-		/* 検索結果をリクエストスコープに格納 */
-		request.setAttribute("searchlist", searchlist);
+			/* 検索結果の件数を取得 */
+			int searchCount = searchlist.size();
 
-		/* 検索条件を保持 */
-		request.setAttribute("idfrom", idfrom);
-		request.setAttribute("idto", idto);
-		request.setAttribute("name", name);
-		request.setAttribute("agefrom", agefrom);
-		request.setAttribute("ageto", ageto);
-		request.setAttribute("sex", sex);
-		request.setAttribute("job", job);
-		request.setAttribute("tell", tell);
-		request.setAttribute("zip", zip);
-		request.setAttribute("address", address);
-		request.setAttribute("addressdetail", addressdetail);
-		
-		/* 職業リストを再表示 */
-		JobDao jdao = new JobDao();
-		ArrayList<JobBean> joblist = jdao.selectJob();
-		request.setAttribute("joblist", joblist);
+			/* 検索結果が0件の場合に表示 */
+			if (errorCount == 0 && searchCount == 0) {
+				errorMessages.add("該当するデータが存在しません。");
+			}
 
-		/* フォワードの実行 */
-		request.getRequestDispatcher("./Search.jsp").forward(request, response);
-		
-		} else if(submitType2 != null){
+			/* エラーメッセージをリクエストスコープに格納 */
+			request.setAttribute("errorMessages", errorMessages);
+			request.setAttribute("errorCount", errorCount);
+
+			/* 検索結果をリクエストスコープに格納 */
+			request.setAttribute("searchlist", searchlist);
+			request.setAttribute("searchCount", searchCount);
+
+			/* 検索条件を保持 */
+			request.setAttribute("idfrom", idfrom);
+			request.setAttribute("idto", idto);
+			request.setAttribute("name", name);
+			request.setAttribute("agefrom", agefrom);
+			request.setAttribute("ageto", ageto);
+			request.setAttribute("sex", sex);
+			request.setAttribute("job", job);
+			request.setAttribute("tell", tell);
+			request.setAttribute("zip", zip);
+			request.setAttribute("address", address);
+			request.setAttribute("addressdetail", addressdetail);
+
+			/* 職業リストを再表示 */
+			JobDao jdao = new JobDao();
+			ArrayList<JobBean> joblist = jdao.selectJob();
+			request.setAttribute("joblist", joblist);
+
+			/* フォワードの実行 */
+			request.getRequestDispatcher("./Search.jsp").forward(request, response);
+
+		} else if (submitType.equals("クリア")) {
 			/* 検索結果を初期化 */
 			ArrayList<SearchBean> searchlist = new ArrayList<SearchBean>();
 			request.setAttribute("searchlist", searchlist);
-			
+			int searchCount = 0;
+			request.setAttribute("searchCount", searchCount);
+
 			/* エラーメッセージを初期化 */
 			ArrayList<String> errorMessages = new ArrayList<String>();
 			request.setAttribute("errorMessages", errorMessages);
-			
+			int errorCount = 0;
+			request.setAttribute("errorCount", errorCount);
+
 			/* 検索条件を初期化 */
 			request.setAttribute("idfrom", "");
 			request.setAttribute("idto", "");
@@ -131,18 +141,17 @@ public class SearchServlet01 extends HttpServlet {
 			request.setAttribute("zip", "");
 			request.setAttribute("address", "");
 			request.setAttribute("addressdetail", "");
-			
-			/* 職業リストを再表示 */
-		JobDao jdao = new JobDao();
-		ArrayList<JobBean> joblist = jdao.selectJob();
-		request.setAttribute("joblist", joblist);
 
-		/* フォワードの実行 */
-		request.getRequestDispatcher("./Search.jsp").forward(request, response);
-		} else if(submitType3 != null) {
-			
-			/*検索画面で入力されていた値を取得*/
-			response.setContentType("text/html; charset=UTF-8");
+			/* 職業リストを再表示 */
+			JobDao jdao = new JobDao();
+			ArrayList<JobBean> joblist = jdao.selectJob();
+			request.setAttribute("joblist", joblist);
+
+			/* フォワードの実行 */
+			request.getRequestDispatcher("./Search.jsp").forward(request, response);
+		} else if (submitType.equals("新規")) {
+
+			/* 検索画面で入力されていた値を取得 */
 			String idfromS = request.getParameter("idfrom");
 			String idtoS = request.getParameter("idto");
 			String nameS = request.getParameter("name");
@@ -154,10 +163,12 @@ public class SearchServlet01 extends HttpServlet {
 			String zipS = request.getParameter("zip");
 			String addressS = request.getParameter("address");
 			String addressdetailS = request.getParameter("addressdetail");
-			ArrayList<SearchBean> searchlistS = (ArrayList<SearchBean>) request.getAttribute("searchlist");
-			ArrayList<String> errorMessagesS = (ArrayList<String>) request.getAttribute("errorMessages");
-			
-			/*検索画面のセッション情報を取得(画面復元用)*/
+
+			/* 検索結果・エラーの情報を取得 */
+			String errorCountS = request.getParameter("errorCount");
+			String searchCountS = request.getParameter("searchCount");
+
+			/* 検索画面の情報をセッションに格納(画面復元用) */
 			HttpSession session = request.getSession();
 			session.setAttribute("idfromS", idfromS);
 			session.setAttribute("idtoS", idtoS);
@@ -168,10 +179,11 @@ public class SearchServlet01 extends HttpServlet {
 			session.setAttribute("jobS", jobS);
 			session.setAttribute("tellS", tellS);
 			session.setAttribute("zipS", zipS);
-			session.setAttribute("addressS",addressS);
+			session.setAttribute("addressS", addressS);
 			session.setAttribute("addressdetailS", addressdetailS);
-			session.setAttribute("searchlistS", searchlistS);
-			session.setAttribute("errorMessagesS", errorMessagesS);
+			session.setAttribute("errorCountS", errorCountS);
+			session.setAttribute("searchCountS", searchCountS);
+
 			/* エラーメッセージを格納するリスト */
 			ArrayList<String> errorMessages = new ArrayList<String>();
 			request.setAttribute("errorMessages", errorMessages);
@@ -180,7 +192,7 @@ public class SearchServlet01 extends HttpServlet {
 			JobDao jdao = new JobDao();
 			ArrayList<JobBean> joblist = jdao.selectJob();
 			request.setAttribute("joblist", joblist);
-			
+
 			/* 入力フォームの初期状態を設定 */
 			request.setAttribute("id", "");
 			request.setAttribute("name", "");
@@ -195,10 +207,7 @@ public class SearchServlet01 extends HttpServlet {
 			// フォワードの実行
 			request.getRequestDispatcher("./Entry.jsp").forward(request, response);
 		}
-		
-		
-		
-		
+
 	}
 
 	/**

@@ -18,6 +18,8 @@ String tell = (String) request.getAttribute("tell");
 String zip = (String) request.getAttribute("zip");
 String address = (String) request.getAttribute("address");
 String addressdetail = (String) request.getAttribute("addressdetail");
+Integer errorCount = (Integer) request.getAttribute("errorCount");
+Integer searchCount = (Integer) request.getAttribute("searchCount");
 %>
 <script src='AddEntry_JS.js'></script>
 <!DOCTYPE html>
@@ -50,7 +52,8 @@ String addressdetail = (String) request.getAttribute("addressdetail");
 	%>
 
 	<form method="post" action="/AddEntrySystemVersion2/Search01">
-
+		<input type="hidden" name="errorCount" value="<%=errorCount%>">
+		<input type="hidden" name="searchCount" value="<%=searchCount%>">
 		<table border="1">
 			<tr>
 				<th><label for="id">登録ID</label></th>
@@ -121,9 +124,9 @@ String addressdetail = (String) request.getAttribute("addressdetail");
 			</tr>
 		</table>
 
-		<input type="submit" name="button1" value="検索">
-		<input type="submit" name="button2" value="クリア">
-		<input type="submit" name="button3" value="新規">
+		<input type="submit" name="button" value="検索"> <input
+			type="submit" name="button" value="クリア"> <input type="submit"
+			name="button" value="新規">
 	</form>
 
 	<p>&nbsp;</p>
