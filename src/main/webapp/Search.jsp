@@ -32,9 +32,6 @@ Integer searchCount = (Integer) request.getAttribute("searchCount");
 	<h1>住所登録システム</h1>
 
 	<div style="display: inline-flex">
-		<form method="get" action="/AddEntrySystemVersion2/Entry">
-			<input type="submit" value="変更">
-		</form>
 		<form>
 			<input type="submit" value="削除" class="button">
 		</form>
@@ -124,9 +121,10 @@ Integer searchCount = (Integer) request.getAttribute("searchCount");
 			</tr>
 		</table>
 
-		<input type="submit" name="button" value="検索"> <input
-			type="submit" name="button" value="クリア"> <input type="submit"
-			name="button" value="新規">
+		<input type="submit" name="button" value="検索"> 
+		<input type="submit" name="button" value="クリア"> 
+		<input type="submit" name="button" value="新規">
+		<input type="submit" name="button" value="変更">
 	</form>
 
 	<p>&nbsp;</p>
@@ -196,7 +194,6 @@ Integer searchCount = (Integer) request.getAttribute("searchCount");
 	<%
 	}
 	%>
-
 
 </body>
 </html>
