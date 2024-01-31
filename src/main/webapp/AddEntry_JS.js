@@ -36,3 +36,12 @@ function Confirm() {
 	}
 }
 
+function Close(){
+	const closeBtn = document.getElementById('close');
+
+closeBtn.addEventListener('click', function () {
+	
+  window.close();
+
+});
+}

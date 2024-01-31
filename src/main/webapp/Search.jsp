@@ -125,6 +125,7 @@ Integer searchCount = (Integer) request.getAttribute("searchCount");
 		<input type="submit" name="button" value="クリア"> 
 		<input type="submit" name="button" value="新規">
 		<input type="submit" name="button" value="変更">
+		<input type="submit" name="button" value="終了" onclick ="window.open('', '_self').close();">
 	</form>
 
 	<p>&nbsp;</p>
