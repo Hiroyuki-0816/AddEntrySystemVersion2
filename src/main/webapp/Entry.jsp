@@ -16,6 +16,7 @@ String tell = (String) request.getAttribute("tell");
 String zip = (String) request.getAttribute("zip");
 String address = (String) request.getAttribute("address");
 String addressdetail = (String) request.getAttribute("addressdetail");
+String readonly = (String) request.getAttribute("readonly");
 
 String idfromS = (String) session.getAttribute("idfromS");
 String idtoS = (String) session.getAttribute("idtoS");
@@ -68,7 +69,7 @@ String searchCountS = (String) session.getAttribute("searchCount");
 			<tr>
 				<th><label for="id">登録ID</label></th>
 				<td><input id="id" type="text" name="id" size="8"
-					value="<%=id%>"></td>
+					value="<%=id%>" readonly="<%=readonly%>"></td>
 			</tr>
 
 			<tr>

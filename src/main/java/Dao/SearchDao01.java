@@ -49,6 +49,28 @@ public class SearchDao01 {
 			while (rs.next()) {
 				SearchBean sb = new SearchBean();
 				sb.setId(rs.getInt("id"));
+				sb.setName(rs.getString("name"));
+				sb.setAge(rs.getInt("age"));
+				if(rs.getString("sex").equals("íj")) {
+					sb.setSex("male");
+				}else if(rs.getString("sex").equals("èó")){
+					sb.setSex("female");
+				}else {
+					sb.setSex("");
+				}
+				if (rs.getString("job") == null) {
+					sb.setJob("0");
+				} else {
+					sb.setJob(rs.getString("job"));
+				}
+				sb.setTell(rs.getString("tell"));
+				sb.setZip(rs.getString("zip"));
+				sb.setAddress(rs.getString("address"));
+				if (rs.getString("addressdetail") == null) {
+					sb.setAddressDetail("");
+				} else {
+					sb.setAddressDetail(rs.getString("addressdetail"));
+				}
 				searchlist01.add(sb);
 			}
 

@@ -49,6 +49,7 @@ public class InsertServlet extends HttpServlet {
 			String zip = request.getParameter("zip");
 			String address = request.getParameter("address");
 			String addressdetail = request.getParameter("addressdetail");
+			String readonly = request.getParameter("readonly");
 
 			/* 入力値を格納するインスタンス */
 			InsertBean ib = new InsertBean();
@@ -83,6 +84,7 @@ public class InsertServlet extends HttpServlet {
 				request.setAttribute("zip", zip);
 				request.setAttribute("address", address);
 				request.setAttribute("addressdetail", addressdetail);
+				request.setAttribute("readonly", readonly);
 
 				/* 職業リストを再表示 */
 				JobDao jdao = new JobDao();
@@ -213,6 +215,9 @@ public class InsertServlet extends HttpServlet {
 
 			}
 		} else if (submitType.equals("クリア")) {
+			/*更新モードの場合、登録IDを消去しない*/
+			String readonly = request.getParameter("readonly");
+			String id = request.getParameter("id");
 			/* エラーメッセージを初期化 */
 			ArrayList<String> errorMessages = new ArrayList<String>();
 			request.setAttribute("errorMessages", errorMessages);
@@ -223,7 +228,11 @@ public class InsertServlet extends HttpServlet {
 			request.setAttribute("joblist", joblist);
 
 			/* 入力フォームを初期化 */
-			request.setAttribute("id", "");
+			if(readonly.equals("false")) {
+				request.setAttribute("id", "");
+			}else {
+				request.setAttribute("id", id);
+			}
 			request.setAttribute("name", "");
 			request.setAttribute("age", "");
 			request.setAttribute("sex", "male");
