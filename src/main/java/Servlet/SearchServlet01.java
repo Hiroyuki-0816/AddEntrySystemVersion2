@@ -205,7 +205,6 @@ public class SearchServlet01 extends HttpServlet {
 			request.setAttribute("zip", "");
 			request.setAttribute("address", "");
 			request.setAttribute("addressdetail", "");
-			request.setAttribute("readonly", "false");
 
 			// フォワードの実行
 			request.getRequestDispatcher("./Entry.jsp").forward(request, response);
@@ -351,8 +350,6 @@ public class SearchServlet01 extends HttpServlet {
 				request.setAttribute("zip", zip);
 				request.setAttribute("address", address);
 				request.setAttribute("addressdetail", addressdetail);
-				/*更新モード切替えのため、登録IDの入力欄を編集不可とする*/
-				request.setAttribute("readonly", "true");
 				
 				/* エラーメッセージを格納するリスト */
 				ArrayList<String> errorMessages = new ArrayList<String>();

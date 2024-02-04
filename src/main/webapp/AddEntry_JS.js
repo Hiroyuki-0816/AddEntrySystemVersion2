@@ -24,6 +24,12 @@ function clearButtonClickS() {
 	document.getElementById("addressdetail").value = "";
 }
 
+function Readonly(){
+	document.getElementById("id").setAttribute("readOnly", true);
+	
+	location.href = "/AddEntrySystemVersion2/Search01";
+}
+
 function Confirm() {
 	const result = window.confirm('登録しますか？');
 	if (!result) {
@@ -41,7 +47,7 @@ function Close(){
 
 closeBtn.addEventListener('click', function () {
 	
-  window.close();
+  window.open('', '_self').close();
 
 });
 }

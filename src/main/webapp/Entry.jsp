@@ -16,7 +16,6 @@ String tell = (String) request.getAttribute("tell");
 String zip = (String) request.getAttribute("zip");
 String address = (String) request.getAttribute("address");
 String addressdetail = (String) request.getAttribute("addressdetail");
-String readonly = (String) request.getAttribute("readonly");
 
 String idfromS = (String) session.getAttribute("idfromS");
 String idtoS = (String) session.getAttribute("idtoS");
@@ -42,17 +41,8 @@ String searchCountS = (String) session.getAttribute("searchCount");
 </head>
 <body>
 	<h1>登録画面</h1>
-
-	<%
-	for (int i = 0; i < errorMessages.size(); ++i) {
-	%>
-	<p id="errormsg" style="color: red;"><%=errorMessages.get(i)%></p>
-	<%
-	}
-	%>
-
 	<form method="post" action="/AddEntrySystemVersion2/Insert">
-		<input type="hidden" name="idfromS" value="<%=idfromS%>"> <input
+			<input type="hidden" name="idfromS" value="<%=idfromS%>"> <input
 			type="hidden" name="idtoS" value="<%=idtoS%>"> <input
 			type="hidden" name="nameS" value="<%=nameS%>"> <input
 			type="hidden" name="agefromS" value="<%=agefromS%>"> <input
@@ -65,11 +55,25 @@ String searchCountS = (String) session.getAttribute("searchCount");
 			type="hidden" name="addressdetailS" value="<%=addressdetailS%>">
 		<input type="hidden" name="errorCount" value="<%=errorCountS%>">
 		<input type="hidden" name="searchCount" value="<%=searchCountS%>">
+		
+	<input type="submit" name="button" value="登録"
+			onclick="return Confirm()"> <input type="submit"
+			name="button" value="クリア"> <input type="submit" name="button"
+			value="中止">
+
+	<%
+	for (int i = 0; i < errorMessages.size(); ++i) {
+	%>
+	<p id="errormsg" style="color: red;"><%=errorMessages.get(i)%></p>
+	<%
+	}
+	%>
+
 		<table border="1">
 			<tr>
 				<th><label for="id">登録ID</label></th>
 				<td><input id="id" type="text" name="id" size="8"
-					value="<%=id%>" readonly="<%=readonly%>"></td>
+					value="<%=id%>"></td>
 			</tr>
 
 			<tr>
@@ -141,10 +145,6 @@ String searchCountS = (String) session.getAttribute("searchCount");
 					size="20" value="<%=addressdetail%>"></td>
 			</tr>
 		</table>
-		<input type="submit" name="button" value="登録"
-			onclick="return Confirm()"> <input type="submit"
-			name="button" value="クリア"> <input type="submit" name="button"
-			value="中止">
 	</form>
 
 

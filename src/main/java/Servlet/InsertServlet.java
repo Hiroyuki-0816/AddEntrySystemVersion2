@@ -215,9 +215,6 @@ public class InsertServlet extends HttpServlet {
 
 			}
 		} else if (submitType.equals("クリア")) {
-			/*更新モードの場合、登録IDを消去しない*/
-			String readonly = request.getParameter("readonly");
-			String id = request.getParameter("id");
 			/* エラーメッセージを初期化 */
 			ArrayList<String> errorMessages = new ArrayList<String>();
 			request.setAttribute("errorMessages", errorMessages);
@@ -228,11 +225,7 @@ public class InsertServlet extends HttpServlet {
 			request.setAttribute("joblist", joblist);
 
 			/* 入力フォームを初期化 */
-			if(readonly.equals("false")) {
-				request.setAttribute("id", "");
-			}else {
-				request.setAttribute("id", id);
-			}
+			request.setAttribute("id", "");
 			request.setAttribute("name", "");
 			request.setAttribute("age", "");
 			request.setAttribute("sex", "male");
