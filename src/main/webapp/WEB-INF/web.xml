@@ -18,14 +18,6 @@
     <url-pattern>/Search</url-pattern>
   </servlet-mapping>
   <servlet>
-    <servlet-name>end</servlet-name>
-    <servlet-class>Servlet.EndServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>end</servlet-name>
-    <url-pattern>/End</url-pattern>
-  </servlet-mapping>
-  <servlet>
     <servlet-name>search01</servlet-name>
     <servlet-class>Servlet.SearchServlet01</servlet-class>
   </servlet>
