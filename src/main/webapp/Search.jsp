@@ -166,7 +166,9 @@ Integer searchCount = (Integer) request.getAttribute("searchCount");
 			<tr>
 				<th rowspan="2"><input type="checkbox" name="check"
 					value=<%=String.format("%08d", searchlist.get(i).getId())%> /></th>
-				<th rowspan="2"><a href="/AddEntrySystemVersion2/Search01"><%=String.format("%08d", searchlist.get(i).getId())%></a></th>
+				<th rowspan="2">
+				<a href="/AddEntrySystemVersion2/Search01?submitId=<%=String.format("%08d", searchlist.get(i).getId())%>"><%=String.format("%08d", searchlist.get(i).getId())%></a>
+				</th>
 				<th><%=searchlist.get(i).getName()%></th>
 				<th><%=searchlist.get(i).getAge()%></th>
 				<th><%=searchlist.get(i).getSex()%></th>

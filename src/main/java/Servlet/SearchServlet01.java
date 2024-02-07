@@ -34,6 +34,9 @@ public class SearchServlet01 extends HttpServlet {
 			throws ServletException, IOException {
 		/* ボタンの値で処理を分岐 */
 		String submitType = request.getParameter("button");
+		
+		/*リンクから遷移した場合*/
+		String submitId = request.getParameter("submitId");
 
 		if (submitType.equals("検索")) {
 
@@ -364,6 +367,84 @@ public class SearchServlet01 extends HttpServlet {
 				request.getRequestDispatcher("./Entry.jsp").forward(request, response);
 				
 			}
+		}else if(submitId != null) {
+			/* 検索画面で入力されていた値を取得 */
+			String idfromS = request.getParameter("idfrom");
+			String idtoS = request.getParameter("idto");
+			String nameS = request.getParameter("name");
+			String agefromS = request.getParameter("agefrom");
+			String agetoS = request.getParameter("ageto");
+			String sexS = request.getParameter("sex");
+			String jobS = request.getParameter("job");
+			String tellS = request.getParameter("tell");
+			String zipS = request.getParameter("zip");
+			String addressS = request.getParameter("address");
+			String addressdetailS = request.getParameter("addressdetail");
+
+			/* 検索結果・エラーメッセージの個数を取得 */
+			String errorCountS = request.getParameter("errorCount");
+			String searchCountS = request.getParameter("searchCount");
+
+			/* 検索画面の情報をセッションに格納(画面復元用) */
+			HttpSession session = request.getSession();
+			session.setAttribute("idfromS", idfromS);
+			session.setAttribute("idtoS", idtoS);
+			session.setAttribute("nameS", nameS);
+			session.setAttribute("agefromS", agefromS);
+			session.setAttribute("agetoS", agetoS);
+			session.setAttribute("sexS", sexS);
+			session.setAttribute("jobS", jobS);
+			session.setAttribute("tellS", tellS);
+			session.setAttribute("zipS", zipS);
+			session.setAttribute("addressS", addressS);
+			session.setAttribute("addressdetailS", addressdetailS);
+			session.setAttribute("errorCountS", errorCountS);
+			session.setAttribute("searchCountS", searchCountS);
+			
+			/* 入力値を格納するインスタンス */
+			InsertBean ib = new InsertBean();
+
+			/* リンクのIDを登録値としてセットする */
+			ib.setId(submitId);
+			
+			/* 登録IDが重複しているデータがないか検索 */
+			SearchDao01 sdao01 = new SearchDao01();
+
+			/* 検索結果を取得 */
+			ArrayList<SearchBean> searchlist01 = sdao01.insertSearch(ib);
+			
+			/* 検索値を取得 */
+			String name = searchlist01.get(0).getName();
+			String age = String.valueOf(searchlist01.get(0).getAge());
+			String sex = searchlist01.get(0).getSex();
+			String job = searchlist01.get(0).getJob();
+			String tell = searchlist01.get(0).getTell();
+			String zip = searchlist01.get(0).getZip();
+			String address = searchlist01.get(0).getAddress();
+			String addressdetail = searchlist01.get(0).getAddressDetail();
+			
+			/* 入力フォームに検索した値をセット */
+			request.setAttribute("id", submitId);
+			request.setAttribute("name", name);
+			request.setAttribute("age", age);
+			request.setAttribute("sex", sex);
+			request.setAttribute("job", job);
+			request.setAttribute("tell", tell);
+			request.setAttribute("zip", zip);
+			request.setAttribute("address", address);
+			request.setAttribute("addressdetail", addressdetail);
+			
+			/* エラーメッセージを格納するリスト */
+			ArrayList<String> errorMessages = new ArrayList<String>();
+			request.setAttribute("errorMessages", errorMessages);
+
+			/* 職業リストを職業マスタから生成 */
+			JobDao jdao = new JobDao();
+			ArrayList<JobBean> joblist = jdao.selectJob();
+			request.setAttribute("joblist", joblist);
+
+			// フォワードの実行
+			request.getRequestDispatcher("./Entry.jsp").forward(request, response);
 		}
 
 	}
