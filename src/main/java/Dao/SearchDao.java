@@ -15,6 +15,8 @@ public class SearchDao {
 	private final String pass = "password";
 	/* 初期のDB接続状態 */
 	Connection con = null;
+	/* 条件を連結するかを判定 */
+	boolean conbine = false;
 
 	/* 検索結果を取得するメソッド */
 	public ArrayList<SearchBean> selectSearch(ArgumentBean ab) {
@@ -36,7 +38,7 @@ public class SearchDao {
 			/* デフォルトのSQL文(全件検索も同様) */
 			String sql = "select t_address.id,name,age,sex,m_job.job,tell,zip,address,addressdetail from t_address.t_address left join t_address.m_job on t_address.job = m_job.id";
 
-			/* フォームから取得した検索条件*/
+			/* フォームから取得した検索条件 */
 			String idfrom = ab.getIdfrom();
 			String idto = ab.getIdto();
 			String name = ab.getName();
@@ -49,119 +51,65 @@ public class SearchDao {
 			String address = ab.getAddress();
 			String addressdetail = ab.getAddressdetail();
 
-			/* 条件を連結するかを判定 */
-			boolean conbine = false;
-
 			if (idfrom != "" && idto != "") {
-				sql += " WHERE t_address.id between ? and ?";
+				sql += Join(conbine) + "t_address.id between ? and ?";
 				conbine = true;
 			} else if ((idfrom != "" && idto == "") || (idfrom == "" && idto != "")) {
-				sql += " WHERE t_address.id = ?";
+				sql += Join(conbine) + "t_address.id = ?";
 				conbine = true;
 			}
 
 			if (name != "") {
-				if (conbine) {
-					sql += " AND name LIKE ?";
-				} else {
-					sql += " WHERE name LIKE ?";
-					conbine = true;
-				}
+				sql += Join(conbine) + "name LIKE ?";
+				conbine = true;
 			}
 
 			if (agefrom != "" && ageto != "") {
-				if (conbine) {
-					sql += " AND age between ? and ?";
-				} else {
-					sql += " WHERE age between ? and ?";
-					conbine = true;
-				}
+				sql += Join(conbine) + "age between ? and ?";
+				conbine = true;
 			} else if ((agefrom != "" && ageto == "") || (agefrom == "" && ageto != "")) {
-				if (conbine) {
-					sql += " AND age = ?";
-				} else {
-					sql += " WHERE age = ?";
-					conbine = true;
-				}
+				sql += Join(conbine) + "age = ?";
+				conbine = true;
 			}
 
-			if (sex.equals("male")) {
-				if (conbine) {
-					sql += " AND sex = ? ";
-				} else {
-					sql += " WHERE sex = ? ";
-					conbine = true;
-				}
-			} else if (sex.equals("female")) {
-				if (conbine) {
-					sql += " AND sex =　? ";
-				} else {
-					sql += " WHERE sex = ? ";
-					conbine = true;
-				}
+			if (!sex.equals("both")) {
+				sql += Join(conbine) + "sex = ?";
+				conbine = true;
 			}
 
 			if (!job.equals("0")) {
-				if (conbine) {
-					sql += " AND m_job.job =　? ";
-				} else {
-					sql += " WHERE m_job.job = ? ";
-					conbine = true;
-				}
+				sql += Join(conbine) + "m_job.job = ?";
+				conbine = true;
 			}
 
 			if (tell != "") {
 				if (!tell.contains("-")) {
-					if (conbine) {
-						sql += " AND replace (tell,'-','') LIKE ?";
-					} else {
-						sql += " WHERE replace (tell,'-','') LIKE ?";
-						conbine = true;
-					}
+					sql += Join(conbine) + "replace (tell,'-','') LIKE ?";
+					conbine = true;
 				} else {
-					if (conbine) {
-						sql += " AND tell LIKE ?";
-					} else {
-						sql += " WHERE tell LIKE ?";
-						conbine = true;
-					}
+					sql += Join(conbine) + "tell LIKE ?";
+					conbine = true;
 				}
 			}
 
 			if (zip != "") {
 				if (!zip.contains("-")) {
-					if (conbine) {
-						sql += " AND replace (zip,'-','') LIKE ?";
-					} else {
-						sql += " WHERE replace (zip,'-','') LIKE ?";
-						conbine = true;
-					}
+					sql += Join(conbine) + "replace (zip,'-','') LIKE ?";
+					conbine = true;
 				} else {
-					if (conbine) {
-						sql += " AND zip LIKE ?";
-					} else {
-						sql += " WHERE zip LIKE ?";
-						conbine = true;
-					}
+					sql += Join(conbine) + "zip LIKE ?";
+					conbine = true;
 				}
 			}
 
 			if (address != "") {
-				if (conbine) {
-					sql += " AND address LIKE ?";
-				} else {
-					sql += " WHERE address LIKE ?";
-					conbine = true;
-				}
+				sql += Join(conbine) + "address LIKE ?";
+				conbine = true;
 			}
 
 			if (addressdetail != "") {
-				if (conbine) {
-					sql += " AND addressdetail LIKE ?";
-				} else {
-					sql += " WHERE addressdetail LIKE ?";
-					conbine = true;
-				}
+				sql += Join(conbine) + "addressdetail LIKE ?";
+				conbine = true;
 			}
 
 			/* SQL文をDBへ送信 */
@@ -174,11 +122,9 @@ public class SearchDao {
 			if (idfrom != "" && idto != "") {
 				ps.setString(++seq, idfrom);
 				ps.setString(++seq, idto);
-			}
-			if (idfrom != "" && idto == "") {
+			} else if (idfrom != "" && idto == "") {
 				ps.setString(++seq, idfrom);
-			}
-			if (idfrom == "" && idto != "") {
+			} else if (idfrom == "" && idto != "") {
 				ps.setString(++seq, idto);
 			}
 
@@ -189,47 +135,46 @@ public class SearchDao {
 			if (agefrom != "" && ageto != "") {
 				ps.setString(++seq, agefrom);
 				ps.setString(++seq, ageto);
-			}
-			if (agefrom != "" && ageto == "") {
+			} else if (agefrom != "" && ageto == "") {
 				ps.setString(++seq, agefrom);
-			}
-			if (agefrom == "" && ageto != "") {
+			} else if (agefrom == "" && ageto != "") {
 				ps.setString(++seq, ageto);
 			}
 
 			if (sex.equals("male")) {
 				ps.setString(++seq, "男");
-			}
-			if (sex.equals("female")) {
+			} else if (sex.equals("female")) {
 				ps.setString(++seq, "女");
 			}
 
-			if (job.equals("1")) {
+			switch (job) {
+			case "1":
 				ps.setString(++seq, "01:会社員");
-			}
-			if (job.equals("2")) {
+				break;
+			case "2":
 				ps.setString(++seq, "02:公務員");
-			}
-			if (job.equals("3")) {
+				break;
+			case "3":
 				ps.setString(++seq, "03:自営業");
-			}
-			if (job.equals("4")) {
+				break;
+			case "4":
 				ps.setString(++seq, "04:個人事業主");
-			}
-			if (job.equals("5")) {
+				break;
+			case "5":
 				ps.setString(++seq, "05:経営者・会社役員");
-			}
-			if (job.equals("6")) {
+				break;
+			case "6":
 				ps.setString(++seq, "06:パート・アルバイト");
-			}
-			if (job.equals("7")) {
+				break;
+			case "7":
 				ps.setString(++seq, "07:専業主婦・主夫");
-			}
-			if (job.equals("8")) {
+				break;
+			case "8":
 				ps.setString(++seq, "08:学生");
-			}
-			if (job.equals("9")) {
+				break;
+			case "9":
 				ps.setString(++seq, "09:その他");
+				break;
 			}
 
 			if (tell != "") {
@@ -285,5 +230,14 @@ public class SearchDao {
 
 		}
 		return searchlist;
+	}
+
+	/* 条件文の連結を判定 */
+	private String Join(boolean conbine) {
+		if (conbine) {
+			return " AND ";
+		} else {
+			return " WHERE ";
+		}
 	}
 }

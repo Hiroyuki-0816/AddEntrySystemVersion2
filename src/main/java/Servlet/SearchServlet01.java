@@ -2,6 +2,7 @@ package Servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,12 +34,12 @@ public class SearchServlet01 extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		/* ボタンの値で処理を分岐 */
-		String submitType = request.getParameter("button");
+		String submitType = request.getParameter("button"); 
 		
 		/*リンクから遷移した場合*/
 		String submitId = request.getParameter("submitId");
 
-		if (submitType.equals("検索")) {
+		if (Objects.equals(submitType,"検索")) {
 
 			/* フォームから検索条件を取得 */
 			String idfrom = request.getParameter("idfrom");
@@ -121,7 +122,7 @@ public class SearchServlet01 extends HttpServlet {
 			/* フォワードの実行 */
 			request.getRequestDispatcher("./Search.jsp").forward(request, response);
 
-		} else if (submitType.equals("クリア")) {
+		} else if (Objects.equals(submitType,"クリア")) {
 			/* 検索結果を初期化 */
 			ArrayList<SearchBean> searchlist = new ArrayList<SearchBean>();
 			request.setAttribute("searchlist", searchlist);
@@ -154,7 +155,7 @@ public class SearchServlet01 extends HttpServlet {
 
 			/* フォワードの実行 */
 			request.getRequestDispatcher("./Search.jsp").forward(request, response);
-		} else if (submitType.equals("新規")) {
+		} else if (Objects.equals(submitType,"新規")) {
 
 			/* 検索画面で入力されていた値を取得 */
 			String idfromS = request.getParameter("idfrom");
@@ -211,7 +212,7 @@ public class SearchServlet01 extends HttpServlet {
 
 			// フォワードの実行
 			request.getRequestDispatcher("./Entry.jsp").forward(request, response);
-		}else if(submitType.equals("変更")) {
+		}else if(Objects.equals(submitType,"変更")) {
 			/* チェックボックスにて指定された登録IDをもとに更新画面へ遷移 */
 			String[] selectedIdLists = request.getParameterValues("check");
 			
