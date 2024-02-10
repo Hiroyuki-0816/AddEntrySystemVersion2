@@ -70,7 +70,7 @@ public class SearchDao {
 			} else if ((agefrom != "" && ageto == "") || (agefrom == "" && ageto != "")) {
 				sql += Join(conbine) + "age = ?";
 				conbine = true;
-			}
+			} 
 
 			if (!sex.equals("both")) {
 				sql += Join(conbine) + "sex = ?";

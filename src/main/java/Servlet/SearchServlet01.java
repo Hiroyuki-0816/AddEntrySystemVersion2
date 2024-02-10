@@ -369,6 +369,7 @@ public class SearchServlet01 extends HttpServlet {
 				
 			}
 		}else if(submitId != null) {
+			
 			/* ŒŸõ‰æ–Ê‚Å“ü—Í‚³‚ê‚Ä‚¢‚½’l‚ğæ“¾ */
 			String idfromS = request.getParameter("idfrom");
 			String idtoS = request.getParameter("idto");
