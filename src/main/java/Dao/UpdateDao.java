@@ -48,40 +48,41 @@ public class UpdateDao {
 
 			if (sex.equals("male")) {
 				ps.setString(3, "íj");
-			}
-			if (sex.equals("female")) {
+			} else if (sex.equals("female")) {
 				ps.setString(3, "èó");
 			}
 
-			if (job.equals("0")) {
+			switch (job) {
+			case "0":
 				ps.setString(4, null);
-			}
-			if (job.equals("1")) {
+				break;
+			case "1":
 				ps.setString(4, "01");
-			}
-			if (job.equals("2")) {
+				break;
+			case "2":
 				ps.setString(4, "02");
-			}
-			if (job.equals("3")) {
+				break;
+			case "3":
 				ps.setString(4, "03");
-			}
-			if (job.equals("4")) {
+				break;
+			case "4":
 				ps.setString(4, "04");
-			}
-			if (job.equals("5")) {
+				break;
+			case "5":
 				ps.setString(4, "05");
-			}
-			if (job.equals("6")) {
+				break;
+			case "6":
 				ps.setString(4, "06");
-			}
-			if (job.equals("7")) {
+				break;
+			case "7":
 				ps.setString(4, "07");
-			}
-			if (job.equals("8")) {
+				break;
+			case "8":
 				ps.setString(4, "08");
-			}
-			if (job.equals("9")) {
+				break;
+			case "9":
 				ps.setString(4, "09");
+				break;
 			}
 
 			ps.setString(5, tell);
