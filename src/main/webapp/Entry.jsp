@@ -16,6 +16,7 @@ String tell = (String) request.getAttribute("tell");
 String zip = (String) request.getAttribute("zip");
 String address = (String) request.getAttribute("address");
 String addressdetail = (String) request.getAttribute("addressdetail");
+String readonly = (String) request.getAttribute("readonly");
 
 String idfromS = (String) session.getAttribute("idfromS");
 String idtoS = (String) session.getAttribute("idtoS");
@@ -28,8 +29,9 @@ String tellS = (String) session.getAttribute("tellS");
 String zipS = (String) session.getAttribute("zipS");
 String addressS = (String) session.getAttribute("addressS");
 String addressdetailS = (String) session.getAttribute("addressdetailS");
-String errorCountS = (String) session.getAttribute("errorCount");
-String searchCountS = (String) session.getAttribute("searchCount");
+String errorCountS = (String) session.getAttribute("errorCountS");
+String searchCountS = (String) session.getAttribute("searchCountS");
+String submitTypeS = (String) session.getAttribute("submitTypeS");
 %>
 
 <!DOCTYPE html>
@@ -42,7 +44,7 @@ String searchCountS = (String) session.getAttribute("searchCount");
 <body>
 	<h1>登録画面</h1>
 	<form method="post" action="/AddEntrySystemVersion2/Insert">
-			<input type="hidden" name="idfromS" value="<%=idfromS%>"> <input
+		<input type="hidden" name="idfromS" value="<%=idfromS%>"> <input
 			type="hidden" name="idtoS" value="<%=idtoS%>"> <input
 			type="hidden" name="nameS" value="<%=nameS%>"> <input
 			type="hidden" name="agefromS" value="<%=agefromS%>"> <input
@@ -55,25 +57,29 @@ String searchCountS = (String) session.getAttribute("searchCount");
 			type="hidden" name="addressdetailS" value="<%=addressdetailS%>">
 		<input type="hidden" name="errorCount" value="<%=errorCountS%>">
 		<input type="hidden" name="searchCount" value="<%=searchCountS%>">
-		
-	<input type="submit" name="button" value="登録"
+		<input type="hidden" name="submitType" value="<%=submitTypeS%>">
+
+		<input type="submit" name="button" value="登録"
 			onclick="return Confirm()"> <input type="submit"
 			name="button" value="クリア"> <input type="submit" name="button"
 			value="中止">
 
-	<%
-	for (int i = 0; i < errorMessages.size(); ++i) {
-	%>
-	<p id="errormsg" style="color: red;"><%=errorMessages.get(i)%></p>
-	<%
-	}
-	%>
+		<%
+		for (int i = 0; i < errorMessages.size(); ++i) {
+		%>
+		<p id="errormsg" style="color: red;"><%=errorMessages.get(i)%></p>
+		<%
+		}
+		%>
 
 		<table border="1">
 			<tr>
 				<th><label for="id">登録ID</label></th>
 				<td><input id="id" type="text" name="id" size="8"
-					value="<%=id%>"></td>
+					value="<%=id%>"
+					<%if (readonly.equals("update")) {
+	out.print("readonly");
+}%>></td>
 			</tr>
 
 			<tr>

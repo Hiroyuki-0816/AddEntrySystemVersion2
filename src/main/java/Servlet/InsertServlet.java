@@ -2,6 +2,7 @@ package Servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,7 +39,7 @@ public class InsertServlet extends HttpServlet {
 		/* ボタンの値で処理を分岐 */
 		String submitType = request.getParameter("button");
 
-		if (submitType.equals("登録")) {
+		if (Objects.equals(submitType, "登録")) {
 			/* フォームから入力値を取得 */
 			String id = request.getParameter("id");
 			String name = request.getParameter("name");
@@ -49,7 +50,6 @@ public class InsertServlet extends HttpServlet {
 			String zip = request.getParameter("zip");
 			String address = request.getParameter("address");
 			String addressdetail = request.getParameter("addressdetail");
-			String readonly = request.getParameter("readonly");
 
 			/* 入力値を格納するインスタンス */
 			InsertBean ib = new InsertBean();
@@ -74,6 +74,16 @@ public class InsertServlet extends HttpServlet {
 			if (errorMessages.size() != 0) {
 				/* エラーメッセージをリクエストスコープに格納 */
 				request.setAttribute("errorMessages", errorMessages);
+
+				/* 登録IDの入力欄の編集の可否を制御 */
+				HttpSession session = request.getSession();
+				String submitTypeS = (String) session.getAttribute("submitTypeS");
+				if (Objects.equals(submitTypeS, "変更")) {
+					request.setAttribute("readonly", "update");
+				} else {
+					request.setAttribute("readonly", "insert");
+				}
+
 				/* 入力項目を保持 */
 				request.setAttribute("id", id);
 				request.setAttribute("name", name);
@@ -84,7 +94,6 @@ public class InsertServlet extends HttpServlet {
 				request.setAttribute("zip", zip);
 				request.setAttribute("address", address);
 				request.setAttribute("addressdetail", addressdetail);
-				request.setAttribute("readonly", readonly);
 
 				/* 職業リストを再表示 */
 				JobDao jdao = new JobDao();
@@ -93,9 +102,7 @@ public class InsertServlet extends HttpServlet {
 
 				/* フォワードの実行 */
 				request.getRequestDispatcher("./Entry.jsp").forward(request, response);
-			}
-
-			if (errorMessages.size() == 0) {
+			} else if (errorMessages.size() == 0) {
 
 				/* 登録IDが重複しているデータがないか検索 */
 				SearchDao01 sdao01 = new SearchDao01();
@@ -214,7 +221,7 @@ public class InsertServlet extends HttpServlet {
 				request.getRequestDispatcher("./Search.jsp").forward(request, response);
 
 			}
-		} else if (submitType.equals("クリア")) {
+		} else if (Objects.equals(submitType, "クリア")) {
 			/* エラーメッセージを初期化 */
 			ArrayList<String> errorMessages = new ArrayList<String>();
 			request.setAttribute("errorMessages", errorMessages);
@@ -224,8 +231,19 @@ public class InsertServlet extends HttpServlet {
 			ArrayList<JobBean> joblist = jdao.selectJob();
 			request.setAttribute("joblist", joblist);
 
+			/* 更新モードの場合、登録IDの入力値は初期化しない */
+			HttpSession session = request.getSession();
+			String submitTypeS = (String) session.getAttribute("submitTypeS");
+			if (Objects.equals(submitTypeS, "変更")) {
+				request.setAttribute("readonly", "update");
+				String id = request.getParameter("id");
+				request.setAttribute("id", id);
+			} else {
+				request.setAttribute("readonly", "insert");
+				request.setAttribute("id", "");
+			}
+
 			/* 入力フォームを初期化 */
-			request.setAttribute("id", "");
 			request.setAttribute("name", "");
 			request.setAttribute("age", "");
 			request.setAttribute("sex", "male");
@@ -237,7 +255,7 @@ public class InsertServlet extends HttpServlet {
 
 			// フォワードの実行
 			request.getRequestDispatcher("./Entry.jsp").forward(request, response);
-		} else if (submitType.equals("中止")) {
+		} else if (Objects.equals(submitType, "中止")) {
 
 			/* セッション情報を取得 */
 			HttpSession session = request.getSession();

@@ -34,12 +34,12 @@ public class SearchServlet01 extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		/* ボタンの値で処理を分岐 */
-		String submitType = request.getParameter("button"); 
-		
-		/*リンクから遷移した場合*/
+		String submitType = request.getParameter("button");
+
+		/* リンクから遷移した場合 */
 		String submitId = request.getParameter("submitId");
 
-		if (Objects.equals(submitType,"検索")) {
+		if (Objects.equals(submitType, "検索")) {
 
 			/* フォームから検索条件を取得 */
 			String idfrom = request.getParameter("idfrom");
@@ -88,6 +88,10 @@ public class SearchServlet01 extends HttpServlet {
 			/* 検索結果の件数を取得 */
 			int searchCount = searchlist.size();
 
+			/* 検索結果をリクエストスコープに格納 */
+			request.setAttribute("searchlist", searchlist);
+			request.setAttribute("searchCount", searchCount);
+
 			/* 検索結果が0件の場合に表示 */
 			if (errorCount == 0 && searchCount == 0) {
 				errorMessages.add("該当するデータが存在しません。");
@@ -96,10 +100,6 @@ public class SearchServlet01 extends HttpServlet {
 			/* エラーメッセージをリクエストスコープに格納 */
 			request.setAttribute("errorMessages", errorMessages);
 			request.setAttribute("errorCount", errorCount);
-
-			/* 検索結果をリクエストスコープに格納 */
-			request.setAttribute("searchlist", searchlist);
-			request.setAttribute("searchCount", searchCount);
 
 			/* 検索条件を保持 */
 			request.setAttribute("idfrom", idfrom);
@@ -122,7 +122,7 @@ public class SearchServlet01 extends HttpServlet {
 			/* フォワードの実行 */
 			request.getRequestDispatcher("./Search.jsp").forward(request, response);
 
-		} else if (Objects.equals(submitType,"クリア")) {
+		} else if (Objects.equals(submitType, "クリア")) {
 			/* 検索結果を初期化 */
 			ArrayList<SearchBean> searchlist = new ArrayList<SearchBean>();
 			request.setAttribute("searchlist", searchlist);
@@ -155,7 +155,7 @@ public class SearchServlet01 extends HttpServlet {
 
 			/* フォワードの実行 */
 			request.getRequestDispatcher("./Search.jsp").forward(request, response);
-		} else if (Objects.equals(submitType,"新規")) {
+		} else if (Objects.equals(submitType, "新規")) {
 
 			/* 検索画面で入力されていた値を取得 */
 			String idfromS = request.getParameter("idfrom");
@@ -189,6 +189,7 @@ public class SearchServlet01 extends HttpServlet {
 			session.setAttribute("addressdetailS", addressdetailS);
 			session.setAttribute("errorCountS", errorCountS);
 			session.setAttribute("searchCountS", searchCountS);
+			session.setAttribute("submitTypeS", submitType);
 
 			/* エラーメッセージを格納するリスト */
 			ArrayList<String> errorMessages = new ArrayList<String>();
@@ -209,13 +210,13 @@ public class SearchServlet01 extends HttpServlet {
 			request.setAttribute("zip", "");
 			request.setAttribute("address", "");
 			request.setAttribute("addressdetail", "");
+			/* 新規モードなので、登録IDの編集を可とする */
+			request.setAttribute("readonly", "insert");
 
 			// フォワードの実行
 			request.getRequestDispatcher("./Entry.jsp").forward(request, response);
-		}else if(Objects.equals(submitType,"変更")) {
-			/* チェックボックスにて指定された登録IDをもとに更新画面へ遷移 */
-			String[] selectedIdLists = request.getParameterValues("check");
-			
+		} else if (Objects.equals(submitType, "変更")) {
+
 			/* 検索画面で入力されていた値を取得 */
 			String idfromS = request.getParameter("idfrom");
 			String idtoS = request.getParameter("idto");
@@ -248,20 +249,24 @@ public class SearchServlet01 extends HttpServlet {
 			session.setAttribute("addressdetailS", addressdetailS);
 			session.setAttribute("errorCountS", errorCountS);
 			session.setAttribute("searchCountS", searchCountS);
-			
-			/*チェックされている行が無い、または複数の場合、エラーメッセージを表示*/
-			if(selectedIdLists == null || selectedIdLists.length > 1) {
+			session.setAttribute("submitTypeS", submitType);
+
+			/* チェックボックスにて指定された登録IDをもとに更新画面へ遷移 */
+			String[] selectedIdLists = request.getParameterValues("check");
+
+			/* チェックされている行が無い、または複数の場合、エラーメッセージを表示 */
+			if (selectedIdLists == null || selectedIdLists.length > 1) {
 				ArrayList<String> errorMessages = new ArrayList<String>();
-				if(selectedIdLists == null) {
+				if (selectedIdLists == null) {
 					errorMessages.add("対象データが選択されていません。\n住所リストにて対象を選択してください。");
-				}else if(selectedIdLists.length > 1) {
+				} else if (selectedIdLists.length > 1) {
 					errorMessages.add("対象データが複数行選択されています。\n住所リストにて対象を1行のみ選択してください。");
 				}
-				
+
 				request.setAttribute("errorMessages", errorMessages);
 				int errorCount = errorMessages.size();
 				request.setAttribute("errorCount", errorCount);
-				
+
 				if (!searchCountS.equals("0")) {
 					ArgumentBean ab = new ArgumentBean();
 
@@ -289,7 +294,7 @@ public class SearchServlet01 extends HttpServlet {
 					/* 検索結果をリクエストスコープに格納 */
 					request.setAttribute("searchlist", searchlist);
 					request.setAttribute("searchCount", searchCount);
-				}else {
+				} else {
 					ArrayList<SearchBean> searchlist = new ArrayList<SearchBean>();
 					request.setAttribute("searchlist", searchlist);
 					int searchCount = 0;
@@ -316,10 +321,10 @@ public class SearchServlet01 extends HttpServlet {
 
 				/* 検索画面へ遷移 */
 				request.getRequestDispatcher("./Search.jsp").forward(request, response);
-			}else {
+			} else {
 
 				String selectedId = null;
-				for(String id : selectedIdLists) {
+				for (String id : selectedIdLists) {
 					selectedId = id;
 				}
 				/* 入力値を格納するインスタンス */
@@ -327,13 +332,13 @@ public class SearchServlet01 extends HttpServlet {
 
 				/* フォーム内で入力された値を登録値としてセットする */
 				ib.setId(selectedId);
-				
-				/* 登録IDが重複しているデータがないか検索 */
+
+				/* 登録IDを引数としてテーブルより検索 */
 				SearchDao01 sdao01 = new SearchDao01();
 
 				/* 検索結果を取得 */
 				ArrayList<SearchBean> searchlist01 = sdao01.insertSearch(ib);
-				
+
 				/* 検索値を取得 */
 				String name = searchlist01.get(0).getName();
 				String age = String.valueOf(searchlist01.get(0).getAge());
@@ -343,7 +348,7 @@ public class SearchServlet01 extends HttpServlet {
 				String zip = searchlist01.get(0).getZip();
 				String address = searchlist01.get(0).getAddress();
 				String addressdetail = searchlist01.get(0).getAddressDetail();
-				
+
 				/* 入力フォームに検索した値をセット */
 				request.setAttribute("id", selectedId);
 				request.setAttribute("name", name);
@@ -354,7 +359,9 @@ public class SearchServlet01 extends HttpServlet {
 				request.setAttribute("zip", zip);
 				request.setAttribute("address", address);
 				request.setAttribute("addressdetail", addressdetail);
-				
+				/* 変更モードなので、登録IDの編集を不可とする */
+				request.setAttribute("readonly", "update");
+
 				/* エラーメッセージを格納するリスト */
 				ArrayList<String> errorMessages = new ArrayList<String>();
 				request.setAttribute("errorMessages", errorMessages);
@@ -366,10 +373,10 @@ public class SearchServlet01 extends HttpServlet {
 
 				// フォワードの実行
 				request.getRequestDispatcher("./Entry.jsp").forward(request, response);
-				
+
 			}
-		}else if(submitId != null) {
-			
+		} else if (submitId != null) {
+
 			/* 検索画面で入力されていた値を取得 */
 			String idfromS = request.getParameter("idfrom");
 			String idtoS = request.getParameter("idto");
@@ -402,19 +409,20 @@ public class SearchServlet01 extends HttpServlet {
 			session.setAttribute("addressdetailS", addressdetailS);
 			session.setAttribute("errorCountS", errorCountS);
 			session.setAttribute("searchCountS", searchCountS);
-			
+			session.setAttribute("submitTypeS", "変更");
+
 			/* 入力値を格納するインスタンス */
 			InsertBean ib = new InsertBean();
 
 			/* リンクのIDを登録値としてセットする */
 			ib.setId(submitId);
-			
-			/* 登録IDが重複しているデータがないか検索 */
+
+			/* 登録IDを引数としてテーブルより検索 */
 			SearchDao01 sdao01 = new SearchDao01();
 
 			/* 検索結果を取得 */
 			ArrayList<SearchBean> searchlist01 = sdao01.insertSearch(ib);
-			
+
 			/* 検索値を取得 */
 			String name = searchlist01.get(0).getName();
 			String age = String.valueOf(searchlist01.get(0).getAge());
@@ -424,7 +432,7 @@ public class SearchServlet01 extends HttpServlet {
 			String zip = searchlist01.get(0).getZip();
 			String address = searchlist01.get(0).getAddress();
 			String addressdetail = searchlist01.get(0).getAddressDetail();
-			
+
 			/* 入力フォームに検索した値をセット */
 			request.setAttribute("id", submitId);
 			request.setAttribute("name", name);
@@ -435,7 +443,9 @@ public class SearchServlet01 extends HttpServlet {
 			request.setAttribute("zip", zip);
 			request.setAttribute("address", address);
 			request.setAttribute("addressdetail", addressdetail);
-			
+			/* 変更モードなので、登録IDの編集を不可とする */
+			request.setAttribute("readonly", "update");
+
 			/* エラーメッセージを格納するリスト */
 			ArrayList<String> errorMessages = new ArrayList<String>();
 			request.setAttribute("errorMessages", errorMessages);
