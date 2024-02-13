@@ -30,14 +30,10 @@ public class SearchServlet extends HttpServlet {
 		/* 検索結果を格納するリスト */
 		ArrayList<SearchBean> searchlist = new ArrayList<SearchBean>();
 		request.setAttribute("searchlist", searchlist);
-		int searchCount = 0;
-		request.setAttribute("searchCount", searchCount);
 
 		/* エラーメッセージを格納するリスト */
 		ArrayList<String> errorMessages = new ArrayList<String>();
 		request.setAttribute("errorMessages", errorMessages);
-		int errorCount = 0;
-		request.setAttribute("errorCount", errorCount);
 
 		/* 職業リストを職業マスタから生成 */
 		JobDao jdao = new JobDao();
@@ -56,6 +52,8 @@ public class SearchServlet extends HttpServlet {
 		request.setAttribute("zip", "");
 		request.setAttribute("address", "");
 		request.setAttribute("addressdetail", "");
+		request.setAttribute("searchCount", 0);
+		request.setAttribute("errorCount", 0);
 
 		// フォワードの実行
 		request.getRequestDispatcher("./Search.jsp").forward(request, response);

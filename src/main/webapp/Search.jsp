@@ -169,19 +169,19 @@ Integer searchCount = (Integer) request.getAttribute("searchCount");
 				<th rowspan="2">
 				<a href="/AddEntrySystemVersion2/Search01
 				?submitId=<%=String.format("%08d", searchlist.get(i).getId())%>
-				?idfrom=<%=(String) request.getAttribute("idfrom")%>
-				?idto=<%=(String) request.getAttribute("idto")%>
-				?name=<%=(String) request.getAttribute("name")%>
-				?agefrom=<%=(String) request.getAttribute("agefrom")%>
-				?ageto=<%=(String) request.getAttribute("ageto")%>
-				?sex=<%=(String) request.getAttribute("sex")%>
-				?job=<%=(String) request.getAttribute("job")%>
-				?tell=<%=(String) request.getAttribute("tell")%>
-				?zip=<%=(String) request.getAttribute("zip")%>
-				?address=<%=(String) request.getAttribute("address")%>
-				?addressdetail=<%=(String) request.getAttribute("addressdetail")%>
-				?errorCount=<%=(Integer) request.getAttribute("errorCount")%>
-				?searchCount=<%=(Integer) request.getAttribute("searchCount")%>"><%=String.format("%08d", searchlist.get(i).getId())%></a>
+				&idfrom=<%=(String) request.getAttribute("idfrom")%>
+				&idto=<%=(String) request.getAttribute("idto")%>
+				&name=<%=(String) request.getAttribute("name")%>
+				&agefrom=<%=(String) request.getAttribute("agefrom")%>
+				&ageto=<%=(String) request.getAttribute("ageto")%>
+				&sex=<%=(String) request.getAttribute("sex")%>
+				&job=<%=(String) request.getAttribute("job")%>
+				&tell=<%=(String) request.getAttribute("tell")%>
+				&zip=<%=(String) request.getAttribute("zip")%>
+				&address=<%=(String) request.getAttribute("address")%>
+				&addressdetail=<%=(String) request.getAttribute("addressdetail")%>
+				&errorCount=<%=(Integer) request.getAttribute("errorCount")%>
+				&searchCount=<%=(Integer) request.getAttribute("searchCount")%>"><%=String.format("%08d", searchlist.get(i).getId())%></a>
 				</th>
 				<th><%=searchlist.get(i).getName()%></th>
 				<th><%=searchlist.get(i).getAge()%></th>

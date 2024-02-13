@@ -38,21 +38,23 @@ public class SearchServlet01 extends HttpServlet {
 
 		/* リンクから遷移した場合 */
 		String submitId = request.getParameter("submitId");
+		/* フォームから検索条件を取得 */
+		String idfrom = request.getParameter("idfrom");
+		String idto = request.getParameter("idto");
+		String name = request.getParameter("name");
+		String agefrom = request.getParameter("agefrom");
+		String ageto = request.getParameter("ageto");
+		String sex = request.getParameter("sex");
+		String job = request.getParameter("job");
+		String tell = request.getParameter("tell");
+		String zip = request.getParameter("zip");
+		String address = request.getParameter("address");
+		String addressdetail = request.getParameter("addressdetail");
+		/* 検索結果・エラーの情報を取得 */
+		String errorCount = request.getParameter("errorCount");
+		String searchCount = request.getParameter("searchCount");
 
 		if (Objects.equals(submitType, "検索")) {
-
-			/* フォームから検索条件を取得 */
-			String idfrom = request.getParameter("idfrom");
-			String idto = request.getParameter("idto");
-			String name = request.getParameter("name");
-			String agefrom = request.getParameter("agefrom");
-			String ageto = request.getParameter("ageto");
-			String sex = request.getParameter("sex");
-			String job = request.getParameter("job");
-			String tell = request.getParameter("tell");
-			String zip = request.getParameter("zip");
-			String address = request.getParameter("address");
-			String addressdetail = request.getParameter("addressdetail");
 
 			/* 検索値を格納するインスタンス */
 			ArgumentBean ab = new ArgumentBean();
@@ -77,7 +79,7 @@ public class SearchServlet01 extends HttpServlet {
 			ArrayList<String> errorMessages = svalidate.errorCheckS(ab);
 
 			/* エラーメッセージの数を取得 */
-			int errorCount = errorMessages.size();
+			int errorCountS = errorMessages.size();
 
 			/* データベースに対して検索処理を実施 */
 			SearchDao sdao = new SearchDao();
@@ -86,20 +88,20 @@ public class SearchServlet01 extends HttpServlet {
 			ArrayList<SearchBean> searchlist = sdao.selectSearch(ab);
 
 			/* 検索結果の件数を取得 */
-			int searchCount = searchlist.size();
+			int searchCountS = searchlist.size();
 
 			/* 検索結果をリクエストスコープに格納 */
 			request.setAttribute("searchlist", searchlist);
-			request.setAttribute("searchCount", searchCount);
+			request.setAttribute("searchCount", searchCountS);
 
 			/* 検索結果が0件の場合に表示 */
-			if (errorCount == 0 && searchCount == 0) {
+			if (errorCountS == 0 && searchCountS == 0) {
 				errorMessages.add("該当するデータが存在しません。");
 			}
 
 			/* エラーメッセージをリクエストスコープに格納 */
 			request.setAttribute("errorMessages", errorMessages);
-			request.setAttribute("errorCount", errorCount);
+			request.setAttribute("errorCount", errorCountS);
 
 			/* 検索条件を保持 */
 			request.setAttribute("idfrom", idfrom);
@@ -126,14 +128,10 @@ public class SearchServlet01 extends HttpServlet {
 			/* 検索結果を初期化 */
 			ArrayList<SearchBean> searchlist = new ArrayList<SearchBean>();
 			request.setAttribute("searchlist", searchlist);
-			int searchCount = 0;
-			request.setAttribute("searchCount", searchCount);
 
 			/* エラーメッセージを初期化 */
 			ArrayList<String> errorMessages = new ArrayList<String>();
 			request.setAttribute("errorMessages", errorMessages);
-			int errorCount = 0;
-			request.setAttribute("errorCount", errorCount);
 
 			/* 検索条件を初期化 */
 			request.setAttribute("idfrom", "");
@@ -147,6 +145,8 @@ public class SearchServlet01 extends HttpServlet {
 			request.setAttribute("zip", "");
 			request.setAttribute("address", "");
 			request.setAttribute("addressdetail", "");
+			request.setAttribute("searchCount", 0);
+			request.setAttribute("errorCount", 0);
 
 			/* 職業リストを再表示 */
 			JobDao jdao = new JobDao();
@@ -156,39 +156,21 @@ public class SearchServlet01 extends HttpServlet {
 			/* フォワードの実行 */
 			request.getRequestDispatcher("./Search.jsp").forward(request, response);
 		} else if (Objects.equals(submitType, "新規")) {
-
-			/* 検索画面で入力されていた値を取得 */
-			String idfromS = request.getParameter("idfrom");
-			String idtoS = request.getParameter("idto");
-			String nameS = request.getParameter("name");
-			String agefromS = request.getParameter("agefrom");
-			String agetoS = request.getParameter("ageto");
-			String sexS = request.getParameter("sex");
-			String jobS = request.getParameter("job");
-			String tellS = request.getParameter("tell");
-			String zipS = request.getParameter("zip");
-			String addressS = request.getParameter("address");
-			String addressdetailS = request.getParameter("addressdetail");
-
-			/* 検索結果・エラーの情報を取得 */
-			String errorCountS = request.getParameter("errorCount");
-			String searchCountS = request.getParameter("searchCount");
-
 			/* 検索画面の情報をセッションに格納(画面復元用) */
 			HttpSession session = request.getSession();
-			session.setAttribute("idfromS", idfromS);
-			session.setAttribute("idtoS", idtoS);
-			session.setAttribute("nameS", nameS);
-			session.setAttribute("agefromS", agefromS);
-			session.setAttribute("agetoS", agetoS);
-			session.setAttribute("sexS", sexS);
-			session.setAttribute("jobS", jobS);
-			session.setAttribute("tellS", tellS);
-			session.setAttribute("zipS", zipS);
-			session.setAttribute("addressS", addressS);
-			session.setAttribute("addressdetailS", addressdetailS);
-			session.setAttribute("errorCountS", errorCountS);
-			session.setAttribute("searchCountS", searchCountS);
+			session.setAttribute("idfromS", idfrom);
+			session.setAttribute("idtoS", idto);
+			session.setAttribute("nameS", name);
+			session.setAttribute("agefromS", agefrom);
+			session.setAttribute("agetoS", ageto);
+			session.setAttribute("sexS", sex);
+			session.setAttribute("jobS", job);
+			session.setAttribute("tellS", tell);
+			session.setAttribute("zipS", zip);
+			session.setAttribute("addressS", address);
+			session.setAttribute("addressdetailS", addressdetail);
+			session.setAttribute("errorCountS", errorCount);
+			session.setAttribute("searchCountS", searchCount);
 			session.setAttribute("submitTypeS", submitType);
 
 			/* エラーメッセージを格納するリスト */
@@ -217,38 +199,21 @@ public class SearchServlet01 extends HttpServlet {
 			request.getRequestDispatcher("./Entry.jsp").forward(request, response);
 		} else if (Objects.equals(submitType, "変更")) {
 
-			/* 検索画面で入力されていた値を取得 */
-			String idfromS = request.getParameter("idfrom");
-			String idtoS = request.getParameter("idto");
-			String nameS = request.getParameter("name");
-			String agefromS = request.getParameter("agefrom");
-			String agetoS = request.getParameter("ageto");
-			String sexS = request.getParameter("sex");
-			String jobS = request.getParameter("job");
-			String tellS = request.getParameter("tell");
-			String zipS = request.getParameter("zip");
-			String addressS = request.getParameter("address");
-			String addressdetailS = request.getParameter("addressdetail");
-
-			/* 検索結果・エラーメッセージの個数を取得 */
-			String errorCountS = request.getParameter("errorCount");
-			String searchCountS = request.getParameter("searchCount");
-
 			/* 検索画面の情報をセッションに格納(画面復元用) */
 			HttpSession session = request.getSession();
-			session.setAttribute("idfromS", idfromS);
-			session.setAttribute("idtoS", idtoS);
-			session.setAttribute("nameS", nameS);
-			session.setAttribute("agefromS", agefromS);
-			session.setAttribute("agetoS", agetoS);
-			session.setAttribute("sexS", sexS);
-			session.setAttribute("jobS", jobS);
-			session.setAttribute("tellS", tellS);
-			session.setAttribute("zipS", zipS);
-			session.setAttribute("addressS", addressS);
-			session.setAttribute("addressdetailS", addressdetailS);
-			session.setAttribute("errorCountS", errorCountS);
-			session.setAttribute("searchCountS", searchCountS);
+			session.setAttribute("idfromS", idfrom);
+			session.setAttribute("idtoS", idto);
+			session.setAttribute("nameS", name);
+			session.setAttribute("agefromS", agefrom);
+			session.setAttribute("agetoS", ageto);
+			session.setAttribute("sexS", sex);
+			session.setAttribute("jobS", job);
+			session.setAttribute("tellS", tell);
+			session.setAttribute("zipS", zip);
+			session.setAttribute("addressS", address);
+			session.setAttribute("addressdetailS", addressdetail);
+			session.setAttribute("errorCountS", errorCount);
+			session.setAttribute("searchCountS", searchCount);
 			session.setAttribute("submitTypeS", submitType);
 
 			/* チェックボックスにて指定された登録IDをもとに更新画面へ遷移 */
@@ -264,23 +229,22 @@ public class SearchServlet01 extends HttpServlet {
 				}
 
 				request.setAttribute("errorMessages", errorMessages);
-				int errorCount = errorMessages.size();
-				request.setAttribute("errorCount", errorCount);
+				request.setAttribute("errorCount", 1);
 
-				if (!searchCountS.equals("0")) {
+				if (!searchCount.equals("0")) {
 					ArgumentBean ab = new ArgumentBean();
 
-					ab.setIdfrom(idfromS);
-					ab.setIdto(idtoS);
-					ab.setName(nameS);
-					ab.setAgefrom(agefromS);
-					ab.setAgeto(agetoS);
-					ab.setSex(sexS);
-					ab.setJob(jobS);
-					ab.setTell(tellS);
-					ab.setZip(zipS);
-					ab.setAddress(addressS);
-					ab.setAddressdetail(addressdetailS);
+					ab.setIdfrom(idfrom);
+					ab.setIdto(idto);
+					ab.setName(name);
+					ab.setAgefrom(agefrom);
+					ab.setAgeto(ageto);
+					ab.setSex(sex);
+					ab.setJob(job);
+					ab.setTell(tell);
+					ab.setZip(zip);
+					ab.setAddress(address);
+					ab.setAddressdetail(addressdetail);
 
 					/* データベースに対して検索処理を実施 */
 					SearchDao sdao = new SearchDao();
@@ -288,31 +252,27 @@ public class SearchServlet01 extends HttpServlet {
 					/* 検索結果を取得 */
 					ArrayList<SearchBean> searchlist = sdao.selectSearch(ab);
 
-					/* 検索結果の件数を取得 */
-					int searchCount = searchlist.size();
-
 					/* 検索結果をリクエストスコープに格納 */
 					request.setAttribute("searchlist", searchlist);
 					request.setAttribute("searchCount", searchCount);
 				} else {
 					ArrayList<SearchBean> searchlist = new ArrayList<SearchBean>();
 					request.setAttribute("searchlist", searchlist);
-					int searchCount = 0;
-					request.setAttribute("searchCount", searchCount);
+					request.setAttribute("searchCount", 0);
 				}
 
 				/* 検索画面を復元 */
-				request.setAttribute("idfrom", idfromS);
-				request.setAttribute("idto", idtoS);
-				request.setAttribute("name", nameS);
-				request.setAttribute("agefrom", agefromS);
-				request.setAttribute("ageto", agetoS);
-				request.setAttribute("sex", sexS);
-				request.setAttribute("job", jobS);
-				request.setAttribute("tell", tellS);
-				request.setAttribute("zip", zipS);
-				request.setAttribute("address", addressS);
-				request.setAttribute("addressdetail", addressdetailS);
+				request.setAttribute("idfrom", idfrom);
+				request.setAttribute("idto", idto);
+				request.setAttribute("name", name);
+				request.setAttribute("agefrom", agefrom);
+				request.setAttribute("ageto", ageto);
+				request.setAttribute("sex", sex);
+				request.setAttribute("job", job);
+				request.setAttribute("tell", tell);
+				request.setAttribute("zip", zip);
+				request.setAttribute("address", address);
+				request.setAttribute("addressdetail", addressdetail);
 
 				/* 職業リストを再表示 */
 				JobDao jdao = new JobDao();
@@ -340,25 +300,25 @@ public class SearchServlet01 extends HttpServlet {
 				ArrayList<SearchBean> searchlist01 = sdao01.insertSearch(ib);
 
 				/* 検索値を取得 */
-				String name = searchlist01.get(0).getName();
-				String age = String.valueOf(searchlist01.get(0).getAge());
-				String sex = searchlist01.get(0).getSex();
-				String job = searchlist01.get(0).getJob();
-				String tell = searchlist01.get(0).getTell();
-				String zip = searchlist01.get(0).getZip();
-				String address = searchlist01.get(0).getAddress();
-				String addressdetail = searchlist01.get(0).getAddressDetail();
+				String nameE = searchlist01.get(0).getName();
+				String ageE = String.valueOf(searchlist01.get(0).getAge());
+				String sexE = searchlist01.get(0).getSex();
+				String jobE = searchlist01.get(0).getJob();
+				String tellE = searchlist01.get(0).getTell();
+				String zipE = searchlist01.get(0).getZip();
+				String addressE = searchlist01.get(0).getAddress();
+				String addressdetailE = searchlist01.get(0).getAddressDetail();
 
 				/* 入力フォームに検索した値をセット */
 				request.setAttribute("id", selectedId);
-				request.setAttribute("name", name);
-				request.setAttribute("age", age);
-				request.setAttribute("sex", sex);
-				request.setAttribute("job", job);
-				request.setAttribute("tell", tell);
-				request.setAttribute("zip", zip);
-				request.setAttribute("address", address);
-				request.setAttribute("addressdetail", addressdetail);
+				request.setAttribute("name", nameE);
+				request.setAttribute("age", ageE);
+				request.setAttribute("sex", sexE);
+				request.setAttribute("job", jobE);
+				request.setAttribute("tell", tellE);
+				request.setAttribute("zip", zipE);
+				request.setAttribute("address", addressE);
+				request.setAttribute("addressdetail", addressdetailE);
 				/* 変更モードなので、登録IDの編集を不可とする */
 				request.setAttribute("readonly", "update");
 
@@ -377,38 +337,21 @@ public class SearchServlet01 extends HttpServlet {
 			}
 		} else if (submitId != null) {
 
-			/* 検索画面で入力されていた値を取得 */
-			String idfromS = request.getParameter("idfrom");
-			String idtoS = request.getParameter("idto");
-			String nameS = request.getParameter("name");
-			String agefromS = request.getParameter("agefrom");
-			String agetoS = request.getParameter("ageto");
-			String sexS = request.getParameter("sex");
-			String jobS = request.getParameter("job");
-			String tellS = request.getParameter("tell");
-			String zipS = request.getParameter("zip");
-			String addressS = request.getParameter("address");
-			String addressdetailS = request.getParameter("addressdetail");
-
-			/* 検索結果・エラーメッセージの個数を取得 */
-			String errorCountS = request.getParameter("errorCount");
-			String searchCountS = request.getParameter("searchCount");
-
 			/* 検索画面の情報をセッションに格納(画面復元用) */
 			HttpSession session = request.getSession();
-			session.setAttribute("idfromS", idfromS);
-			session.setAttribute("idtoS", idtoS);
-			session.setAttribute("nameS", nameS);
-			session.setAttribute("agefromS", agefromS);
-			session.setAttribute("agetoS", agetoS);
-			session.setAttribute("sexS", sexS);
-			session.setAttribute("jobS", jobS);
-			session.setAttribute("tellS", tellS);
-			session.setAttribute("zipS", zipS);
-			session.setAttribute("addressS", addressS);
-			session.setAttribute("addressdetailS", addressdetailS);
-			session.setAttribute("errorCountS", errorCountS);
-			session.setAttribute("searchCountS", searchCountS);
+			session.setAttribute("idfromS", idfrom);
+			session.setAttribute("idtoS", idto);
+			session.setAttribute("nameS", name);
+			session.setAttribute("agefromS", agefrom);
+			session.setAttribute("agetoS", ageto);
+			session.setAttribute("sexS", sex);
+			session.setAttribute("jobS", job);
+			session.setAttribute("tellS", tell);
+			session.setAttribute("zipS", zip);
+			session.setAttribute("addressS", address);
+			session.setAttribute("addressdetailS", addressdetail);
+			session.setAttribute("errorCountS", errorCount);
+			session.setAttribute("searchCountS", searchCount);
 			session.setAttribute("submitTypeS", "変更");
 
 			/* 入力値を格納するインスタンス */
@@ -424,25 +367,25 @@ public class SearchServlet01 extends HttpServlet {
 			ArrayList<SearchBean> searchlist01 = sdao01.insertSearch(ib);
 
 			/* 検索値を取得 */
-			String name = searchlist01.get(0).getName();
-			String age = String.valueOf(searchlist01.get(0).getAge());
-			String sex = searchlist01.get(0).getSex();
-			String job = searchlist01.get(0).getJob();
-			String tell = searchlist01.get(0).getTell();
-			String zip = searchlist01.get(0).getZip();
-			String address = searchlist01.get(0).getAddress();
-			String addressdetail = searchlist01.get(0).getAddressDetail();
+			String nameE = searchlist01.get(0).getName();
+			String ageE = String.valueOf(searchlist01.get(0).getAge());
+			String sexE = searchlist01.get(0).getSex();
+			String jobE = searchlist01.get(0).getJob();
+			String tellE = searchlist01.get(0).getTell();
+			String zipE = searchlist01.get(0).getZip();
+			String addressE = searchlist01.get(0).getAddress();
+			String addressdetailE = searchlist01.get(0).getAddressDetail();
 
 			/* 入力フォームに検索した値をセット */
 			request.setAttribute("id", submitId);
-			request.setAttribute("name", name);
-			request.setAttribute("age", age);
-			request.setAttribute("sex", sex);
-			request.setAttribute("job", job);
-			request.setAttribute("tell", tell);
-			request.setAttribute("zip", zip);
-			request.setAttribute("address", address);
-			request.setAttribute("addressdetail", addressdetail);
+			request.setAttribute("name", nameE);
+			request.setAttribute("age", ageE);
+			request.setAttribute("sex", sexE);
+			request.setAttribute("job", jobE);
+			request.setAttribute("tell", tellE);
+			request.setAttribute("zip", zipE);
+			request.setAttribute("address", addressE);
+			request.setAttribute("addressdetail", addressdetailE);
 			/* 変更モードなので、登録IDの編集を不可とする */
 			request.setAttribute("readonly", "update");
 
