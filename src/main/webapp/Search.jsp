@@ -33,11 +33,10 @@ Integer searchCount = (Integer) request.getAttribute("searchCount");
 	<form method="post" action="/AddEntrySystemVersion2/Search01">
 		<input type="hidden" name="errorCount" value="<%=errorCount%>">
 		<input type="hidden" name="searchCount" value="<%=searchCount%>">
-		<input type="submit" name="button" value="検索">
-		<input type="submit" name="button" value="クリア"> 
-		<input type="submit" name="button" value="新規"> 
-		<input type="submit" name="button" value="変更">
-		<input type="submit" name="button" value="削除">
+		<input type="submit" name="button" value="検索"> <input
+			type="submit" name="button" value="クリア"> <input type="submit"
+			name="button" value="新規"> <input type="submit" name="button"
+			value="変更"> <input type="submit" name="button" value="削除">
 		<input type="submit" name="button" value="終了" onclick="Close()">
 
 		<%
@@ -166,8 +165,8 @@ Integer searchCount = (Integer) request.getAttribute("searchCount");
 			<tr>
 				<th rowspan="2"><input type="checkbox" name="check"
 					value=<%=String.format("%08d", searchlist.get(i).getId())%> /></th>
-				<th rowspan="2">
-				<a href="/AddEntrySystemVersion2/Search01
+				<th rowspan="2"><a
+					href="/AddEntrySystemVersion2/Search01
 				?submitId=<%=String.format("%08d", searchlist.get(i).getId())%>
 				&idfrom=<%=(String) request.getAttribute("idfrom")%>
 				&idto=<%=(String) request.getAttribute("idto")%>
