@@ -16,7 +16,6 @@ import Bean.InsertBean;
 import Bean.JobBean;
 import Bean.SearchBean;
 import Dao.DeleteDao;
-import Dao.InsertDao;
 import Dao.JobDao;
 import Dao.SearchDao;
 import Dao.SearchDao01;
@@ -402,75 +401,79 @@ public class SearchServlet01 extends HttpServlet {
 
 			// フォワードの実行
 			request.getRequestDispatcher("./Entry.jsp").forward(request, response);
-		}else if(Objects.equals(submitType, "削除")) {
+		} else if (Objects.equals(submitType, "削除")) {
 			/* チェックボックスにて指定された登録IDをもとに削除処理を実行 */
 			String[] selectedIdLists = request.getParameterValues("check");
-			
+
+			ArrayList<String> errorMessages = new ArrayList<String>();
+
 			/* チェックされている行が無い場合、エラーメッセージを表示 */
 			if (selectedIdLists == null) {
-				ArrayList<String> errorMessages = new ArrayList<String>();
-					errorMessages.add("対象データが選択されていません。\n住所リストにて対象を選択してください。");
-					request.setAttribute("errorMessages", errorMessages);
-					request.setAttribute("errorCount", 1);
+				errorMessages.add("対象データが選択されていません。\n住所リストにて対象を選択してください。");
+			} else {
 
-				if (!searchCount.equals("0")) {
-					ArgumentBean ab = new ArgumentBean();
-
-					ab.setIdfrom(idfrom);
-					ab.setIdto(idto);
-					ab.setName(name);
-					ab.setAgefrom(agefrom);
-					ab.setAgeto(ageto);
-					ab.setSex(sex);
-					ab.setJob(job);
-					ab.setTell(tell);
-					ab.setZip(zip);
-					ab.setAddress(address);
-					ab.setAddressdetail(addressdetail);
-
-					/* データベースに対して検索処理を実施 */
-					SearchDao sdao = new SearchDao();
-
-					/* 検索結果を取得 */
-					ArrayList<SearchBean> searchlist = sdao.selectSearch(ab);
-
-					/* 検索結果をリクエストスコープに格納 */
-					request.setAttribute("searchlist", searchlist);
-					request.setAttribute("searchCount", searchCount);
-				} else {
-					ArrayList<SearchBean> searchlist = new ArrayList<SearchBean>();
-					request.setAttribute("searchlist", searchlist);
-					request.setAttribute("searchCount", 0);
-				}
-
-				/* 検索画面を復元 */
-				request.setAttribute("idfrom", idfrom);
-				request.setAttribute("idto", idto);
-				request.setAttribute("name", name);
-				request.setAttribute("agefrom", agefrom);
-				request.setAttribute("ageto", ageto);
-				request.setAttribute("sex", sex);
-				request.setAttribute("job", job);
-				request.setAttribute("tell", tell);
-				request.setAttribute("zip", zip);
-				request.setAttribute("address", address);
-				request.setAttribute("addressdetail", addressdetail);
-
-				/* 職業リストを再表示 */
-				JobDao jdao = new JobDao();
-				ArrayList<JobBean> joblist = jdao.selectJob();
-				request.setAttribute("joblist", joblist);
-
-				/* 検索画面へ遷移 */
-				request.getRequestDispatcher("./Search.jsp").forward(request, response);
-				} else {
-					
-					/* データベースに対して削除処理を実施 */
-					DeleteDao ddao = new DeleteDao();
-					ddao.delete(selectedIdLists);
+				/* データベースに対して削除処理を実施 */
+				DeleteDao ddao = new DeleteDao();
+				ddao.delete(selectedIdLists);
 			}
-			
-			
+
+			request.setAttribute("errorMessages", errorMessages);
+			int ems = errorMessages.size();
+			request.setAttribute("errorCount", ems);
+
+			if (!searchCount.equals("0")) {
+				ArgumentBean ab = new ArgumentBean();
+
+				ab.setIdfrom(idfrom);
+				ab.setIdto(idto);
+				ab.setName(name);
+				ab.setAgefrom(agefrom);
+				ab.setAgeto(ageto);
+				ab.setSex(sex);
+				ab.setJob(job);
+				ab.setTell(tell);
+				ab.setZip(zip);
+				ab.setAddress(address);
+				ab.setAddressdetail(addressdetail);
+
+				/* データベースに対して検索処理を実施 */
+				SearchDao sdao = new SearchDao();
+
+				/* 検索結果を取得 */
+				ArrayList<SearchBean> searchlist = sdao.selectSearch(ab);
+
+				/* 検索結果をリクエストスコープに格納 */
+				request.setAttribute("searchlist", searchlist);
+				int scs = searchlist.size();
+				request.setAttribute("searchCount", scs);
+			} else {
+				ArrayList<SearchBean> searchlist = new ArrayList<SearchBean>();
+				request.setAttribute("searchlist", searchlist);
+				int scs = 0;
+				request.setAttribute("searchCount", scs);
+			}
+
+			/* 検索画面を復元 */
+			request.setAttribute("idfrom", idfrom);
+			request.setAttribute("idto", idto);
+			request.setAttribute("name", name);
+			request.setAttribute("agefrom", agefrom);
+			request.setAttribute("ageto", ageto);
+			request.setAttribute("sex", sex);
+			request.setAttribute("job", job);
+			request.setAttribute("tell", tell);
+			request.setAttribute("zip", zip);
+			request.setAttribute("address", address);
+			request.setAttribute("addressdetail", addressdetail);
+
+			/* 職業リストを再表示 */
+			JobDao jdao = new JobDao();
+			ArrayList<JobBean> joblist = jdao.selectJob();
+			request.setAttribute("joblist", joblist);
+
+			/* 検索画面へ遷移 */
+			request.getRequestDispatcher("./Search.jsp").forward(request, response);
+
 		}
 
 	}

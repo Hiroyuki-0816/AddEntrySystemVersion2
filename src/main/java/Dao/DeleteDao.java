@@ -30,21 +30,18 @@ public class DeleteDao {
 			con = DriverManager.getConnection(url, user, pass);
 
 			/* SQL•¶ */
-			String sql = "DELETE FROM t_address.t_address";
+			String sql = "DELETE FROM t_address.t_address WHERE id = ?";
 			
 			/* SQL•¶‚ğDB‚Ö‘—M */
 			PreparedStatement ps = con.prepareStatement(sql);
 			
 			/* ˆø”‚Ì‡”Ô */
-			int seq = 0;
+			int seq = 1;
 			
 			/* æ“¾‚µ‚½ID‚Ì”•ªíœˆ—‚ğÀs */
 			String selectedId = null;
 			for (String id : selectedIdLists) {
-				++seq;
 				selectedId = id;
-				sql += Join(conbine) + " id = ? ";
-				conbine = true;
 				ps.setString(seq, selectedId);
 			}
 
@@ -61,14 +58,6 @@ public class DeleteDao {
 					e.printStackTrace();
 				}
 			}
-		}
-	}
-	/* ğŒ•¶‚Ì˜AŒ‹‚ğ”»’è */
-	private String Join(boolean conbine) {
-		if (conbine) {
-			return " AND ";
-		} else {
-			return " WHERE ";
 		}
 	}
 }
