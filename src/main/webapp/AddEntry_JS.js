@@ -10,7 +10,7 @@ function Confirm() {
 	}
 }
 
-function Delete(){
+function Delete() {
 	const result = window.confirm('削除します。よろしいですか？');
 	if (!result) {
 
@@ -22,12 +22,7 @@ function Delete(){
 	}
 }
 
-function Close(){
-	const closeBtn = document.getElementById('close');
-
-closeBtn.addEventListener('click', function () {
-	
-  window.open('', '_self').close();
-
-});
+function Close() {
+	//ウィンドウを閉じる
+	window.open('about:blank', '_self').close();
 }

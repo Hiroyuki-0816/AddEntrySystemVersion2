@@ -14,9 +14,7 @@ public class DeleteDao {
 	private final String pass = "password";
 	/* 初期のDB接続状態 */
 	Connection con = null;
-	/* 条件を連結するかを判定 */
-	boolean conbine = false;
-	
+
 	public void delete(String[] selectedIdLists) {
 		/* JDBCドライバの読み込み */
 		try {
@@ -24,29 +22,24 @@ public class DeleteDao {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		
+
 		try {
 			/* DB接続 */
 			con = DriverManager.getConnection(url, user, pass);
 
 			/* SQL文 */
 			String sql = "DELETE FROM t_address.t_address WHERE id = ?";
-			
-			/* SQL文をDBへ送信 */
-			PreparedStatement ps = con.prepareStatement(sql);
-			
-			/* 引数の順番 */
-			int seq = 1;
-			
+
 			/* 取得したIDの数分削除処理を実行 */
 			String selectedId = null;
 			for (String id : selectedIdLists) {
+				/* SQL文をDBへ送信 */
+				PreparedStatement ps = con.prepareStatement(sql);
 				selectedId = id;
-				ps.setString(seq, selectedId);
+				ps.setString(1, selectedId);
+				ps.executeUpdate();
 			}
 
-			// 削除処理実行
-			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

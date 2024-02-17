@@ -33,13 +33,12 @@ Integer searchCount = (Integer) request.getAttribute("searchCount");
 	<form method="post" action="/AddEntrySystemVersion2/Search01">
 		<input type="hidden" name="errorCount" value="<%=errorCount%>">
 		<input type="hidden" name="searchCount" value="<%=searchCount%>">
-		<input type="submit" name="button" value="検索">
-		<input type="submit" name="button" value="クリア">
-		<input type="submit" name="button" value="新規">
-		<input type="submit" name="button" value="変更">
-	    <input type="submit" name="button" value="削除" onclick="Delete()">
-		<input type="submit" name="button" value="終了" onclick="Close()">
-
+		<input type="submit" name="button" value="検索"> <input
+			type="submit" name="button" value="クリア"> <input type="submit"
+			name="button" value="新規"> <input type="submit" name="button"
+			value="変更"> <input type="submit" name="button" value="削除"
+			onclick="return Delete()"> <input type="button" name="button"
+			value="終了" onclick="Close()">
 		<%
 		for (int i = 0; i < errorMessages.size(); ++i) {
 		%>
@@ -200,8 +199,8 @@ Integer searchCount = (Integer) request.getAttribute("searchCount");
 
 		</table>
 		<%
-	}
-	%>
+		}
+		%>
 	</form>
 </body>
 </html>

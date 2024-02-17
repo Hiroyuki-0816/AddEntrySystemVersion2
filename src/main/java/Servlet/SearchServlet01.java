@@ -475,7 +475,6 @@ public class SearchServlet01 extends HttpServlet {
 			request.getRequestDispatcher("./Search.jsp").forward(request, response);
 
 		}
-
 	}
 
 	/**

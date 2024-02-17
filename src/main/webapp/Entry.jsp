@@ -122,6 +122,8 @@ String submitTypeS = (String) session.getAttribute("submitTypeS");
 	out.print("selected");
 }%>><%=joblist.get(i).getJob()%></option>
 						<%
+						p
+
 						}
 						%>
 				</select></td>
