@@ -10,20 +10,20 @@
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
   <servlet>
+    <servlet-name>initial</servlet-name>
+    <servlet-class>Servlet.InitialServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>initial</servlet-name>
+    <url-pattern></url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>search</servlet-name>
     <servlet-class>Servlet.SearchServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>search</servlet-name>
     <url-pattern>/Search</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>search01</servlet-name>
-    <servlet-class>Servlet.SearchServlet01</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>search01</servlet-name>
-    <url-pattern>/Search01</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>insert</servlet-name>

@@ -38,6 +38,9 @@ public class InsertServlet extends HttpServlet {
 
 		/* ボタンの値で処理を分岐 */
 		String submitType = request.getParameter("button");
+		/* 登録IDの入力欄の編集の可否を制御(更新モードの場合編集不可にする) */
+		HttpSession session = request.getSession();
+		String submitTypeS = (String) session.getAttribute("submitTypeS");
 
 		if (Objects.equals(submitType, "登録")) {
 			/* フォームから入力値を取得 */
@@ -70,14 +73,12 @@ public class InsertServlet extends HttpServlet {
 
 			/* エラーチェックの結果を取得 */
 			ArrayList<String> errorMessages = ivalidate.errorCheckI(ib);
+			int ems = errorMessages.size();
 
-			if (errorMessages.size() != 0) {
+			if (ems != 0) {
 				/* エラーメッセージをリクエストスコープに格納 */
 				request.setAttribute("errorMessages", errorMessages);
-
-				/* 登録IDの入力欄の編集の可否を制御 */
-				HttpSession session = request.getSession();
-				String submitTypeS = (String) session.getAttribute("submitTypeS");
+				
 				if (Objects.equals(submitTypeS, "変更")) {
 					request.setAttribute("readonly", "update");
 				} else {
@@ -102,26 +103,33 @@ public class InsertServlet extends HttpServlet {
 
 				/* フォワードの実行 */
 				request.getRequestDispatcher("./Entry.jsp").forward(request, response);
-			} else if (errorMessages.size() == 0) {
-
-				/* 登録IDが重複しているデータがないか検索 */
-				SearchDao01 sdao01 = new SearchDao01();
-
-				/* 検索結果を取得 */
-				ArrayList<SearchBean> searchlist01 = sdao01.insertSearch(ib);
-
-				/* 登録処理を実施するか更新処理を実施するか判断する */
-				if (searchlist01.size() == 0) {
-
-					/* データベースに対して登録処理を実施 */
-					InsertDao idao = new InsertDao();
-					idao.insert(ib);
-
-				} else {
-
+			} else {
+				
+				if(Objects.equals(submitTypeS, "変更")) {
 					/* データベースに対して更新処理を実施 */
 					UpdateDao udao = new UpdateDao();
 					udao.update(ib);
+				}else {
+					/* 登録IDが重複しているデータがないか検索 */
+					SearchDao01 sdao01 = new SearchDao01();
+
+					/* 検索結果を取得 */
+					ArrayList<SearchBean> searchlist01 = sdao01.insertSearch(ib);
+					int sl01 = searchlist01.size();
+
+					/* 登録処理を実施するか更新処理を実施するか判断する */
+					if (sl01 != 0) {
+
+						/* データベースに対して更新処理を実施 */
+						UpdateDao udao = new UpdateDao();
+						udao.update(ib);
+
+					} else {
+					
+						/* データベースに対して登録処理を実施 */
+						InsertDao idao = new InsertDao();
+						idao.insert(ib);
+					}
 				}
 
 				/* 職業リストを再表示 */
@@ -129,8 +137,7 @@ public class InsertServlet extends HttpServlet {
 				ArrayList<JobBean> joblist = jdao.selectJob();
 				request.setAttribute("joblist", joblist);
 
-				/* セッション情報を取得 */
-				HttpSession session = request.getSession();
+				/* セッション情報より検索条件を復元 */
 				String idfromS = (String) session.getAttribute("idfromS");
 				String idtoS = (String) session.getAttribute("idtoS");
 				String nameS = (String) session.getAttribute("nameS");
@@ -150,13 +157,11 @@ public class InsertServlet extends HttpServlet {
 
 					ArrayList<SearchBean> searchlistB = new ArrayList<SearchBean>();
 					request.setAttribute("searchlist", searchlistB);
-					int searchCountB = 0;
-					request.setAttribute("searchCount", searchCountB);
+					request.setAttribute("searchCount", 0);
 
 					ArrayList<String> errorMessagesB = new ArrayList<String>();
 					request.setAttribute("errorMessages", errorMessagesB);
-					int errorCountB = 0;
-					request.setAttribute("errorCount", errorCountB);
+					request.setAttribute("errorCount", 0);
 
 				} else {
 					ArgumentBean ab = new ArgumentBean();
@@ -232,8 +237,6 @@ public class InsertServlet extends HttpServlet {
 			request.setAttribute("joblist", joblist);
 
 			/* 更新モードの場合、登録IDの入力値は初期化しない */
-			HttpSession session = request.getSession();
-			String submitTypeS = (String) session.getAttribute("submitTypeS");
 			if (Objects.equals(submitTypeS, "変更")) {
 				request.setAttribute("readonly", "update");
 				String id = request.getParameter("id");
@@ -258,7 +261,6 @@ public class InsertServlet extends HttpServlet {
 		} else if (Objects.equals(submitType, "中止")) {
 
 			/* セッション情報を取得 */
-			HttpSession session = request.getSession();
 			String idfromS = (String) session.getAttribute("idfromS");
 			String idtoS = (String) session.getAttribute("idtoS");
 			String nameS = (String) session.getAttribute("nameS");
@@ -278,13 +280,11 @@ public class InsertServlet extends HttpServlet {
 
 				ArrayList<SearchBean> searchlistB = new ArrayList<SearchBean>();
 				request.setAttribute("searchlist", searchlistB);
-				int searchCountB = 0;
-				request.setAttribute("searchCount", searchCountB);
+				request.setAttribute("searchCount", 0);
 
 				ArrayList<String> errorMessagesB = new ArrayList<String>();
 				request.setAttribute("errorMessages", errorMessagesB);
-				int errorCountB = 0;
-				request.setAttribute("errorCount", errorCountB);
+				request.setAttribute("errorCount", 0);
 
 			} else {
 				ArgumentBean ab = new ArgumentBean();

@@ -5,7 +5,7 @@ function Confirm() {
 		//キャンセルが押下されたら何もしない
 		return false;
 	} else {
-		//OKが押下されたら登録・更新処理を実行
+		//OKが押下されたら登録処理を実行
 		location.href = "/AddEntrySystemVersion2/Insert";
 	}
 }
@@ -18,7 +18,7 @@ function Delete() {
 		return false;
 	} else {
 		//OKが押下されたら削除処理を実行
-		location.href = "/AddEntrySystemVersion2/Search01";
+		location.href = "/AddEntrySystemVersion2/Search/Search";
 	}
 }
 

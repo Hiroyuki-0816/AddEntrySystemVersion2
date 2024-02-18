@@ -33,9 +33,8 @@ String errorCountS = (String) session.getAttribute("errorCountS");
 String searchCountS = (String) session.getAttribute("searchCountS");
 String submitTypeS = (String) session.getAttribute("submitTypeS");
 %>
-
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
 <meta charset="UTF-8">
 <script src='AddEntry_JS.js'></script>
@@ -59,10 +58,9 @@ String submitTypeS = (String) session.getAttribute("submitTypeS");
 		<input type="hidden" name="searchCount" value="<%=searchCountS%>">
 		<input type="hidden" name="submitType" value="<%=submitTypeS%>">
 
-		<input type="submit" name="button" value="登録"
-			onclick="return Confirm()"> <input type="submit"
-			name="button" value="クリア"> <input type="submit" name="button"
-			value="中止">
+		<input type="submit" name="button" value="登録" onclick="return Confirm()">
+		<input type="submit" name="button" value="クリア">
+		<input type="submit" name="button" value="中止">
 
 		<%
 		for (int i = 0; i < errorMessages.size(); ++i) {
@@ -118,12 +116,12 @@ String submitTypeS = (String) session.getAttribute("submitTypeS");
 						for (int i = 0; i < joblist.size(); ++i) {
 						%>
 						<option value=<%=joblist.get(i).getId()%>
-							<%if (joblist.get(i).getId() == Integer.parseInt(job)) {
-	out.print("selected");
-}%>><%=joblist.get(i).getJob()%></option>
+						<%if (joblist.get(i).getId() == Integer.parseInt(job)) {
+							out.print("selected");
+							}%>>
+						<%=joblist.get(i).getJob()%>
+						</option>
 						<%
-						p
-
 						}
 						%>
 				</select></td>

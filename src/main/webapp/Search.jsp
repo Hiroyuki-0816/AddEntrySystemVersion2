@@ -21,24 +21,24 @@ String addressdetail = (String) request.getAttribute("addressdetail");
 Integer errorCount = (Integer) request.getAttribute("errorCount");
 Integer searchCount = (Integer) request.getAttribute("searchCount");
 %>
-<script src='AddEntry_JS.js'></script>
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
 <meta charset="UTF-8">
+<script src='AddEntry_JS.js'></script>
 <title>住所登録システム</title>
 </head>
 <body>
 	<h1>住所登録システム</h1>
-	<form method="post" action="/AddEntrySystemVersion2/Search01">
+	<form method="post" action="/AddEntrySystemVersion2/Search">
 		<input type="hidden" name="errorCount" value="<%=errorCount%>">
 		<input type="hidden" name="searchCount" value="<%=searchCount%>">
-		<input type="submit" name="button" value="検索"> <input
-			type="submit" name="button" value="クリア"> <input type="submit"
-			name="button" value="新規"> <input type="submit" name="button"
-			value="変更"> <input type="submit" name="button" value="削除"
-			onclick="return Delete()"> <input type="button" name="button"
-			value="終了" onclick="Close()">
+		<input type="submit" name="button" value="検索">
+		<input type="submit" name="button" value="クリア">
+	    <input type="submit" name="button" value="新規">
+	    <input type="submit" name="button" value="変更"> 
+	    <input type="submit" name="button" value="削除" onclick="return Delete()"> 
+	    <input type="button" name="button" value="終了" onclick="Close()">
 		<%
 		for (int i = 0; i < errorMessages.size(); ++i) {
 		%>
@@ -166,7 +166,7 @@ Integer searchCount = (Integer) request.getAttribute("searchCount");
 				<th rowspan="2"><input type="checkbox" name="check"
 					value=<%=String.format("%08d", searchlist.get(i).getId())%> /></th>
 				<th rowspan="2"><a
-					href="/AddEntrySystemVersion2/Search01
+					href="/AddEntrySystemVersion2/Search
 				?submitId=<%=String.format("%08d", searchlist.get(i).getId())%>
 				&idfrom=<%=(String) request.getAttribute("idfrom")%>
 				&idto=<%=(String) request.getAttribute("idto")%>
