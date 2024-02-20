@@ -18,11 +18,18 @@ function Delete() {
 		return false;
 	} else {
 		//OKが押下されたら削除処理を実行
-		location.href = "/AddEntrySystemVersion2/Search/Search";
+		location.href = "/AddEntrySystemVersion2/Search";
 	}
 }
 
 function Close() {
+	const result = window.confirm('終了しますか？');
+	if (!result) {
+
+		//キャンセルが押下されたら何もしない
+		return false;
+	} else {
 	//ウィンドウを閉じる
 	window.open('about:blank', '_self').close();
+	}
 }

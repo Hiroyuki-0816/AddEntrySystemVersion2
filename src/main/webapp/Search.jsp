@@ -38,7 +38,7 @@ Integer searchCount = (Integer) request.getAttribute("searchCount");
 	    <input type="submit" name="button" value="新規">
 	    <input type="submit" name="button" value="変更"> 
 	    <input type="submit" name="button" value="削除" onclick="return Delete()"> 
-	    <input type="button" name="button" value="終了" onclick="Close()">
+	    <input type="button" name="button" value="終了" onclick="return Close()">
 		<%
 		for (int i = 0; i < errorMessages.size(); ++i) {
 		%>

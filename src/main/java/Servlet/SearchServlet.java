@@ -22,7 +22,7 @@ import Dao.SearchDao01;
 import Validation.SearchValidation;
 
 /**
- * Servlet implementation class test03
+ * Servlet implementation class SearchServlet
  */
 @WebServlet("/AddEntrySystemVersion2/Search")
 public class SearchServlet extends HttpServlet {
