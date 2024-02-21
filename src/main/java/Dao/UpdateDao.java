@@ -89,7 +89,7 @@ public class UpdateDao {
 			ps.setString(6, zip);
 			ps.setString(7, address);
 
-			if (addressdetail != "") {
+			if (!addressdetail.isEmpty()) {
 				ps.setString(8, addressdetail);
 			} else {
 				ps.setString(8, null);

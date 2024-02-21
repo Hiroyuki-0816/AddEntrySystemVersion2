@@ -2,6 +2,7 @@ package Dao;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import Bean.InsertBean;
 import Bean.SearchBean;
@@ -58,7 +59,7 @@ public class SearchDao01 {
 				}else {
 					sb.setSex("");
 				}
-				if (rs.getString("job") == null) {
+				if (Objects.isNull(rs.getString("job"))) {
 					sb.setJob("0");
 				} else {
 					sb.setJob(rs.getString("job"));
@@ -66,7 +67,7 @@ public class SearchDao01 {
 				sb.setTell(rs.getString("tell"));
 				sb.setZip(rs.getString("zip"));
 				sb.setAddress(rs.getString("address"));
-				if (rs.getString("addressdetail") == null) {
+				if (Objects.isNull(rs.getString("addressdetail"))) {
 					sb.setAddressDetail("");
 				} else {
 					sb.setAddressDetail(rs.getString("addressdetail"));

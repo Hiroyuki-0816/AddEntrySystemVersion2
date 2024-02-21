@@ -90,7 +90,7 @@ public class InsertDao {
 			ps.setString(7, zip);
 			ps.setString(8, address);
 
-			if (addressdetail != "") {
+			if (!addressdetail.isEmpty()) {
 				ps.setString(9, addressdetail);
 			} else {
 				ps.setString(9, null);

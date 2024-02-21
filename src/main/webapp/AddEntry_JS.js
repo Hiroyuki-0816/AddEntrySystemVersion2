@@ -11,7 +11,7 @@ function Confirm() {
 }
 
 function Delete() {
-	const result = window.confirm('削除します。よろしいですか？');
+	const result = window.confirm('選択されたデータを削除します。よろしいですか？');
 	if (!result) {
 
 		//キャンセルが押下されたら何もしない

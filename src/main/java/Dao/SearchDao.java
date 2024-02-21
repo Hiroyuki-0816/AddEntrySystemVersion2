@@ -2,6 +2,7 @@ package Dao;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import Bean.ArgumentBean;
 import Bean.SearchBean;
@@ -51,23 +52,23 @@ public class SearchDao {
 			String address = ab.getAddress();
 			String addressdetail = ab.getAddressdetail();
 
-			if (idfrom != "" && idto != "") {
+			if (!idfrom.isEmpty() && !idto.isEmpty()) {
 				sql += Join(conbine) + "t_address.id between ? and ?";
 				conbine = true;
-			} else if ((idfrom != "" && idto == "") || (idfrom == "" && idto != "")) {
+			} else if ((!idfrom.isEmpty() && idto.isEmpty()) || (idfrom.isEmpty() && !idto.isEmpty())) {
 				sql += Join(conbine) + "t_address.id = ?";
 				conbine = true;
 			}
 
-			if (name != "") {
+			if (!name.isEmpty()) {
 				sql += Join(conbine) + "name LIKE ?";
 				conbine = true;
 			}
 
-			if (agefrom != "" && ageto != "") {
+			if (!agefrom.isEmpty() && !ageto.isEmpty()) {
 				sql += Join(conbine) + "age between ? and ?";
 				conbine = true;
-			} else if ((agefrom != "" && ageto == "") || (agefrom == "" && ageto != "")) {
+			} else if ((!agefrom.isEmpty() && ageto.isEmpty()) || (agefrom.isEmpty() && !ageto.isEmpty())) {
 				sql += Join(conbine) + "age = ?";
 				conbine = true;
 			}
@@ -82,7 +83,7 @@ public class SearchDao {
 				conbine = true;
 			}
 
-			if (tell != "") {
+			if (!tell.isEmpty()) {
 				if (!tell.contains("-")) {
 					sql += Join(conbine) + "replace (tell,'-','') LIKE ?";
 					conbine = true;
@@ -92,7 +93,7 @@ public class SearchDao {
 				}
 			}
 
-			if (zip != "") {
+			if (!zip.isEmpty()) {
 				if (!zip.contains("-")) {
 					sql += Join(conbine) + "replace (zip,'-','') LIKE ?";
 					conbine = true;
@@ -102,12 +103,12 @@ public class SearchDao {
 				}
 			}
 
-			if (address != "") {
+			if (!address.isEmpty()) {
 				sql += Join(conbine) + "address LIKE ?";
 				conbine = true;
 			}
 
-			if (addressdetail != "") {
+			if (!addressdetail.isEmpty()) {
 				sql += Join(conbine) + "addressdetail LIKE ?";
 				conbine = true;
 			}
@@ -119,25 +120,25 @@ public class SearchDao {
 			int seq = 0;
 
 			/* ÉpÉâÉÅÅ[É^Çí«â¡ */
-			if (idfrom != "" && idto != "") {
+			if (!idfrom.isEmpty() && !idto.isEmpty()) {
 				ps.setString(++seq, idfrom);
 				ps.setString(++seq, idto);
-			} else if (idfrom != "" && idto == "") {
+			} else if (!idfrom.isEmpty() && idto.isEmpty()) {
 				ps.setString(++seq, idfrom);
-			} else if (idfrom == "" && idto != "") {
+			} else if (idfrom.isEmpty() && !idto.isEmpty()) {
 				ps.setString(++seq, idto);
 			}
 
-			if (name != "") {
+			if (!name.isEmpty()) {
 				ps.setString(++seq, "%" + name + "%");
 			}
 
-			if (agefrom != "" && ageto != "") {
+			if (!agefrom.isEmpty() && !ageto.isEmpty()) {
 				ps.setString(++seq, agefrom);
 				ps.setString(++seq, ageto);
-			} else if (agefrom != "" && ageto == "") {
+			} else if (!agefrom.isEmpty() && ageto.isEmpty()) {
 				ps.setString(++seq, agefrom);
-			} else if (agefrom == "" && ageto != "") {
+			} else if (agefrom.isEmpty() && !ageto.isEmpty()) {
 				ps.setString(++seq, ageto);
 			}
 
@@ -177,16 +178,16 @@ public class SearchDao {
 				break;
 			}
 
-			if (tell != "") {
+			if (!tell.isEmpty()) {
 				ps.setString(++seq, tell + "%");
 			}
-			if (zip != "") {
+			if (!zip.isEmpty()) {
 				ps.setString(++seq, zip + "%");
 			}
-			if (address != "") {
+			if (!address.isEmpty()) {
 				ps.setString(++seq, "%" + address + "%");
 			}
-			if (addressdetail != "") {
+			if (!addressdetail.isEmpty()) {
 				ps.setString(++seq, "%" + addressdetail + "%");
 			}
 
@@ -200,7 +201,7 @@ public class SearchDao {
 				sb.setName(rs.getString("name"));
 				sb.setAge(rs.getInt("age"));
 				sb.setSex(rs.getString("sex"));
-				if (rs.getString("job") == null) {
+				if (Objects.isNull(rs.getString("job"))) {
 					sb.setJob("");
 				} else {
 					sb.setJob(rs.getString("job"));
@@ -208,7 +209,7 @@ public class SearchDao {
 				sb.setTell(rs.getString("tell"));
 				sb.setZip(rs.getString("zip"));
 				sb.setAddress(rs.getString("address"));
-				if (rs.getString("addressdetail") == null) {
+				if (Objects.isNull(rs.getString("addressdetail"))) {
 					sb.setAddressDetail("");
 				} else {
 					sb.setAddressDetail(rs.getString("addressdetail"));

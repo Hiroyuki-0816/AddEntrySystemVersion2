@@ -30,17 +30,17 @@ public class SearchValidation {
 
 		if (idfrom.length() > 8) {
 			errorMessages.add("“o˜^IDFROM" + msg);
-		} else if (idfrom != "" && !idfrom.matches("^[0-9]+$")) {
+		} else if (!idfrom.isEmpty() && !idfrom.matches("^[0-9]+$")) {
 			errorMessages.add("“o˜^IDFROM" + msg2);
 		}
 
 		if (idto.length() > 8) {
 			errorMessages.add("“o˜^IDTO" + msg);
-		} else if (idto != "" && !idto.matches("^[0-9]+$")) {
+		} else if (!idto.isEmpty() && !idto.matches("^[0-9]+$")) {
 			errorMessages.add("“o˜^IDTO" + msg2);
 		}
 
-		if ((idfrom != "" && idto != "") && (idfrom.matches("^[0-9]+$") && idto.matches("^[0-9]+$"))
+		if ((!idfrom.isEmpty() && !idto.isEmpty()) && (idfrom.matches("^[0-9]+$") && idto.matches("^[0-9]+$"))
 				&& Integer.parseInt(idfrom) > Integer.parseInt(idto)) {
 			errorMessages.add("“o˜^ID" + msg3);
 		}
@@ -51,30 +51,30 @@ public class SearchValidation {
 
 		if (agefrom.length() > 3) {
 			errorMessages.add("”N—îFROM" + msg);
-		} else if (agefrom != "" && !agefrom.matches("^[0-9]+$")) {
+		} else if (!agefrom.isEmpty() && !agefrom.matches("^[0-9]+$")) {
 			errorMessages.add("”N—îFROM" + msg2);
 		}
 
 		if (ageto.length() > 3) {
 			errorMessages.add("”N—îTO" + msg);
-		} else if (ageto != "" && !ageto.matches("^[0-9]+$")) {
+		} else if (!ageto.isEmpty() && !ageto.matches("^[0-9]+$")) {
 			errorMessages.add("”N—îTO" + msg2);
 		}
 
-		if ((agefrom != "" && ageto != "") && (agefrom.matches("^[0-9]+$") && ageto.matches("^[0-9]+$"))
+		if ((!agefrom.isEmpty() && !ageto.isEmpty()) && (agefrom.matches("^[0-9]+$") && ageto.matches("^[0-9]+$"))
 				&& Integer.parseInt(agefrom) > Integer.parseInt(ageto)) {
 			errorMessages.add("”N—î" + msg3);
 		}
 
 		if (tell.length() > 13) {
 			errorMessages.add("“d˜b”Ô†" + msg);
-		} else if (tell != "" && !tell.matches("^[-0-9]+$")) {
+		} else if (!tell.isEmpty() && !tell.matches("^[-0-9]+$")) {
 			errorMessages.add("“d˜b”Ô†" + msg2);
 		}
 
 		if (zip.length() > 8) {
 			errorMessages.add("—X•Ö”Ô†" + msg);
-		} else if (zip != "" && !zip.matches("^[-0-9]+$")) {
+		} else if (!zip.isEmpty() && !zip.matches("^[-0-9]+$")) {
 			errorMessages.add("—X•Ö”Ô†" + msg2);
 		}
 

@@ -26,7 +26,7 @@ public class InsertValidation {
 		String address = ib.getAddress();
 		String addressdetail = ib.getAddressDetail();
 
-		if (id == "") {
+		if (id.isEmpty()) {
 			errorMessages.add("“o˜^ID" + msg);
 		} else if (id.length() > 8) {
 			errorMessages.add("“o˜^ID" + msg2);
@@ -34,13 +34,13 @@ public class InsertValidation {
 			errorMessages.add("“o˜^ID" + msg3);
 		}
 
-		if (name == "") {
+		if (name.isEmpty()) {
 			errorMessages.add("–¼" + msg);
 		} else if (name.length() > 20) {
 			errorMessages.add("–¼" + msg2);
 		}
 
-		if (age == "") {
+		if (age.isEmpty()) {
 			errorMessages.add("”N—î" + msg);
 		} else if (age.length() > 3) {
 			errorMessages.add("”N—î" + msg2);
@@ -48,7 +48,7 @@ public class InsertValidation {
 			errorMessages.add("”N—î" + msg3);
 		}
 
-		if (tell == "") {
+		if (tell.isEmpty()) {
 			errorMessages.add("“d˜b”Ô†" + msg);
 		} else if (tell.length() > 13) {
 			errorMessages.add("“d˜b”Ô†" + msg2);
@@ -58,7 +58,7 @@ public class InsertValidation {
 			errorMessages.add("ƒnƒCƒtƒ“'-'‚ÅŠJnA‚Ü‚½‚ÍI—¹‚·‚é•¶š—ñ‚Ì“o˜^‚Í‚Å‚«‚Ü‚¹‚ñB");
 		}
 
-		if (zip == "") {
+		if (zip.isEmpty()) {
 			errorMessages.add("—X•Ö”Ô†" + msg);
 		} else if (zip.length() > 8) {
 			errorMessages.add("—X•Ö”Ô†" + msg2);
@@ -68,7 +68,7 @@ public class InsertValidation {
 			errorMessages.add("—X•Ö”Ô†‚Í‘®Fu999-9999v‚Å‚È‚¯‚ê‚Î“o˜^‚Å‚«‚Ü‚¹‚ñB");
 		}
 
-		if (address == "") {
+		if (address.isEmpty()) {
 			errorMessages.add("ZŠ" + msg);
 		} else if (address.length() > 20) {
 			errorMessages.add("ZŠ" + msg2);
