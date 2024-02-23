@@ -1,6 +1,7 @@
 package Dao;
 
 import java.sql.*;
+import java.util.Objects;
 
 import Bean.InsertBean;
 
@@ -103,7 +104,7 @@ public class UpdateDao {
 			e.printStackTrace();
 		} finally {
 			// DBÚ‘±‚ğ‰ğœ
-			if (con != null) {
+			if (!Objects.isNull(con)) {
 				try {
 					con.close();
 				} catch (SQLException e) {

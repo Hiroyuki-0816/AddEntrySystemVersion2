@@ -2,6 +2,7 @@ package Dao;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import Bean.JobBean;
 
@@ -51,7 +52,7 @@ public class JobDao {
 			e.printStackTrace();
 		} finally {
 			// DBÚ‘±‚ğ‰ğœ
-			if (con != null) {
+			if (!Objects.isNull(con)) {
 				try {
 					con.close();
 				} catch (SQLException e) {

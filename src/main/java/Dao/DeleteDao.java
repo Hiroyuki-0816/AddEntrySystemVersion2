@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Objects;
 
 public class DeleteDao {
 	/* データベースのURL */
@@ -44,7 +45,7 @@ public class DeleteDao {
 			e.printStackTrace();
 		} finally {
 			// DB接続を解除
-			if (con != null) {
+			if (!Objects.isNull(con)) {
 				try {
 					con.close();
 				} catch (SQLException e) {

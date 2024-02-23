@@ -226,9 +226,9 @@ public class SearchServlet extends HttpServlet {
 			String[] selectedIdLists = request.getParameterValues("check");
 
 			/* チェックされている行が無い、または複数の場合、エラーメッセージを表示 */
-			if (selectedIdLists == null || selectedIdLists.length > 1) {
+			if (Objects.isNull(selectedIdLists) || selectedIdLists.length > 1) {
 				ArrayList<String> errorMessages = new ArrayList<String>();
-				if (selectedIdLists == null) {
+				if (Objects.isNull(selectedIdLists)) {
 					errorMessages.add("対象データが選択されていません。住所リストにて対象を選択してください。");
 				} else if (selectedIdLists.length > 1) {
 					errorMessages.add("対象データが複数行選択されています。住所リストにて対象を1行のみ選択してください。");
@@ -343,7 +343,7 @@ public class SearchServlet extends HttpServlet {
 				request.getRequestDispatcher("./Entry.jsp").forward(request, response);
 
 			}
-		} else if (submitId != null) {
+		} else if (!Objects.isNull(submitId)) {
 
 			/* 検索画面の情報をセッションに格納(画面復元用) */
 			HttpSession session = request.getSession();
@@ -415,7 +415,7 @@ public class SearchServlet extends HttpServlet {
 			ArrayList<String> errorMessages = new ArrayList<String>();
 
 			/* チェックされている行が無い場合、エラーメッセージを表示 */
-			if (selectedIdLists == null) {
+			if (Objects.isNull(selectedIdLists)) {
 				errorMessages.add("対象データが選択されていません。住所リストにて対象を選択してください。");
 			} else {
 
@@ -447,7 +447,8 @@ public class SearchServlet extends HttpServlet {
 
 				/* 検索結果を取得 */
 				ArrayList<SearchBean> searchlist = sdao.selectSearch(ab);
-				int scs = searchlist.size();;
+				int scs = searchlist.size();
+				;
 
 				/* 検索結果をリクエストスコープに格納 */
 				request.setAttribute("searchlist", searchlist);

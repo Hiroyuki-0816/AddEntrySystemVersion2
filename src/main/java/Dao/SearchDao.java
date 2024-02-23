@@ -221,7 +221,7 @@ public class SearchDao {
 			e.printStackTrace();
 		} finally {
 			// DBÚ‘±‚ğ‰ğœ
-			if (con != null) {
+			if (!Objects.isNull(con)) {
 				try {
 					con.close();
 				} catch (SQLException e) {
