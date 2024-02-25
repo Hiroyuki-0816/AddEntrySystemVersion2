@@ -75,10 +75,10 @@ public class InsertServlet extends HttpServlet {
 			ArrayList<String> errorMessages = ivalidate.errorCheckI(ib);
 			int ems = errorMessages.size();
 
-			if (ems != 0) {
+			if (ems > 0) {
 				/* エラーメッセージをリクエストスコープに格納 */
 				request.setAttribute("errorMessages", errorMessages);
-				
+
 				if (Objects.equals(submitTypeS, "変更")) {
 					request.setAttribute("readonly", "update");
 				} else {
@@ -104,12 +104,12 @@ public class InsertServlet extends HttpServlet {
 				/* フォワードの実行 */
 				request.getRequestDispatcher("./Entry.jsp").forward(request, response);
 			} else {
-				
-				if(Objects.equals(submitTypeS, "変更")) {
+
+				if (Objects.equals(submitTypeS, "変更")) {
 					/* データベースに対して更新処理を実施 */
 					UpdateDao udao = new UpdateDao();
 					udao.update(ib);
-				}else {
+				} else {
 					/* 登録IDが重複しているデータがないか検索 */
 					SearchDao01 sdao01 = new SearchDao01();
 
@@ -118,14 +118,14 @@ public class InsertServlet extends HttpServlet {
 					int sl01 = searchlist01.size();
 
 					/* 登録処理を実施するか更新処理を実施するか判断する */
-					if (sl01 != 0) {
+					if (sl01 > 0) {
 
 						/* データベースに対して更新処理を実施 */
 						UpdateDao udao = new UpdateDao();
 						udao.update(ib);
 
 					} else {
-					
+
 						/* データベースに対して登録処理を実施 */
 						InsertDao idao = new InsertDao();
 						idao.insert(ib);

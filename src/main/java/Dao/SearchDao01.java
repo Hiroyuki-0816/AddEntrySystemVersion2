@@ -52,11 +52,11 @@ public class SearchDao01 {
 				sb.setId(rs.getInt("id"));
 				sb.setName(rs.getString("name"));
 				sb.setAge(rs.getInt("age"));
-				if(rs.getString("sex").equals("íj")) {
+				if (rs.getString("sex").equals("íj")) {
 					sb.setSex("male");
-				}else if(rs.getString("sex").equals("èó")){
+				} else if (rs.getString("sex").equals("èó")) {
 					sb.setSex("female");
-				}else {
+				} else {
 					sb.setSex("");
 				}
 				if (Objects.isNull(rs.getString("job"))) {

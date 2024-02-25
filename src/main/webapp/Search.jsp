@@ -28,17 +28,17 @@ Integer searchCount = (Integer) request.getAttribute("searchCount");
 <script src='AddEntry_JS.js'></script>
 <title>住所登録システム</title>
 </head>
-<body>
-	<h1>住所登録システム</h1>
+<body style="background:radial-gradient(#fff, #56C500);">
+	<h1 style="color: #008000;">住所登録システム</h1>
 	<form method="post" action="/AddEntrySystemVersion2/Search">
 		<input type="hidden" name="errorCount" value="<%=errorCount%>">
 		<input type="hidden" name="searchCount" value="<%=searchCount%>">
-		<input type="submit" name="button" value="検索">
-		<input type="submit" name="button" value="クリア">
-	    <input type="submit" name="button" value="新規">
-	    <input type="submit" name="button" value="変更"> 
-	    <input type="submit" name="button" value="削除" onclick="return Delete()"> 
-	    <input type="button" name="button" value="終了" onclick="return Close()">
+		<input type="submit" name="button" value="検索"> <input
+			type="submit" name="button" value="クリア"> <input type="submit"
+			name="button" value="新規"> <input type="submit" name="button"
+			value="変更"> <input type="submit" name="button" value="削除"
+			onclick="return Delete()"> <input type="button" name="button"
+			value="終了" onclick="return Close()">
 		<%
 		for (int i = 0; i < errorMessages.size(); ++i) {
 		%>
@@ -49,33 +49,33 @@ Integer searchCount = (Integer) request.getAttribute("searchCount");
 
 		<table border="1">
 			<tr>
-				<th><label for="id">登録ID</label></th>
+				<th style="color: #FFF; background: #008000;"><label for="id">登録ID</label></th>
 				<td><input id="idfrom" type="text" name="idfrom" size="8"
 					value="<%=idfrom%>"> ~ <input id="idto" type="text"
 					name="idto" size="8" value="<%=idto%>"></td>
 			</tr>
 
 			<tr>
-				<th><label for="name">氏名</label></th>
+				<th style="color: #FFF; background: #008000;"><label for="name">氏名</label></th>
 				<td><input id="name" type="text" name="name" size="20"
 					value="<%=name%>"></td>
-				<th><label for="tell">電話番号</label></th>
+				<th style="color: #FFF; background: #008000;"><label for="tell">電話番号</label></th>
 				<td><input id="tell" type="text" name="tell" size="13"
 					value="<%=tell%>"></td>
 			</tr>
 
 			<tr>
-				<th><label for="age">年齢</label></th>
+				<th style="color: #FFF; background: #008000;"><label for="age">年齢</label></th>
 				<td><input id="agefrom" type="text" name="agefrom" size=3
 					value="<%=agefrom%>"> ~ <input id="ageto" type="text"
 					name="ageto" size=3 value="<%=ageto%>"></td>
-				<th><label for="zip">郵便番号</label></th>
+				<th style="color: #FFF; background: #008000;"><label for="zip">郵便番号</label></th>
 				<td><input id="zip" type="text" name="zip" size="8"
 					value="<%=zip%>"></td>
 			</tr>
 
 			<tr>
-				<th><label for="sex">性別</label></th>
+				<th style="color: #FFF; background: #008000;"><label for="sex">性別</label></th>
 				<td><input type="radio" name="sex" value="male"
 					<%if (sex.equals("male")) {
 	out.print("checked");
@@ -88,13 +88,13 @@ Integer searchCount = (Integer) request.getAttribute("searchCount");
 					<%if (sex.equals("both")) {
 	out.print("checked");
 }%>>両方</td>
-				<th><label for="address">市町村</label></th>
+				<th style="color: #FFF; background: #008000;"><label for="address">市町村</label></th>
 				<td><input id="address" type="text" name="address" size="20"
 					value="<%=address%>"></td>
 			</tr>
 
 			<tr>
-				<th><label for="job">職業</label></th>
+				<th style="color: #FFF; background: #008000;"><label for="job">職業</label></th>
 				<td><select name="job" class="form-controll">
 						<option value="0"
 							<%if (job.equals("0")) {
@@ -111,7 +111,8 @@ Integer searchCount = (Integer) request.getAttribute("searchCount");
 						}
 						%>
 				</select></td>
-				<th><label for="addressdetail">番地</label></th>
+				<th style="color: #FFF; background: #008000;"><label
+					for="addressdetail">番地</label></th>
 				<td><input id="addressdetail" type="text" name="addressdetail"
 					size="20" value="<%=addressdetail%>"></td>
 			</tr>
@@ -126,18 +127,22 @@ Integer searchCount = (Integer) request.getAttribute("searchCount");
 		%>
 		<table border="1">
 			<tr>
-				<th rowspan="2"><label for="checked">選択</label></th>
-				<th rowspan="2"><label for="id">登録ID</label></th>
-				<th><label for="name">氏名</label></th>
-				<th><label for="age">年齢</label></th>
-				<th><label for="sex">性別</label></th>
-				<th><label for="job">職業</label></th>
-				<th><label for="tell">電話番号</label></th>
+				<th rowspan="2" style="color: #FFF; background: #008000;"><label
+					for="checked">選択</label></th>
+				<th rowspan="2" style="color: #FFF; background: #008000;"><label
+					for="id">登録ID</label></th>
+				<th style="color: #FFF; background: #008000;"><label for="name">氏名</label></th>
+				<th style="color: #FFF; background: #008000;"><label for="age">年齢</label></th>
+				<th style="color: #FFF; background: #008000;"><label for="sex">性別</label></th>
+				<th style="color: #FFF; background: #008000;"><label for="job">職業</label></th>
+				<th style="color: #FFF; background: #008000;"><label for="tell">電話番号</label></th>
 			</tr>
 			<tr>
-				<th><label for="post">郵便番号</label></th>
-				<th colspan="3" align="left"><label for="address">市町村</label></th>
-				<th><label for="addressdetail">番地</label></th>
+				<th style="color: #FFF; background: #008000;"><label for="post">郵便番号</label></th>
+				<th colspan="3" align="left" style="color: #FFF; background: #008000;"><label
+					for="address">市町村</label></th>
+				<th style="color: #FFF; background: #008000;"><label
+					for="addressdetail">番地</label></th>
 			</tr>
 		</table>
 
@@ -146,18 +151,22 @@ Integer searchCount = (Integer) request.getAttribute("searchCount");
 		%>
 		<table border="1">
 			<tr>
-				<th rowspan="2"><label for="checked">選択</label></th>
-				<th rowspan="2"><label for="id">登録ID</label></th>
-				<th><label for="name">氏名</label></th>
-				<th><label for="age">年齢</label></th>
-				<th><label for="sex">性別</label></th>
-				<th><label for="job">職業</label></th>
-				<th><label for="tell">電話番号</label></th>
+				<th rowspan="2" style="color: #FFF; background: #008000;"><label
+					for="checked">選択</label></th>
+				<th rowspan="2" style="color: #FFF; background: #008000;"><label
+					for="id">登録ID</label></th>
+				<th style="color: #FFF; background: #008000;"><label for="name">氏名</label></th>
+				<th style="color: #FFF; background: #008000;"><label for="age">年齢</label></th>
+				<th style="color: #FFF; background: #008000;"><label for="sex">性別</label></th>
+				<th style="color: #FFF; background: #008000;"><label for="job">職業</label></th>
+				<th style="color: #FFF; background: #008000;"><label for="tell">電話番号</label></th>
 			</tr>
 			<tr>
-				<th><label for="post">郵便番号</label></th>
-				<th colspan="3" align="left"><label for="address">市町村</label></th>
-				<th><label for="addressdetail">番地</label></th>
+				<th style="color: #FFF; background: #008000;"><label for="post">郵便番号</label></th>
+				<th colspan="3" align="left" style="color: #FFF; background: #008000;"><label
+					for="address">市町村</label></th>
+				<th style="color: #FFF; background: #008000;"><label
+					for="addressdetail">番地</label></th>
 			</tr>
 			<%
 			for (int i = 0; i < searchlist.size(); ++i) {

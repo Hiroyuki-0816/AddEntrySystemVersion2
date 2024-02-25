@@ -70,4 +70,3 @@ public class InitialServlet extends HttpServlet {
 	}
 
 }
-
